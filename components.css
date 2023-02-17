@@ -1,0 +1,46 @@
+:root {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+h1, h2, p {
+  margin-top: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #333 !important;
+  padding: 10px !important;
+}
+
+.single-column {
+  margin: auto;
+  max-width: 1053px;
+  margin-bottom: 15px;  
+}
+
+.double-column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(515px, 1fr));
+  grid-gap: 1rem;
+  width: 100%;
+  margin: auto;
+  max-width: 1053px;
+  margin-bottom: 1rem;
+}
+
+.row {
+  padding: .5rem;
+}
+
+.single-column .row {
+  background-color: white;
+}
+
+.double-column .row {
+  background-color: white;
+
+}
+
+/* grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); */
