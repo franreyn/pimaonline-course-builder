@@ -10,6 +10,7 @@
 <body>
   <div class="menu-bar">
     <button id="btn-save">Save</button>
+    <button id="btn-save-as">Save As</button>
     <button id="btn-open">Open</button>
     <button id="btn-export">Export HTML</button>
   </div>
@@ -106,7 +107,7 @@
     /* Menu Bar  */
     .menu-bar {
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: center;
       background-color: #333;
       padding: 10px;
@@ -136,6 +137,7 @@
   
 
   <script type="text/javascript">
+    let currentFileName = null;
 
     function setCustomLayerName(component) {
       switch (component.get('type')) {
@@ -167,7 +169,14 @@
       },  
       canvas: {
         // scripts: ['https://.../somelib.min.js'], // Link any scripts here
-        styles: ['./components.css'], // Link any stylesheets here
+        scripts:  [
+                  'https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js', 
+                  'https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/js/scripts2.js'
+                  ], 
+        // styles: ['./components.css'], // Link any stylesheets here
+        styles: [
+                  'https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/css/themes/cards/styles.css'
+                ],
       },          
       // We define a default panel as a sidebar to contain layers
       panels: {
@@ -255,35 +264,18 @@
         appendTo: '#blocks',
         blocks: [
           {
-            id: 'single column', // id is mandatory
-            label: '<b>Single Column</b>', // You can use HTML/SVG inside labels
+            id: 'one-column', // id is mandatory
+            label: '<b>One Column</b>', // You can use HTML/SVG inside labels
             // attributes: { class:'gjs-block-section' },
-            category: 'Grid',
-            content: `
-            <div class="single-column">
-              <div class="row">
-                <h1 class="text-red">This is a simple title</h1>
-                <p>This is some text</p>
-              </div>
-            </div>
-            `,
+            category: 'Layout',
+            content: { type: 'one-column' },
           }, 
           {
-            id: 'section', // id is mandatory
-            label: '<b>Double Column</b>', // You can use HTML/SVG inside labels
+            id: 'two-column', // id is mandatory
+            label: '<b>Two Column</b>', // You can use HTML/SVG inside labels
             // attributes: { class:'gjs-block-section' },
-            category: 'Grid',
-            content: `
-            <div class="double-column">
-              <div class="row">
-                <h1>This is a simple title</h1>
-                <p>This is just a Lorem text: Lorem ipsum dolor sit amet</p>
-              </div>
-              <div class="row">
-                <p>I'm sorry Wilson, I'm sorry</p>
-              </div>
-            </div>
-            `,
+            category: 'Layout',
+            content: { type: 'two-column' },
           }, 
           {
             id: 'text',
@@ -319,6 +311,8 @@
       }
     });
     //=== end init ===//
+    //=== end init ===//
+    //=== end init ===//
 
     // Set the canvas height and width to 100%
     editor.setComponents(`
@@ -335,6 +329,88 @@
     editor.render();
 
     editor.on('component:title', setCustomLayerName);
+
+    // == Create one column component
+    editor.DomComponents.addType('one-column', {
+      model: {
+        defaults: {
+          tagName: 'div',
+          components: `
+            <div id="content-wrapper">
+              <div class="content-body">
+                <h2>Subheading</h2>
+              </div
+            </div>
+          `
+        }
+      }
+    });
+    // == Create two column components
+    editor.DomComponents.addType('two-column', {
+      model: {
+        defaults: {
+          tagName: 'div',
+          components: `
+            <div id="content-wrapper">
+              <div class="content-body">
+                <h2>Subheading</h2>
+              </div
+            </div>
+            <div id="second-column">
+              <div class="content-body">
+                <h2>Subheading</h2>
+              </div
+            </div>            
+          `
+        }
+      }
+    });
+
+    editor.Commands.add('remove-sibling-components', {
+      run(editor, sender, data) {
+        const component = data.component;
+        const parent = component.parent();
+        const siblings = parent.components();
+        siblings.forEach((sibling) => {
+          if (sibling !== component) {
+            sibling.remove();
+            // Trigger a custom event after removing the component
+            sibling.trigger('custom:update');
+          }
+        });
+      }
+    });
+
+    let columnComponentCount = 0;
+    editor.on('component:add', (component) => {
+      if (component.get('type') === 'one-column' || component.get('type') === 'two-column') {
+        columnComponentCount += 1;
+        if (columnComponentCount > 1) {
+          const confirmSwitch = window.confirm('Your content will be deleted if you switch layouts, are you sure?');
+          if (confirmSwitch) {
+            const doubleCheck = window.confirm("Just double checking you're sure.");
+            if (doubleCheck) {
+              editor.runCommand('remove-sibling-components', { component });
+            } else {
+              component.remove(); // Remove the component if the user cancels the second confirmation
+            }
+          } else {
+            component.remove(); // Remove the component if the user cancels the first confirmation
+          }
+        }
+      }
+      setCustomLayerName(component);
+      editor.LayerManager.render(); // Force layers panel to refresh
+    });
+
+
+    editor.on('component:remove', (component) => {
+      editor.LayerManager.render(); // Force layers panel to refresh
+    });
+
+
+
+
 
     //=== Top Panel =====//
     editor.Panels.addPanel({
@@ -414,47 +490,70 @@
       },
     });
 
-    //=== Save/Open feature
-      function saveToLocal(editor) {
-        const json = JSON.stringify(editor.getComponents());
-        const blob = new Blob([json], { type: "application/json;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "grapesjs-layout.json";
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(url), 0);
+    //=== Save/Open/export feature
+    // Save
+    async function saveToLocal(editor, saveAs = false) {
+      if (!currentFileName || saveAs) {
+        saveWithDialog(editor);
+      } else {
+        try {
+          const handle = await window.showDirectoryPicker();
+          const fileHandle = await handle.getFileHandle(currentFileName, { create: true });
+          const writable = await fileHandle.createWritable();
+          const json = JSON.stringify(editor.getComponents());
+          await writable.write(json);
+          await writable.close();
+        } catch (error) {
+          console.error('Error saving file:', error);
+        }
       }
-
-      function openFromLocal(editor) {
+    }
+    // Save As
+    function saveWithDialog(editor) {
+      const json = JSON.stringify(editor.getComponents());
+      const blob = new Blob([json], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "grapesjs-layout.json";
+      link.click();
+      currentFileName = link.download;
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+    // Open
+    function openFromLocal(editor) {
       const input = document.createElement("input");
       input.type = "file";
       input.accept = ".json";
       input.onchange = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const json = e.target.result;
-          try {
-            const components = JSON.parse(json);
-            editor.setComponents(components);
-          } catch (error) {
-            alert("Invalid file format.");
-          }
-        };
-        reader.readAsText(file);
-      }
+        const file = event.target.files[0];
+        if (file) {
+          currentFileName = file.name;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const json = e.target.result;
+            try {
+              const components = JSON.parse(json);
+              editor.setComponents(components);
+            } catch (error) {
+              alert("Invalid file format.");
+            }
+          };
+          reader.readAsText(file);
+        }
       };
       input.click();
-      }
+    }
 
-      // Sample usage
-      const btnSave = document.getElementById("btn-save");
-      btnSave.addEventListener("click", () => saveToLocal(editor));
+    // Buttons
+    const btnSave = document.getElementById("btn-save");
+    btnSave.addEventListener("click", () => saveToLocal(editor, false));
 
-      const btnOpen = document.getElementById("btn-open");
-      btnOpen.addEventListener("click", () => openFromLocal(editor));    
+    const btnSaveAs = document.getElementById("btn-save-as");
+    btnSaveAs.addEventListener("click", () => saveToLocal(editor, true));
+
+    const btnOpen = document.getElementById("btn-open");
+    btnOpen.addEventListener("click", () => openFromLocal(editor));
     // ===
 
     // === Export 
@@ -476,13 +575,14 @@ ${htmlContent}
 <body>
 </html>
 `;
-
       const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = filename;
       link.click();
     });
+    // Buttons
+    document.getElementById('btn-export').addEventListener('click', exportHTML);
 
 
     // ==

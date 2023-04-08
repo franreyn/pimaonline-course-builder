@@ -57,3 +57,58 @@
     </script>
   </body>
 </html>
+
+<!-- 
+
+Save without skipping dialogue. Work universally. Saving here just in case the 
+
+    let currentFileName = null;
+
+    function saveToLocal(editor, saveAs = false) {
+      const json = JSON.stringify(editor.getComponents());
+      const blob = new Blob([json], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = saveAs || !currentFileName ? "grapesjs-layout.json" : currentFileName;
+      link.click();
+      currentFileName = link.download;
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+    }
+
+    function openFromLocal(editor) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".json";
+      input.onchange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          currentFileName = file.name;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const json = e.target.result;
+            try {
+              const components = JSON.parse(json);
+              editor.setComponents(components);
+            } catch (error) {
+              alert("Invalid file format.");
+            }
+          };
+          reader.readAsText(file);
+        }
+      };
+      input.click();
+    }
+
+    // Sample usage
+    const btnSave = document.getElementById("btn-save");
+    btnSave.addEventListener("click", () => saveToLocal(editor, false));
+
+    const btnSaveAs = document.getElementById("btn-save-as");
+    btnSaveAs.addEventListener("click", () => saveToLocal(editor, true));
+
+    const btnOpen = document.getElementById("btn-open");
+    btnOpen.addEventListener("click", () => openFromLocal(editor));
+
+
+ -->
