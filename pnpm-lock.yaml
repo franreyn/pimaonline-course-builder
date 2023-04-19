@@ -4,6 +4,9 @@ devDependencies:
   javascript-obfuscator:
     specifier: ^4.0.2
     version: 4.0.2
+  uglify-js:
+    specifier: ^3.17.4
+    version: 3.17.4
 
 packages:
 
@@ -475,6 +478,12 @@ packages:
     engines: {node: '>= 0.8.0'}
     dependencies:
       prelude-ls: 1.1.2
+    dev: true
+
+  /uglify-js@3.17.4:
+    resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
+    engines: {node: '>=0.8.0'}
+    hasBin: true
     dev: true
 
   /util@0.12.5:

@@ -10,6 +10,7 @@
   "author": "",
   "license": "Proprietary",
   "devDependencies": {
-    "javascript-obfuscator": "^4.0.2"
+    "javascript-obfuscator": "^4.0.2",
+    "uglify-js": "^3.17.4"
   }
 }
