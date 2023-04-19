@@ -1,14 +1,38 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GrapesJS Project</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.16.34/grapes.min.js"></script>
-  <script src="scripts.js" defer></script>
+  <link rel="stylesheet" href="./grapesjs/grapes.min.css">
+  <link rel="stylesheet" href="./css/builder.css">
+  <script src="./grapesjs/grapes.min.js" defer></script>
+  <script src="./admin/config.js" defer></script>
+  <title>PimaOnline Course Builder</title>
 </head>
 <body>
-  <div id="gjs"></div>
+  <div class="menu-bar">
+    <button id="btn-save">Save</button>
+    <button id="btn-save-as">Save As</button>
+    <button id="btn-open">Open</button>
+    <button id="btn-export">Export HTML</button>
+  </div>
+  <div class="panel__top">
+    <div class="panel__basic-actions"></div>
+    <div class="panel__devices"></div>
+    <div class="panel__switcher"></div>
+  </div>  
+  <div class="editor-row">
+    <div class="editor-canvas">
+      <div id="gjs">
+        <!-- <h1>Hello World Component!</h1> -->
+      </div>
+    </div>
+    <div class="panel__right">
+      <div class="layers-container"></div>
+      <div class="styles-container"></div>
+      <div class="traits-container"></div>
+    </div>
+  </div>  
+  <div id="blocks"></div>
 </body>
 </html>
