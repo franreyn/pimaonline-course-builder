@@ -15,20 +15,6 @@ const mediaContainers = document.querySelectorAll(".media-container");
 const tabsWidgets = document.querySelectorAll(".tabs");
 
 
-// JS to add role and aria-label to content-wrapper, second-column, and third-column
-const addAria = () => {
-  contentWrapper.setAttribute("role", "main");
-  if (secondColumn) {
-    secondColumn.setAttribute("role", "region");
-    secondColumn.setAttribute("aria-label", "Second column");
-  }
-  if (thirdColumn) {
-    thirdColumn.setAttribute("role", "region");
-    thirdColumn.setAttribute("aria-label", "Third column");
-  }
-};
-addAria();
-
 // Clean up HTML
 const cleanMarkup = () => {
 // Remove role="presentation" attr from any element that has it  
@@ -275,9 +261,9 @@ if (document.querySelector(".toggle-btn") || document.querySelector(".toggle-foo
 // Change footnotes from 'show' to 'hide'
 const footnotes = document.querySelector(".toggle-footnotes");
 
-footnotes.addEventListener("click", () => {
-  footnotes.innerHTML = (footnotes.innerHTML === "[Show Footnotes]") ? "[Hide Footnotes]" : "[Show Footnotes]";
-})
+// footnotes.addEventListener("click", () => {
+//   footnotes.innerHTML = (footnotes.innerHTML === "[Show Footnotes]") ? "[Hide Footnotes]" : "[Show Footnotes]";
+// })
 
 // Animated border for HRS theme
 const hrsBorders = document.querySelectorAll(".hrs-border");
