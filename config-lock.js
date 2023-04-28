@@ -20,7 +20,7 @@ const editor = grapesjs.init({
   fromElement: true,
   height: '100%',
   width: 'auto',
-  storageManager: true,
+  storageManager: true,  
   panels: { defaults: [] },
   layerManager: {
     appendTo: '.layers-container',
@@ -768,10 +768,8 @@ editor.DomComponents.addType('h1', {
   model: {
     defaults: {
       tagName: 'h1',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });
@@ -782,10 +780,8 @@ editor.DomComponents.addType('h2', {
   model: {
     defaults: {
       tagName: 'h2',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });
@@ -795,11 +791,9 @@ restrictParentComponent('h2', ['assignment', 'blockquote', 'border', 'card-body'
 editor.DomComponents.addType('h3', {
   model: {
     defaults: {
-      tagName: 'h3',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      tagName: 'h3',
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });
@@ -810,10 +804,8 @@ editor.DomComponents.addType('h4', {
   model: {
     defaults: {
       tagName: 'h4',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });    
@@ -824,10 +816,8 @@ editor.DomComponents.addType('h5', {
   model: {
     defaults: {
       tagName: 'h5',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });
@@ -838,10 +828,8 @@ editor.DomComponents.addType('h6', {
   model: {
     defaults: {
       tagName: 'h6',        
-      components: {
-        type: 'text',
-        content: 'Insert subheading.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });
@@ -852,14 +840,12 @@ editor.DomComponents.addType('paragraph', {
   model: {
     defaults: {
       tagName: 'p',        
-      components: {
-        type: 'text',
-        content: 'Some text used to describe the media object on the left hand side. Side-by-side is multipurpose, so feel free to mix and match text, videos and images.'
-      }
+      attributes: { contenteditable: 'true' },
+      content: 'Insert subheading.'
     }
   }
 });    
-//restrictParentComponent('paragraph', ['content-body', 'border', 'card-horizontal', 'side-by-side']);
+restrictParentComponent('paragraph', ['assignment', 'blockquote', 'border', 'card-body', 'content-body', 'side-by-side-item', 'description-definition', 'description-term']);  
 
 
 
