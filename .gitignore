@@ -11,5 +11,4 @@ Thumbs.db
 # Files
 node_modules
 logs
-config-lock.js
 obf.js
