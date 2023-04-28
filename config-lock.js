@@ -1129,7 +1129,7 @@ document.getElementById('btn-export').addEventListener('click', function () {
 </head>
 <body>
 ${updatedHtmlContent}
-<body>
+</body>
 </html>
 `;
   const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
