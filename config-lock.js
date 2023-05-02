@@ -203,18 +203,30 @@ const editor = grapesjs.init({
         label: 'Hyperlink',
         content: {type: 'hyperlink'},
       },
-      // text  
-      {
-        id: 'paragraph',
-        category: 'Text',
-        label: 'Paragraph',
-        content: {type: 'paragraph'},
-      },      
+      // text        
       {
         id: 'image',
         category: 'Text',
         label: 'Image',
         content: {type: 'image'},
+      },      
+      {
+        id: 'ol',
+        category: 'Text',
+        label: 'Ordered List',
+        content: {type: 'ol'},
+      },      
+      {
+        id: 'ul',
+        category: 'Text',
+        label: 'Unordered List',
+        content: {type: 'ul'},
+      },      
+      {
+        id: 'dl',
+        category: 'Text',
+        label: 'Description List',
+        content: {type: 'dl'},
       },      
       {
         id: 'paragraph',
@@ -467,7 +479,7 @@ editor.DomComponents.addType('content-body', {
       tagName: 'div',
       attributes: {
         class: 'content-body',
-        'data-gjs-type': 'content-body',
+        //'data-gjs-type': 'content-body',
       },
     },
     init() {
@@ -490,6 +502,9 @@ editor.DomComponents.addType('border', {
     init() {
       if (!this.components().find((component) => component.get("type") === "h3")) {
         this.components().add({ type: "h3" });
+      }
+      if (!this.components().find((component) => component.get("type") === "paragraph")) {
+        this.components().add({ type: "paragraph" });
       }
     },    
   }
@@ -523,8 +538,8 @@ restrictParentComponent('card-horizontal', ['content-body']);
         attributes: { class: "card-body" }, 
       },    
       init() {
-        if (!this.components().find((component) => component.get("type") === "content-body")) {
-          this.components().add({ type: "content-body" });
+        if (!this.components().find((component) => component.get("type") === "paragraph")) {
+          this.components().add({ type: "paragraph" });
         }
       },    
     }
@@ -763,6 +778,88 @@ editor.DomComponents.addType('hyperlink', {
 });
 restrictParentComponent('hyperlink', ['assignment', 'blockquote', 'border', 'card-body', 'content-body', 'side-by-side-item', 'description-definition', 'description-term']);
 
+// ol
+editor.DomComponents.addType('ol', {
+  model: {
+    defaults: {
+      tagName: 'ol',        
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "li")) {
+        this.components().add({ type: "li" });
+      }     
+    },    
+  }
+});
+//restrictParentComponent('blockquote', ['content-body']);
+
+// ul
+editor.DomComponents.addType('ul', {
+  model: {
+    defaults: {
+      tagName: 'ul',        
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "li")) {
+        this.components().add({ type: "li" });
+      }     
+    },    
+  }
+});
+//restrictParentComponent('blockquote', ['content-body']);
+
+// li
+editor.DomComponents.addType('li', {
+  model: {
+    defaults: {
+      tagName: 'li',        
+      attributes: { contenteditable: 'true' },
+      content: 'Insert list-item'
+    },    
+  }
+});
+//restrictParentComponent('blockquote', ['content-body']);
+
+// Description Lists
+editor.DomComponents.addType('dl', {
+  model: {
+    defaults: {
+      tagName: 'dl',        
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "dt")) {
+        this.components().add({ type: "dt" });
+      }
+      if (!this.components().find((component) => component.get("type") === "dd")) {
+        this.components().add({ type: "dd" });
+      }      
+    },
+  }
+});    
+restrictParentComponent('dl', ['content-body']);
+
+  // Term
+  editor.DomComponents.addType('dt', {
+    model: {
+      defaults: {
+        tagName: 'dt',
+        content: 'Term'
+      }
+    }
+  });   
+  restrictParentComponent('dt', ['dl']);
+
+  // Definition
+  editor.DomComponents.addType('dd', {
+    model: {
+      defaults: {
+        tagName: 'dd',
+        content: 'Add definition'
+      }
+    }
+  });   
+  restrictParentComponent('dd', ['dl']);
+
 // Heading 1
 editor.DomComponents.addType('h1', {
   model: {
@@ -839,12 +936,16 @@ restrictParentComponent('h6', ['assignment', 'blockquote', 'border', 'card-body'
 editor.DomComponents.addType('paragraph', {
   model: {
     defaults: {
-      tagName: 'p',        
-      attributes: { contenteditable: 'true' },
+      tagName: 'p',
       content: 'Insert subheading.'
     }
+  },
+  view: {
+    onRender() {
+      this.el.setAttribute('contenteditable', 'true');
+    }
   }
-});    
+});
 restrictParentComponent('paragraph', ['assignment', 'blockquote', 'border', 'card-body', 'content-body', 'side-by-side-item', 'description-definition', 'description-term']);  
 
 
@@ -906,7 +1007,7 @@ if (parentType !== 'content-wrapper' && parentType !== 'second-column') {
 }
 });
 
-// Prevent all components except `content-body` from being copyable, aka duplicate
+// Prevent all components, except those in array, from being copyable, aka duplicate
 function setCopyableComponents(copyableComponents) {
   editor.on("component:add", (component) => {
     if (copyableComponents.includes(component.get("type"))) {
@@ -917,7 +1018,8 @@ function setCopyableComponents(copyableComponents) {
   });
 }
 // Set duplicatable/copyable components
-const allowedCopyableComponents = ["content-body", "assignment", "paragraph"];
+const allowedCopyableComponents = 
+["content-body", "assignment", "paragraph", "ol", "ul", "dl", "li", "dt", "dd"];
 setCopyableComponents(allowedCopyableComponents);
 
 // editor.on("component:add", (component) => {
@@ -1122,10 +1224,12 @@ document.getElementById('btn-export').addEventListener('click', function () {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exported HTML</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/css/themes/cards/styles.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/js/scripts2.js" defer></script>
+<title>Starter Template</title>
 </head>
 <body>
 ${updatedHtmlContent}
