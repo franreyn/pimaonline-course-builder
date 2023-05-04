@@ -62,13 +62,13 @@ const editor = grapesjs.init({
         el: '.panel__devices',
         buttons: [{
             id: 'device-desktop',
-            label: 'Desktop',
+            label: '<i class="bi bi-display"></i>',
             command: 'set-device-desktop',
             active: true,
             togglable: false,
           }, {
             id: 'device-mobile',
-            label: 'Mobile',
+            label: '<i class="bi bi-phone"></i>',
             command: 'set-device-mobile',
             togglable: false,
         }],
@@ -80,13 +80,13 @@ const editor = grapesjs.init({
           {
             id:"show-blocks", 
             active: true, 
-            label:"Blocks", 
+            label:`<i class="bi bi-grid"></i>`, 
             command:"show-blocks", 
             togglable:false}, 
           {
             id: 'show-layers',
             active: true,
-            label: 'Layers',
+            label: '<i class="bi bi-layers"></i>',
             command: 'show-layers',
             // Once activated disable the possibility to turn it off
             togglable: false,
@@ -94,14 +94,14 @@ const editor = grapesjs.init({
           {
             id: 'show-traits',
             active: true,
-            label: 'Traits',
+            label: '<i class="bi bi-node-plus"></i>',
             command: 'show-traits',
             togglable: false,
           },           
           {
             id: 'show-style',
             active: true,
-            label: 'Styles',
+            label: '<i class="bi bi-palette"></i>',
             command: 'show-styles',
             togglable: false,
           },                                  
@@ -189,6 +189,12 @@ const editor = grapesjs.init({
         category: 'Widgets',
         label: 'Vocab List',
         content: {type: 'vocab-list'},
+      },      
+      {
+        id: 'image',
+        category: 'Widgets',
+        label: 'Image',
+        content: {type: 'image'},
       },      
       // content
       {
@@ -552,10 +558,12 @@ restrictParentComponent('card-horizontal', ['content-body']);
       defaults: {
         tagName: 'div',
         attributes: { class: "card-img" }, 
-        components: `
-        <img src="https://via.placeholder.com/300" alt="">
-        `
-      },    
+      },
+      init() {
+        if (!this.components().find((component) => component.get("type") === "image")) {
+          this.components().add({ type: "image" });
+        }
+      },          
     }
   });    
   restrictParentComponent('card-img', ['card-horizontal']);
@@ -691,6 +699,19 @@ editor.DomComponents.addType('blockquote', {
 });
 restrictParentComponent('blockquote', ['content-body']);
 
+// Image
+editor.DomComponents.addType('image', {
+  model: {
+    defaults: {
+      tagName: 'img',
+      attributes: {
+        src: 'your-image-url-here'
+      },
+      resizable: true,
+    },
+  },
+  view: {},
+});
 
 // Buttons
 editor.DomComponents.addType('button', {
@@ -1035,26 +1056,19 @@ editor.Panels.addPanel({
   id: 'panel-top',
   el: '.panel__top',
 });
-editor.Panels.addPanel({
-  id: 'basic-actions',
-  el: '.panel__basic-actions',
-  buttons: [
-    {
-      id: 'visibility',
-      active: true, // active by default
-      className: 'btn-toggle-borders',
-      label: '<b>Course Builder</b>',
-      command: 'sw-visibility', // Built-in command
-    }, 
-    // {
-    //   id: 'export',
-    //   className: 'btn-open-export',
-    //   label: 'Exp',
-    //   command: 'export-template',
-    //   context: 'export-template', // For grouping context of buttons from the same panel
-    // }, 
-  ],
-}); 
+// editor.Panels.addPanel({
+//   id: 'basic-actions',
+//   el: '.panel__basic-actions',
+//   buttons: [
+//     {
+//       id: 'visibility',
+//       active: true, // active by default
+//       className: 'btn-toggle-borders',
+//       label: '<b>Course Builder</b>',
+//       command: 'sw-visibility', // Built-in command
+//     }, 
+//   ],
+// }); 
 //=== end top panel ===//
     
 //=== Define commands ===//

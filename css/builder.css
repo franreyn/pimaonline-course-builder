@@ -80,8 +80,9 @@ html {
 }
 
 .menu-bar button {
-  background-color: #315d97;
-  border: none;
+  /* background-color: #315d97; */
+  background-color: transparent;
+  border: 1px solid white;
   color: white;
   padding: 10px 20px;
   text-align: center;
@@ -94,7 +95,9 @@ html {
 }
 
 .menu-bar button:hover {
-  background-color: #22416a;
+  /* background-color: #22416a; */
+  border-color: #1B96FF;
+  color: #1B96FF
 }
 
 [class^="bi-"]::before,
@@ -102,4 +105,8 @@ html {
   display: block !important;
   font-size: 32px;
   margin-bottom: 8px;
+}
+
+.gjs-pn-buttons {
+  gap: 1rem;
 }
