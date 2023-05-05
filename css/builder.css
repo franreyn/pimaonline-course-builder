@@ -22,10 +22,32 @@ html {
   height: 100%;
 }
 
+.gjs-blocks-c {
+  display: flex;
+  flex-direction: column;
+}
+
 .gjs-block {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   width: auto;
   height: auto;
   min-height: auto;
+  padding: 0.50rem;
+  margin: 0;
+}
+
+.gjs-category-title, 
+.gjs-layer-title, 
+.gjs-block-category .gjs-title, 
+.gjs-sm-sector-title {
+  padding: 0.25rem 0.5rem;
+}
+
+.gjs-block-label {
+  font-size: 0.8rem;
+  text-align: left;
 }
 
 .panel__top {
@@ -84,7 +106,7 @@ html {
   background-color: transparent;
   border: 1px solid white;
   color: white;
-  padding: 10px 20px;
+  padding: 0.5rem;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
