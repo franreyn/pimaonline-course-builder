@@ -191,10 +191,16 @@ const editor = grapesjs.init({
         content: {type: 'vocab-list'},
       },      
       {
-        id: 'image',
+        id: 'figure',
         category: 'Widgets',
         label: 'Image',
-        content: {type: 'image'},
+        content: {type: 'figure'},
+      },      
+      {
+        id: 'figure-caption',
+        category: 'Widgets',
+        label: 'Image with Caption',
+        content: {type: 'figure-caption'},
       },      
       // content
       {
@@ -478,7 +484,7 @@ editor.DomComponents.addType("second-column", {
 });
 
 
-// Content-body widget
+// Content-body
 editor.DomComponents.addType('content-body', {
   model: {
     defaults: {
@@ -699,7 +705,7 @@ editor.DomComponents.addType('blockquote', {
 });
 restrictParentComponent('blockquote', ['content-body']);
 
-// Image
+// Raw image - Not a sole component, only used to build other components
 editor.DomComponents.addType('image', {
   model: {
     defaults: {
@@ -712,6 +718,51 @@ editor.DomComponents.addType('image', {
   },
   view: {},
 });
+
+// Image no caption
+editor.DomComponents.addType('figure', {
+  model: {
+    defaults: {
+      tagName: 'figure',        
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "image")) {
+        this.components().add({ type: "image" });
+      }          
+    },    
+  }
+});
+restrictParentComponent('figure', ['content-body']);
+
+// Image with caption
+editor.DomComponents.addType('figure-caption', {
+  model: {
+    defaults: {
+      tagName: 'figure',        
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "image")) {
+        this.components().add({ type: "image" });
+      }     
+      if (!this.components().find((component) => component.get("type") === "figcaption")) {
+        this.components().add({ type: "figcaption" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('figure-caption', ['content-body']);
+
+  // Figcaption
+  editor.DomComponents.addType('figcaption', {
+    model: {
+      defaults: {
+        tagName: 'figcaption',     
+        attributes: { contenteditable: 'true' },
+        content: 'Insert image caption'
+      },    
+    }
+  });
+ // restrictParentComponent('figcaption', ['figure-caption']);  
 
 // Buttons
 editor.DomComponents.addType('button', {
