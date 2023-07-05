@@ -1020,10 +1020,6 @@ editor.DomComponents.addType('paragraph', {
 });
 restrictParentComponent('paragraph', ['assignment', 'blockquote', 'border', 'card-body', 'content-body', 'side-by-side-item', 'description-definition', 'description-term']);  
 
-
-
-
-
 // ======= END COMPONENTS ======
 
 
@@ -1043,6 +1039,16 @@ editor.Commands.add('remove-sibling-components', {
   }
 });
 
+// When a component is duplicated, remove it's children
+editor.on('component:clone', (component) => {
+  // Check if the component has any child components
+  if (component.components().length > 0) {
+    // If so, remove them
+    component.components().reset();
+  }
+});
+
+//
 let columnComponentCount = 0;
 editor.on('component:add', (component) => {
   if (component.get('type') === 'one-column-layout' || component.get('type') === 'two-column-layout') {
@@ -1091,7 +1097,7 @@ function setCopyableComponents(copyableComponents) {
 }
 // Set duplicatable/copyable components
 const allowedCopyableComponents = 
-["content-body", "assignment", "paragraph", "ol", "ul", "dl", "li", "dt", "dd"];
+["border", "content-body", "assignment", "paragraph", "ol", "ul", "dl", "li", "dt", "dd"];
 setCopyableComponents(allowedCopyableComponents);
 
 // editor.on("component:add", (component) => {
