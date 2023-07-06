@@ -215,6 +215,12 @@ const editor = grapesjs.init({
         label: 'Hyperlink',
         content: {type: 'hyperlink'},
       },
+      {
+        id: 'panopto',
+        category: 'Content',
+        label: 'Panopto',
+        content: {type: 'panopto-container'},
+      },
       // text        
       {
         id: 'image',
@@ -849,6 +855,75 @@ editor.DomComponents.addType('hyperlink', {
   isComponent: el => el.tagName == 'A'
 });
 restrictParentComponent('hyperlink', ['assignment', 'blockquote', 'border', 'card-body', 'content-body', 'side-by-side-item', 'description-definition', 'description-term']);
+
+//////////////////////////// Panopto container ////////////////////////////
+//Media object
+editor.DomComponents.addType('panopto-container', {
+  model: {
+    defaults: {
+      tagName: 'div',
+      attributes: {
+        class: 'media-container'
+      },          
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "panopto-object")) {
+        this.components().add({ type: "panopto-object" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('panopto-container', ['content-body']);
+
+// Media object
+editor.DomComponents.addType('panopto-object', {
+  model: {
+    defaults: {
+      tagName: 'div',  
+      attributes: {
+        class: 'media-object'
+      },            
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "panopto-iframe")) {
+        this.components().add({ type: "panopto-iframe" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('media-object', ['panopto-container']);
+
+// Panopto Iframe
+editor.DomComponents.addType('panopto-iframe', {
+  model: {
+    defaults: {
+      tagName: 'iframe',  
+      attributes: {
+        height: '405',
+        width: '720',
+        allowfullscreen: 'allowfullscreen',
+        allow: 'autoplay'
+      },         
+      traits: [
+        {
+          type: 'text',
+          label: 'Source',
+          name: 'src',
+          placeholder: 'https://pima-cc.hosted.panopto.com',
+          default: 'https://pima-cc.hosted.panopto.com'
+        },
+        {
+          type: 'text',
+          label: 'Title',
+          name: 'title',
+          placeholder: 'Insert title of video'
+        }
+      ],
+    },    
+  }
+});
+restrictParentComponent('panopto-iframe', ['panopto-object']); 
+//////////////////////////// end panopto container ////////////////////////////
 
 // ol
 editor.DomComponents.addType('ol', {
