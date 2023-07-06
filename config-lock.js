@@ -870,6 +870,9 @@ editor.DomComponents.addType('panopto-container', {
       if (!this.components().find((component) => component.get("type") === "panopto-object")) {
         this.components().add({ type: "panopto-object" });
       }     
+      if (!this.components().find((component) => component.get("type") === "panopto-info")) {
+        this.components().add({ type: "panopto-info" });
+      }     
     },    
   }
 });
@@ -891,7 +894,37 @@ editor.DomComponents.addType('panopto-object', {
     },    
   }
 });
-restrictParentComponent('media-object', ['panopto-container']);
+restrictParentComponent('panopto-object', ['panopto-container']);
+
+// Media info
+editor.DomComponents.addType('panopto-info', {
+  model: {
+    defaults: {
+      tagName: 'div',  
+      attributes: {
+        class: 'media-info'
+      },            
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "panopto-caption")) {
+        this.components().add({ type: "panopto-caption" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('panopto-info', ['panopto-container']);
+
+// media caption
+editor.DomComponents.addType('panopto-caption', {
+  model: {
+    defaults: {
+      tagName: 'figcaption',     
+      attributes: { contenteditable: 'true' },
+      content: 'Insert video caption or delete if not needed'
+    },    
+  }
+});
+restrictParentComponent('panopto-caption', ['panopto-info']); 
 
 // Panopto Iframe
 editor.DomComponents.addType('panopto-iframe', {
