@@ -218,8 +218,14 @@ const editor = grapesjs.init({
       {
         id: 'panopto',
         category: 'Content',
-        label: 'Panopto',
+        label: 'Panopto Video',
         content: {type: 'panopto-container'},
+      },
+      {
+        id: 'youtube',
+        category: 'Content',
+        label: 'Youtube Video',
+        content: {type: 'youtube-container'},
       },
       // text        
       {
@@ -957,6 +963,110 @@ editor.DomComponents.addType('panopto-iframe', {
 });
 restrictParentComponent('panopto-iframe', ['panopto-object']); 
 //////////////////////////// end panopto container ////////////////////////////
+
+//////////////////////////// Youtube container ////////////////////////////
+//Media object
+editor.DomComponents.addType('youtube-container', {
+  model: {
+    defaults: {
+      tagName: 'div',
+      attributes: {
+        class: 'media-container'
+      },          
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "youtube-object")) {
+        this.components().add({ type: "youtube-object" });
+      }     
+      if (!this.components().find((component) => component.get("type") === "youtube-info")) {
+        this.components().add({ type: "youtube-info" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('youtube-container', ['content-body']);
+
+// Media object
+editor.DomComponents.addType('youtube-object', {
+  model: {
+    defaults: {
+      tagName: 'div',  
+      attributes: {
+        class: 'media-object'
+      },            
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "youtube-iframe")) {
+        this.components().add({ type: "youtube-iframe" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('youtube-object', ['youtube-container']);
+
+// Media info
+editor.DomComponents.addType('youtube-info', {
+  model: {
+    defaults: {
+      tagName: 'div',  
+      attributes: {
+        class: 'media-info'
+      },            
+    },
+    init() {
+      if (!this.components().find((component) => component.get("type") === "youtube-caption")) {
+        this.components().add({ type: "youtube-caption" });
+      }     
+    },    
+  }
+});
+restrictParentComponent('youtube-info', ['youtube-container']);
+
+// media caption
+editor.DomComponents.addType('youtube-caption', {
+  model: {
+    defaults: {
+      tagName: 'figcaption',     
+      attributes: { contenteditable: 'true' },
+      content: 'Insert video caption or delete if not needed'
+    },    
+  }
+});
+restrictParentComponent('youtube-caption', ['youtube-info']); 
+
+// youtube Iframe
+editor.DomComponents.addType('youtube-iframe', {
+  model: {
+    defaults: {
+      tagName: 'iframe',  
+      attributes: {
+        height: '315',
+        width: '560',
+        allowfullscreen: 'allowfullscreen',
+        allow: 'autoplay',
+        frameborder: '0',
+        allow: 'accelerometer'
+      },         
+      traits: [
+        {
+          type: 'text',
+          label: 'Source',
+          name: 'src',
+          placeholder: 'https://www.youtube.com/embed/NpEaa2P7qZI',
+          default: 'https://www.youtube.com/embed/NpEaa2P7qZI'
+        },
+        {
+          type: 'text',
+          label: 'Title',
+          name: 'title',
+          placeholder: 'YouTube video player'
+        }
+      ],
+    },    
+  }
+});
+restrictParentComponent('youtube-iframe', ['youtube-object']); 
+//////////////////////////// end youtube container ////////////////////////////
 
 // ol
 editor.DomComponents.addType('ol', {
