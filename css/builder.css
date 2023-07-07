@@ -132,3 +132,8 @@ html {
 .gjs-pn-buttons {
   gap: 1rem;
 }
+
+#gjs-frame-dropzone {
+  background-color: red;
+  color: red;
+}
