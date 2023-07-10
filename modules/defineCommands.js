@@ -105,5 +105,18 @@ export function defineCommands(editor) {
       }
     }
   });
+
+  editor.Commands.add('delete-layer', {
+    run: function(editor, sender) {
+      sender.set('active', false); // Deactivate the button after it's clicked
+  
+      var selectedComponent = editor.getSelected();
+      if (selectedComponent) {
+        selectedComponent.remove(); // Remove the selected component
+        editor.trigger('component:update'); // Trigger an update
+      }
+    }
+  });
+  
     
 }

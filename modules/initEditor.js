@@ -48,7 +48,12 @@ export function initEditor() {
               attributes: { title: 'Duplicate' },
               command: 'duplicate-layer',
             },
-            // ... other buttons
+            {
+              id: 'delete',
+              className: 'fa fa-trash',
+              attributes: { title: 'Delete' },
+              command: 'delete-layer',
+            },
           ],          
         },
         {
