@@ -86,4 +86,24 @@ export function defineCommands(editor) {
       });
     },
   });
+
+  editor.Commands.add('duplicate-layer', {
+    run: function(editor, sender) {
+      sender.set('active', false); // Deactivate the button after it's clicked
+  
+      var selectedComponent = editor.getSelected();
+      if (selectedComponent) {
+        var blockId = selectedComponent.get('type'); // Get the type of the selected component
+        var blockDefinition = editor.BlockManager.get(blockId); // Get the original block definition
+  
+        if (blockDefinition) {
+          var content = blockDefinition.get('content'); // Get the original content of the block
+          selectedComponent.parent().append(content); // Add a new instance of the block to the canvas
+        }
+  
+        editor.trigger('component:update'); // Trigger an update
+      }
+    }
+  });
+    
 }

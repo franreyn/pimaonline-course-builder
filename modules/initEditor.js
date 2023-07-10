@@ -41,6 +41,15 @@ export function initEditor() {
             // instead of the `width` (default)
             keyWidth: 'flex-basis',
           },
+          buttons: [
+            {
+              id: 'duplicate',
+              className: 'fa fa-clone',
+              attributes: { title: 'Duplicate' },
+              command: 'duplicate-layer',
+            },
+            // ... other buttons
+          ],          
         },
         {
           id: 'panel-devices',
