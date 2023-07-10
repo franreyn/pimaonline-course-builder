@@ -90,6 +90,21 @@ html {
   position: initial;
 }
 
+.panel__switcher .gjs-pn-buttons {
+  gap: 1rem;
+}
+
+.panel__right .gjs-pn-buttons {
+  background-color: rgba(0, 0, 0, .2);
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.gjs-pn-buttons,
+.panel__right .gjs-pn-buttons > span {
+  margin: 0;
+}
+
 /* Menu Bar  */
 .menu-bar {
   display: flex;
@@ -127,10 +142,6 @@ html {
   display: block !important;
   font-size: 32px;
   margin-bottom: 8px;
-}
-
-.gjs-pn-buttons {
-  gap: 1rem;
 }
 
 #gjs-frame-dropzone {
