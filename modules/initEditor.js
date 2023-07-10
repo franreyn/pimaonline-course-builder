@@ -5,7 +5,10 @@ export function initEditor() {
     fromElement: true,
     height: '100%',
     width: 'auto',
-    storageManager: true,  
+    // storageManager: true,  
+    storageManager: {
+      stepsBeforeSave: 1
+    },
     panels: { defaults: [] },
     layerManager: {
       appendTo: '.layers-container',

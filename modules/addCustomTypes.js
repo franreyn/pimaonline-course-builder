@@ -770,7 +770,12 @@ editor.DomComponents.addType('li', {
     defaults: {
       tagName: 'li',        
       attributes: { contenteditable: 'true' },
-      content: 'Insert list-item'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     },    
   }
 });
@@ -799,7 +804,12 @@ restrictParentComponent('dl', ['content-body']);
     model: {
       defaults: {
         tagName: 'dt',
-        content: 'Term'
+        components: [
+          {
+            type: 'text',
+            content: 'Insert subheading.'
+          }
+        ]
       }
     }
   });   
@@ -822,7 +832,12 @@ editor.DomComponents.addType('h1', {
     defaults: {
       tagName: 'h1',        
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert heading.'
+        }
+      ]
     }
   }
 });
@@ -832,9 +847,14 @@ restrictParentComponent('h1', ['text-container']);
 editor.DomComponents.addType('h2', {
   model: {
     defaults: {
-      tagName: 'h2',        
+      tagName: 'h2',
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   }
 });
@@ -846,7 +866,12 @@ editor.DomComponents.addType('h3', {
     defaults: {
       tagName: 'h3',
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   }
 });
@@ -858,7 +883,12 @@ editor.DomComponents.addType('h4', {
     defaults: {
       tagName: 'h4',        
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   }
 });    
@@ -870,7 +900,12 @@ editor.DomComponents.addType('h5', {
     defaults: {
       tagName: 'h5',        
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   }
 });
@@ -882,7 +917,12 @@ editor.DomComponents.addType('h6', {
     defaults: {
       tagName: 'h6',        
       attributes: { contenteditable: 'true' },
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   }
 });
@@ -893,7 +933,12 @@ editor.DomComponents.addType('paragraph', {
   model: {
     defaults: {
       tagName: 'p',
-      content: 'Insert subheading.'
+      components: [
+        {
+          type: 'text',
+          content: 'Insert subheading.'
+        }
+      ]
     }
   },
   view: {

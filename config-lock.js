@@ -4,7 +4,8 @@ import { handleEvents } from "./modules/handleEvents.js";
 import { defineCommands } from "./modules/defineCommands.js";
 import { setComponents } from "./modules/setComponents.js";
 import { handlePanels } from "./modules/handlePanels.js";
-import { saveToLocal, saveWithDialog, openFromLocal } from './modules/fileOperations.js';
+// import { saveToLocal, saveWithDialog, openFromLocal } from './modules/fileOperations.js';
+// import { saveToLocal, loadFromLocal } from './modules/fileOperations.js';
 
 const editor = initEditor();
 setComponents(editor)
@@ -15,14 +16,32 @@ handleEvents(editor);
 defineCommands(editor);
 
 // Buttons
-const btnSave = document.getElementById("btn-save");
-btnSave.addEventListener("click", () => saveToLocal(editor, false));
+// const btnSave = document.getElementById("btn-save");
+// btnSave.addEventListener("click", () => saveToLocal(editor, false));
 
 const btnSaveAs = document.getElementById("btn-save-as");
-btnSaveAs.addEventListener("click", () => saveWithDialog(editor));
+btnSaveAs.addEventListener('click', async () => {
+  const storedProjectData = await editor.store();
+  const blob = new Blob([JSON.stringify(storedProjectData)], {type: "application/json;charset=utf-8"});
+  saveAs(blob, "project.json");
+});
 
 const btnOpen = document.getElementById("btn-open");
-btnOpen.addEventListener("click", () => openFromLocal(editor));
+btnOpen.addEventListener('click', () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.onchange = async () => {
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const projectData = JSON.parse(reader.result);
+      await editor.load(projectData);
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+});
 // ===
 
 // === Export
