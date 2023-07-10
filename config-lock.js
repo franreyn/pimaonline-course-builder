@@ -23,7 +23,7 @@ const btnSaveAs = document.getElementById("btn-save-as");
 btnSaveAs.addEventListener('click', async () => {
   const storedProjectData = await editor.store();
   const blob = new Blob([JSON.stringify(storedProjectData)], {type: "application/json;charset=utf-8"});
-  saveAs(blob, "project.json");
+  saveAs(blob, "_grapes-project.json");
 });
 
 const btnOpen = document.getElementById("btn-open");
