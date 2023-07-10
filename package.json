@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "live-server --port=3000"
   },
   "keywords": [],
-  "author": "",
+  "author": "Center for Learning Technology at Pima Community College",
   "license": "Proprietary",
   "devDependencies": {
     "javascript-obfuscator": "^4.0.2",
