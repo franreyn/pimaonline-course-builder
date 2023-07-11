@@ -19,7 +19,7 @@ handlePanels(editor)
 addCustomTypes(editor);
 handleEvents(editor);
 defineCommands(editor);
-makeComponentsUnselectable(editor, ["one-column-layout", "two-column-layout", "content-wrapper"]);
+makeComponentsUnselectable(editor);
 
 const btnSaveAs = document.querySelector("#btn-save-as");
 btnSaveAs.addEventListener("click", () => saveToLocal(editor));
