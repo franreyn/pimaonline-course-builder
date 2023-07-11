@@ -5,6 +5,7 @@ import { defineCommands } from "./modules/defineCommands.js";
 import { setComponents } from "./modules/setComponents.js";
 import { handlePanels } from "./modules/handlePanels.js";
 import { saveToLocal, openFromLocal, exportFile } from './modules/fileOperations.js';
+import { makeComponentsUnselectable } from "./modules/utils.js";
 
 const editor = initEditor();
 setComponents(editor)
@@ -13,6 +14,7 @@ handlePanels(editor)
 addCustomTypes(editor);
 handleEvents(editor);
 defineCommands(editor);
+makeComponentsUnselectable(editor, ["one-column-layout", "two-column-layout", "content-wrapper"]);
 
 const btnSaveAs = document.querySelector("#btn-save-as");
 btnSaveAs.addEventListener("click", () => saveToLocal(editor));
