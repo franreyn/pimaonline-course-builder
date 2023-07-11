@@ -481,7 +481,12 @@ editor.DomComponents.addType('button', {
           valueFalse: ''
         }
       ],
-      content: 'Link Text'
+      components: [
+        {
+          type: 'text',
+          content: 'Link'
+        }
+      ]
     },
     init() {
       this.listenTo(this, 'change:content', this.updateContent);
