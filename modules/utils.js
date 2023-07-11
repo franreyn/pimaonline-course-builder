@@ -6,6 +6,14 @@ export function makeComponentsUnselectable(editor) {
     "content-wrapper", 
     "description-term",
     "description-definition",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "p",
+    "text"
   ];
 
   editor.on('component:selected', function(component) {
