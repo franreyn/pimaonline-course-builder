@@ -148,3 +148,15 @@ html {
   background-color: red;
   color: red;
 }
+
+/* Border of component when hovered over */
+.gjs-cv-canvas .gjs-highlighter,.gjs-cv-canvas .gjs-highlighter-sel {
+  outline: 1px solid transparent;
+}
+
+/* Name badge of component when hovered over */
+.gjs-badge {
+  display: none;
+  background-color: transparent;
+  color: transparent;
+}
