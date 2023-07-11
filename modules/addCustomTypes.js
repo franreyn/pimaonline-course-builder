@@ -394,17 +394,20 @@ editor.DomComponents.addType('blockquote', {
 restrictParentComponent('blockquote', ['content-body']);
 
 // Raw image - Not a sole component, only used to build other components
-editor.DomComponents.addType('image', {
+editor.DomComponents.addType("image", {
   model: {
     defaults: {
-      tagName: 'img',
+      tagName: "img",
       attributes: {
-        src: 'your-image-url-here'
+        src: "https://via.placeholder.com/650",
+        alt: "Insert image alt text"
       },
-      resizable: true,
-    },
+      draggable: false,
+      resizable: false,
+      highlightable: true,
+      selectable: true,
+    }
   },
-  view: {},
 });
 
 // Image no caption
