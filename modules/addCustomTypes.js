@@ -313,7 +313,12 @@ restrictParentComponent('vocab-list', ['content-body']);
     model: {
       defaults: {
         tagName: 'dt',
-        content: 'Term'
+        components: [
+          {
+            type: 'text',
+            content: 'Insert subheading.'
+          }
+        ]
       }
     }
   });   
@@ -324,7 +329,12 @@ restrictParentComponent('vocab-list', ['content-body']);
     model: {
       defaults: {
         tagName: 'dd',
-        content: 'This is the definition.'
+        components: [
+          {
+            type: 'text',
+            content: 'Insert subheading.'
+          }
+        ]
       }
     }
   });   
