@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "live-server --port=3000"
+    "dev": "live-server --port=3000",
+    "start": "live-server --port=3000"
   },
   "keywords": [],
   "author": "Center for Learning Technology at Pima Community College",
