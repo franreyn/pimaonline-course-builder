@@ -1,4 +1,6 @@
-//This function takes the components in the array 'types' and prevents mouse selection.
+// Utils.js is used to house misc functions
+
+// This function takes the components in the array 'types' and prevents mouse selection.
 export function makeComponentsUnselectable(editor) {
   const types =   [
     "one-column-layout", 
