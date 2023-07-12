@@ -9,9 +9,5 @@
   },
   "keywords": [],
   "author": "Center for Learning Technology at Pima Community College",
-  "license": "Proprietary",
-  "devDependencies": {
-    "javascript-obfuscator": "^4.0.2",
-    "uglify-js": "^3.17.4"
-  }
+  "license": "Proprietary"
 }
