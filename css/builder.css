@@ -90,6 +90,21 @@ html {
   position: initial;
 }
 
+.panel__switcher .gjs-pn-buttons {
+  gap: 1rem;
+}
+
+.panel__right .gjs-pn-buttons {
+  background-color: rgba(0, 0, 0, .2);
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.gjs-pn-buttons,
+.panel__right .gjs-pn-buttons > span {
+  margin: 0;
+}
+
 /* Menu Bar  */
 .menu-bar {
   display: flex;
@@ -129,6 +144,41 @@ html {
   margin-bottom: 8px;
 }
 
-.gjs-pn-buttons {
-  gap: 1rem;
+#gjs-frame-dropzone {
+  background-color: red;
+  color: red;
+}
+
+/* Border of component when hovered over */
+.gjs-cv-canvas .gjs-highlighter,.gjs-cv-canvas .gjs-highlighter-sel {
+  outline: 1px solid transparent;
+}
+
+/* Name badge of component when hovered over */
+.gjs-badge {
+  display: none;
+  background-color: transparent;
+  color: transparent;
+}
+
+.gjs-placeholder.horizontal,.gjs-com-placeholder.horizontal,.gjs-placeholder.horizontal {
+    border-color: rgba(0,0,0,0) #62c462;
+    border-width: 3px 5px;
+    margin: -3px 0 0;
+}
+
+.gjs-placeholder.vertical,.gjs-com-placeholder.vertical,.gjs-placeholder.vertical {
+    border-color: #62c462 rgba(0,0,0,0);
+    border-width: 5px 3px;
+    margin: 0 0 0 -3px;
+}
+
+.gjs-placeholder-int,.gjs-com-placeholder-int,.gjs-placeholder-int {
+    background-color: #62c462;
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    padding: 1.5px;
+    outline: none;
 }

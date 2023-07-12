@@ -5,3 +5,7 @@
 body {
   background-color: rgba(217, 217, 217, 1) !important;
 }
+
+dl.vocab-list dd {
+  display: block;
+}
