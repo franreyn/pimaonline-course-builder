@@ -4,23 +4,36 @@
 
 0.1.0
 
-## What's included
-
-### Dependencies
+## Dependencies
 
 - Node.js
   - pnpm
   - local-server
 
-### Terminal Command
+## Development 
 
-`pnpm run dev` Runs local server at port `3000`  
+Clone the repository and install all the necessary dependencies.  
+To install the Course Builder use `pnpm`. 
 
-### File Structure
+```
+$ git clone https://github.com/franreyn/pimaonline-course-builder.git
+$ cd pimaonline-course-builder
+$ pnpm install
+```
 
-`index.html`: Main file. App loads from this file.  
+Start the dev server  
 
-`config-lock.js`: Main configuation file, all module files are imported here.
+```
+$ pnpm run dev
+```
+
+The app will run at `http://127.0.0.1:3000/`
+
+## Terminal Commands
+
+`pnpm run dev` - Used for development. 
+
+`pnpm run start` - Used to run app locally in a browser.  
 
 ## Authors
 
