@@ -322,7 +322,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert term",
+						content: "Add term",
 					},
 				],
 			},
@@ -338,7 +338,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert definition",
+						content: "Add definition",
 					},
 				],
 			},
@@ -406,7 +406,7 @@ export function addCustomTypes(editor) {
 				tagName: "img",
 				attributes: {
 					src: "https://via.placeholder.com/650",
-					alt: "Insert image alt text",
+					alt: "Add image alt text",
 				},
 				draggable: false,
 				resizable: false,
@@ -455,7 +455,7 @@ export function addCustomTypes(editor) {
 			defaults: {
 				tagName: "figcaption",
 				attributes: { contenteditable: "true" },
-				content: "Insert image caption",
+				content: "Add image caption",
 			},
 		},
 	});
@@ -615,7 +615,7 @@ export function addCustomTypes(editor) {
 			defaults: {
 				tagName: "figcaption",
 				attributes: { contenteditable: "true" },
-				content: "Insert video caption or delete if not needed",
+				content: "Add video caption or delete if not needed",
 			},
 		},
 	});
@@ -644,7 +644,7 @@ export function addCustomTypes(editor) {
 						type: "text",
 						label: "Title",
 						name: "title",
-						placeholder: "Insert title of video",
+						placeholder: "Add title of video",
 					},
 				],
 			},
@@ -717,7 +717,7 @@ export function addCustomTypes(editor) {
 			defaults: {
 				tagName: "figcaption",
 				attributes: { contenteditable: "true" },
-				content: "Insert video caption or delete if not needed",
+				content: "Add video caption or delete if not needed",
 			},
 		},
 	});
@@ -796,7 +796,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert list item",
+						content: "Add list item",
 					},
 				],
 			},
@@ -830,7 +830,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert term",
+						content: "Add term",
 					},
 				],
 			},
@@ -858,7 +858,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert heading",
+						content: "Add heading",
 					},
 				],
 			},
@@ -875,7 +875,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -892,7 +892,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -909,7 +909,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -926,7 +926,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -943,7 +943,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -959,7 +959,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert text",
+						content: "Add text",
 					},
 				],
 			},
