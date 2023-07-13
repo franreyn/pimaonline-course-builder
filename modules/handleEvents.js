@@ -1,4 +1,4 @@
-
+// Events such as when a component mounts, is deleted, or selected, etc.
 
 export function handleEvents(editor) {
 
@@ -15,17 +15,16 @@ export function handleEvents(editor) {
     }
   }
 
-
-
-  // Your event handling code here
-// When a component is duplicated, remove it's children
-editor.on('component:clone', (component) => {
-  // Check if the component has any child components
-  if (component.components().length > 0) {
-    // If so, remove them
-    component.components().reset();
-  }
-});
+/*
+  // When a component is duplicated, remove it's children
+  editor.on('component:clone', (component) => {
+    // Check if the component has any child components
+    if (component.components().length > 0) {
+      // If so, remove them
+      component.components().reset();
+    }
+  });
+*/
 
 //
 let columnComponentCount = 0;
