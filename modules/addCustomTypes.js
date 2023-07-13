@@ -2,6 +2,17 @@
 
 export function addCustomTypes(editor) {
 
+  const allWidgets = [
+    "assignment", 
+    "blockquote",
+    "border", 
+    "card-body", 
+    "content-body", 
+    "description-definition", 
+    "description-term",
+    "side-by-side-item", 
+  ]
+
 	// Prevent addition of component if it's not being added to parent component.
 	function restrictParentComponent(type, validParents) {
 		editor.on("component:mount", (component) => {
@@ -418,7 +429,7 @@ export function addCustomTypes(editor) {
 			},
 		},
 	});
-	restrictParentComponent("figure", ["content-body"]);
+	restrictParentComponent("figure", allWidgets);
 
 	// Image with caption
 	editor.DomComponents.addType("figure-caption", {
