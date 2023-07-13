@@ -10,8 +10,7 @@ export function makeComponentsUnselectable(editor) {
     "description-definition",
     "card-body",
     "card-img",
-    "side-by-side-item",
-    "text"
+    "side-by-side-item"
   ];
 
   editor.on('component:selected', function(component) {
