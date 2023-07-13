@@ -1,22 +1,34 @@
-// myObject.js
+
 export const config = {
   copyableComponents: [
+    "assignment", 
     "border", 
     "content-body", 
-    "assignment", 
-    "paragraph", 
-    "ol", 
-    "ul", 
+    "dd",
     "dl", 
-    "li", 
     "dt", 
-    "dd"
+    "h2", 
+    "h3", 
+    "h4", 
+    "h5", 
+    "h6", 
+    "li",
+    "ol", 
+    "panopto-container", 
+    "paragraph", 
+    "ul", 
+    "youtube-container", 
   ],
-  section2: {
-    title: "Main Content",
-    content: "This is the main content section of the document.",
-    images: ["image3.jpg", "image4.jpg"]
-  },
+  unselectableComponents: [
+    "one-column-layout", 
+    "two-column-layout", 
+    "content-wrapper", 
+    "description-term",
+    "description-definition",
+    "card-body",
+    "card-img",
+    "side-by-side-item"
+  ],
   section3: {
     title: "Conclusion",
     content: "This is the conclusion section of the document.",
