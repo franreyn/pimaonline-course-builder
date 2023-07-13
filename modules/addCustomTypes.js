@@ -959,7 +959,7 @@ export function addCustomTypes(editor) {
 			},
 		},
 	});
-	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "description-definition", "description-term", "side-by-side-item", "text-container"]);
 
 	// ======= END COMPONENTS ======
 	// ...
