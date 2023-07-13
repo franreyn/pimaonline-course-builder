@@ -229,10 +229,10 @@ export function initEditor() {
         },
         // text        
         {
-          id: 'image',
+          id: 'figure',
           category: 'Text',
           label: 'Image',
-          content: {type: 'image'},
+          content: {type: 'figure'},
         },      
         {
           id: 'ol',
