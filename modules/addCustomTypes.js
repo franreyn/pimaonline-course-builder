@@ -322,7 +322,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert term",
 					},
 				],
 			},
@@ -338,7 +338,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert definition",
 					},
 				],
 			},
@@ -796,7 +796,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert list item",
 					},
 				],
 			},
@@ -830,7 +830,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert term",
 					},
 				],
 			},
@@ -858,7 +858,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert heading.",
+						content: "Insert heading",
 					},
 				],
 			},
@@ -875,7 +875,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert subheading",
 					},
 				],
 			},
@@ -892,7 +892,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert subheading",
 					},
 				],
 			},
@@ -909,7 +909,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert subheading",
 					},
 				],
 			},
@@ -926,7 +926,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert subheading",
 					},
 				],
 			},
@@ -943,7 +943,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert subheading",
 					},
 				],
 			},
@@ -959,7 +959,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Insert text",
 					},
 				],
 			},
