@@ -1,6 +1,11 @@
+import { config } from "../config.js";
+
 // Events such as when a component mounts, is deleted, or selected, etc.
 
 export function handleEvents(editor) {
+
+  // Get config data
+  let allowedCopyableComponents = config.copyableComponents;
 
   function setCustomLayerName(component) {
     switch (component.get("type")) {
@@ -74,10 +79,7 @@ function setCopyableComponents(copyableComponents) {
   });
 }
 // Set duplicatable/copyable components
-const allowedCopyableComponents = 
-["border", "content-body", "assignment", "paragraph", "ol", "ul", "dl", "li", "dt", "dd"];
 setCopyableComponents(allowedCopyableComponents);
-
 editor.on('component:title', setCustomLayerName);
 
 }
