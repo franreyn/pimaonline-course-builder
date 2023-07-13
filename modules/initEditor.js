@@ -146,13 +146,14 @@ export function initEditor() {
           category: 'Layout',
           content: { type: 'two-column-layout' },
         }, 
-        //=== Widgets
+        // === Containers
         {
           id: 'content-body',
-          category: 'Widgets',
+          category: 'Containers',
           label: 'Content Body',
           content: {type: 'content-body'},
         }, 
+        //=== Widgets
         {
           id: 'assignments-widget',
           category: 'Widgets',
