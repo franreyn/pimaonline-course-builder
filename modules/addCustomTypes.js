@@ -962,6 +962,24 @@ export function addCustomTypes(editor) {
 						content: "Add text",
 					},
 				],
+        toolbar: [
+          {
+            attributes: { class: 'fa fa-bold' },
+            command: 'bold',
+          },
+          {
+            attributes: { class: 'fa fa-italic' },
+            command: 'italic',
+          },
+          {
+            attributes: { class: 'fa fa-underline' },
+            command: 'underline',
+          },
+          {
+            attributes: { class: 'fa fa-link' },
+            command: 'createLink',
+          },
+        ],        
 			},
 		},
 		view: {
