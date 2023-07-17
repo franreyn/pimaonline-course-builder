@@ -1,6 +1,33 @@
-// Add custom component types
+import { addOneColumnLayout } from "./custom-types/addOneColumnLayout.js";
+import { addTwoColumnLayout } from "./custom-types/addTwoColumnLayout.js";
+import { addHeader } from "./custom-types/addHeader.js";
+import { addBannerImage } from "./custom-types/addBannerImage.js";
+import { addTextContainer } from "./custom-types/addTextContainer.js";
+import { addContentWrapper } from "./custom-types/addContentWrapper.js";
+import { addSecondColumn } from "./custom-types/addSecondColumn.js";
+import { addContentBody } from "./custom-types/addContentBody.js";
+import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
+import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
+import { addVocabulary, addVocabularyDefinition, addVocabularyTerm } from "./custom-types/addVocabulary.js";
+import { addAssignments, addAssignment } from "./custom-types/addAssignments.js";
+import { addBlockquote } from "./custom-types/addBlockquote.js";
+import { addRawImage } from "./custom-types/addRawImage.js";
+import { addFigcaption, addFigure, addFigureCaption } from "./custom-types/addImage.js";
+import { addButton } from "./custom-types/addButton.js";
+import { addHyperlinks } from "./custom-types/addHyperlinks.js";
+import { addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 
 export function addCustomTypes(editor) {
+  const allWidgets = [
+    "assignment", 
+    "blockquote",
+    "border", 
+    "card-body", 
+    "content-body", 
+    "description-definition", 
+    "description-term",
+    "side-by-side-item", 
+  ]
 
 	// Prevent addition of component if it's not being added to parent component.
 	function restrictParentComponent(type, validParents) {
@@ -22,623 +49,120 @@ export function addCustomTypes(editor) {
 	}
 
 	// One column component
-	editor.DomComponents.addType("one-column-layout", {
-		model: {
-			defaults: {
-				tagName: "body",
-				attributes: { id: "one-column" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "header")) {
-					this.components().add({ type: "header" });
-				}
-
-				if (!this.components().find((component) => component.get("type") === "content-wrapper")) {
-					this.components().add({ type: "content-wrapper" });
-				}
-			},
-		},
-	});
+  addOneColumnLayout(editor);
 
 	// Two column components
-	editor.DomComponents.addType("two-column-layout", {
-		model: {
-			defaults: {
-				tagName: "body",
-				attributes: { id: "two-column" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "header")) {
-					this.components().add({ type: "header" });
-				}
-
-				if (!this.components().find((component) => component.get("type") === "content-wrapper")) {
-					this.components().add({ type: "content-wrapper" });
-				}
-
-				if (!this.components().find((component) => component.get("type") === "second-column")) {
-					this.components().add({ type: "second-column" });
-				}
-			},
-		},
-	});
+  addTwoColumnLayout(editor);
 
 	// Header
-	editor.DomComponents.addType("header", {
-		model: {
-			defaults: {
-				tagName: "header",
-				attributes: {
-					class: "header",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "banner-image")) {
-					this.components().add({ type: "banner-image" });
-				}
-
-				if (!this.components().find((component) => component.get("type") === "text-container")) {
-					this.components().add({ type: "text-container" });
-				}
-			},
-		},
-	});
+  addHeader(editor);
 
 	// Banner image
-	editor.DomComponents.addType("banner-image", {
-		model: {
-			defaults: {
-				tagName: "img",
-				attributes: {
-					src: "https://via.placeholder.com/1920x650",
-					alt: "Banner image",
-				},
-				draggable: false,
-				resizable: false,
-				highlightable: true,
-				selectable: true,
-			},
-			init() {
-				this.set("title", "Banner Image");
-			},
-		},
-	});
-	restrictParentComponent("banner-image", ["header"]);
+  addBannerImage(editor);
+  restrictParentComponent("banner-image", ["header"]);
 
 	// Text container
-	editor.DomComponents.addType("text-container", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "text-container",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "h1")) {
-					this.components().add({ type: "h1" });
-				}
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-			},
-		},
-	});
+  addTextContainer(editor);
 
 	// Content wrapper
-	editor.DomComponents.addType("content-wrapper", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					id: "content-wrapper",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "content-body")) {
-					this.components().add({ type: "content-body" });
-				}
-			},
-		},
-	});
+  addContentWrapper(editor);
 
 	// Second column
-	editor.DomComponents.addType("second-column", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					id: "second-column",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "content-body")) {
-					this.components().add({ type: "content-body" });
-				}
-			},
-		},
-	});
+  addSecondColumn(editor);
 
 	// Content-body
-	editor.DomComponents.addType("content-body", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "content-body",
-					//'data-gjs-type': 'content-body',
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "h2")) {
-					this.components().add({ type: "h2" });
-				}
-			},
-		},
-	});
+  addContentBody(editor);
 	restrictParentComponent("content-body", ["content-wrapper", "second-column"]);
 
 	// Border widget
-	editor.DomComponents.addType("border", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "border" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "h3")) {
-					this.components().add({ type: "h3" });
-				}
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-			},
-		},
-	});
+  addContentBody(editor);
 	restrictParentComponent("border", ["content-body"]);
 
 	// Card Horizontal
-	editor.DomComponents.addType("card-horizontal", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "card-horizontal" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "card-body")) {
-					this.components().add({ type: "card-body" });
-				}
-				if (!this.components().find((component) => component.get("type") === "card-img")) {
-					this.components().add({ type: "card-img" });
-				}
-			},
-		},
-	});
+  addCardHorizontal(editor);  
 	restrictParentComponent("card-horizontal", ["content-body"]);
 
 	// card body
-	editor.DomComponents.addType("card-body", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "card-body" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-			},
-		},
-	});
+  addCardBody(editor);
 	restrictParentComponent("card-body", ["card-horizontal"]);
 
-	// card image
-	editor.DomComponents.addType("card-img", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "card-img" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "image")) {
-					this.components().add({ type: "image" });
-				}
-			},
-		},
-	});
+  addCardImg(editor);
 	restrictParentComponent("card-img", ["card-horizontal"]);
 
 	// Side-by-side Widget
-	editor.DomComponents.addType("side-by-side", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "side-by-side" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "side-by-side-item")) {
-					this.components().add({ type: "side-by-side-item" });
-					this.components().add({ type: "side-by-side-item" });
-				}
-			},
-		},
-	});
+  addSideBySide(editor);
 	restrictParentComponent("side-by-side", ["content-body"]);
 
 	// Side-by-side Item
-	editor.DomComponents.addType("side-by-side-item", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "side-by-side-item" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "h3")) {
-					this.components().add({ type: "h3" });
-				}
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-			},
-		},
-	});
+  addSideBySideItem(editor);
 	restrictParentComponent("side-by-side-item", ["side-by-side"]);
 
 	// Vocabulary widget
-	editor.DomComponents.addType("vocab-list", {
-		model: {
-			defaults: {
-				tagName: "dl",
-				attributes: { class: "vocab-list" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "description-term")) {
-					this.components().add({ type: "description-term" });
-				}
-				if (!this.components().find((component) => component.get("type") === "description-definition")) {
-					this.components().add({ type: "description-definition" });
-				}
-			},
-		},
-	});
+  addVocabulary(editor);
 	restrictParentComponent("vocab-list", ["content-body"]);
 
 	// Vocabulary widget TERM
-	editor.DomComponents.addType("description-term", {
-		model: {
-			defaults: {
-				tagName: "dt",
-				components: [
-					{
-						type: "text",
-						content: "Insert subheading.",
-					},
-				],
-			},
-		},
-	});
+  addVocabularyTerm(editor);
 	restrictParentComponent("description-term", ["vocab-list"]);
 
 	// Vocabulary widget DEFINITION
-	editor.DomComponents.addType("description-definition", {
-		model: {
-			defaults: {
-				tagName: "dd",
-				components: [
-					{
-						type: "text",
-						content: "Insert subheading.",
-					},
-				],
-			},
-		},
-	});
+  addVocabularyDefinition(editor);
 	restrictParentComponent("description-definition", ["vocab-list"]);
 
 	// Assignments Widget
-	editor.DomComponents.addType("assignments-widget", {
-		model: {
-			defaults: {
-				tagName: "ul",
-				attributes: { class: "assignments-widget" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "assignment")) {
-					this.components().add({ type: "assignment" });
-				}
-			},
-		},
-	});
+  addAssignments(editor);
 	restrictParentComponent("assignments-widget", ["content-body"]);
-
+  
 	// Assignment
-	editor.DomComponents.addType("assignment", {
-		model: {
-			defaults: {
-				tagName: "li",
-				attributes: { class: "assignment" },
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "h3")) {
-					this.components().add({ type: "h3" });
-				}
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-				if (!this.components().find((component) => component.get("type") === "button")) {
-					this.components().add({ type: "button" });
-				}
-			},
-		},
-	});
+  addAssignment(editor);
 	restrictParentComponent("assignment", ["assignments-widget"]);
 
 	// Blockquote
-	editor.DomComponents.addType("blockquote", {
-		model: {
-			defaults: {
-				tagName: "blockquote",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
-			},
-		},
-	});
+  addBlockquote(editor);
 	restrictParentComponent("blockquote", ["content-body"]);
 
 	// Raw image - Not a sole component, only used to build other components
-	editor.DomComponents.addType("image", {
-		model: {
-			defaults: {
-				tagName: "img",
-				attributes: {
-					src: "https://via.placeholder.com/650",
-					alt: "Insert image alt text",
-				},
-				draggable: false,
-				resizable: false,
-				highlightable: true,
-				selectable: true,
-			},
-		},
-	});
+  addRawImage(editor);
 
 	// Image no caption
-	editor.DomComponents.addType("figure", {
-		model: {
-			defaults: {
-				tagName: "figure",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "image")) {
-					this.components().add({ type: "image" });
-				}
-			},
-		},
-	});
-	restrictParentComponent("figure", ["content-body"]);
+  addFigure(editor);
+	restrictParentComponent("figure", allWidgets);
 
 	// Image with caption
-	editor.DomComponents.addType("figure-caption", {
-		model: {
-			defaults: {
-				tagName: "figure",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "image")) {
-					this.components().add({ type: "image" });
-				}
-				if (!this.components().find((component) => component.get("type") === "figcaption")) {
-					this.components().add({ type: "figcaption" });
-				}
-			},
-		},
-	});
+  addFigureCaption(editor);
 	restrictParentComponent("figure-caption", ["content-body"]);
 
 	// Figcaption
-	editor.DomComponents.addType("figcaption", {
-		model: {
-			defaults: {
-				tagName: "figcaption",
-				attributes: { contenteditable: "true" },
-				content: "Insert image caption",
-			},
-		},
-	});
+  addFigcaption(editor);
 	// restrictParentComponent('figcaption', ['figure-caption']);
 
 	// Buttons
-	editor.DomComponents.addType("button", {
-		model: {
-			defaults: {
-				type: "link",
-				tagName: "a",
-				attributes: { class: "btn" },
-				traits: [
-					{
-						type: "text",
-						label: "URL",
-						name: "href",
-						placeholder: "https://d2l.pima.edu/d2l/login",
-					},
-					{
-						type: "text",
-						label: "Text",
-						name: "content",
-						changeProp: 1,
-					},
-					{
-						type: "checkbox",
-						label: "Open in new tab",
-						name: "target",
-						changeProp: 1,
-						valueTrue: "_blank",
-						valueFalse: "",
-					},
-				],
-				components: [
-					{
-						type: "text",
-						content: "Link",
-					},
-				],
-			},
-			init() {
-				this.listenTo(this, "change:content", this.updateContent);
-			},
-			updateContent() {
-				this.components(this.get("content"));
-			},
-		},
-		view: {},
-		isComponent: (el) => el.tagName == "A" && el.classList.contains("btn"),
-	});
+  addButton(editor);
 	restrictParentComponent("button", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Hyperlinks
-	editor.DomComponents.addType("hyperlink", {
-		model: {
-			defaults: {
-				type: "link",
-				tagName: "a",
-				traits: [
-					{
-						type: "text",
-						label: "URL",
-						name: "href",
-						placeholder: "https://d2l.pima.edu/d2l/login",
-					},
-					{
-						type: "text",
-						label: "Text",
-						name: "content",
-						changeProp: 1,
-					},
-					{
-						type: "checkbox",
-						label: "Open in new tab",
-						name: "target",
-						changeProp: 1,
-						valueTrue: "_blank",
-						valueFalse: "",
-					},
-				],
-				content: "Link Text",
-			},
-			init() {
-				this.listenTo(this, "change:content", this.updateContent);
-			},
-			updateContent() {
-				this.components(this.get("content"));
-			},
-		},
-		view: {},
-		isComponent: (el) => el.tagName == "A",
-	});
+  addHyperlinks(editor);
 	restrictParentComponent("hyperlink", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	//////////////////////////// Panopto container ////////////////////////////
 	//Media object
-	editor.DomComponents.addType("panopto-container", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-container",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-object")) {
-					this.components().add({ type: "panopto-object" });
-				}
-				if (!this.components().find((component) => component.get("type") === "panopto-info")) {
-					this.components().add({ type: "panopto-info" });
-				}
-			},
-		},
-	});
+  addPanoptoObject(editor);
 	restrictParentComponent("panopto-container", ["content-body"]);
 
 	// Media object
-	editor.DomComponents.addType("panopto-object", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-object",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-iframe")) {
-					this.components().add({ type: "panopto-iframe" });
-				}
-			},
-		},
-	});
+  addPanoptoObject(editor);
 	restrictParentComponent("panopto-object", ["panopto-container"]);
 
 	// Media info
-	editor.DomComponents.addType("panopto-info", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-info",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-caption")) {
-					this.components().add({ type: "panopto-caption" });
-				}
-			},
-		},
-	});
+  addPanoptoInfo(editor);
 	restrictParentComponent("panopto-info", ["panopto-container"]);
 
 	// media caption
-	editor.DomComponents.addType("panopto-caption", {
-		model: {
-			defaults: {
-				tagName: "figcaption",
-				attributes: { contenteditable: "true" },
-				content: "Insert video caption or delete if not needed",
-			},
-		},
-	});
+  addPanoptoCaption(editor);
 	restrictParentComponent("panopto-caption", ["panopto-info"]);
 
 	// Panopto Iframe
-	editor.DomComponents.addType("panopto-iframe", {
-		model: {
-			defaults: {
-				tagName: "iframe",
-				attributes: {
-					height: "405",
-					width: "720",
-					allowfullscreen: "allowfullscreen",
-					allow: "autoplay",
-				},
-				traits: [
-					{
-						type: "text",
-						label: "Source",
-						name: "src",
-						placeholder: "https://pima-cc.hosted.panopto.com",
-						default: "https://pima-cc.hosted.panopto.com",
-					},
-					{
-						type: "text",
-						label: "Title",
-						name: "title",
-						placeholder: "Insert title of video",
-					},
-				],
-			},
-		},
-	});
+  addPanoptoIframe(editor);
 	restrictParentComponent("panopto-iframe", ["panopto-object"]);
 	//////////////////////////// end panopto container ////////////////////////////
 
@@ -706,7 +230,7 @@ export function addCustomTypes(editor) {
 			defaults: {
 				tagName: "figcaption",
 				attributes: { contenteditable: "true" },
-				content: "Insert video caption or delete if not needed",
+				content: "Add video caption or delete if not needed",
 			},
 		},
 	});
@@ -785,7 +309,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add list item",
 					},
 				],
 			},
@@ -819,7 +343,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add term",
 					},
 				],
 			},
@@ -847,7 +371,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert heading.",
+						content: "Add heading",
 					},
 				],
 			},
@@ -864,7 +388,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -881,7 +405,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -898,7 +422,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -915,7 +439,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -932,7 +456,7 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add subheading",
 					},
 				],
 			},
@@ -948,9 +472,27 @@ export function addCustomTypes(editor) {
 				components: [
 					{
 						type: "text",
-						content: "Insert subheading.",
+						content: "Add text",
 					},
 				],
+        toolbar: [
+          {
+            attributes: { class: 'fa fa-bold' },
+            command: 'bold',
+          },
+          {
+            attributes: { class: 'fa fa-italic' },
+            command: 'italic',
+          },
+          {
+            attributes: { class: 'fa fa-underline' },
+            command: 'underline',
+          },
+          {
+            attributes: { class: 'fa fa-link' },
+            command: 'createLink',
+          },
+        ],        
 			},
 		},
 		view: {
@@ -959,7 +501,7 @@ export function addCustomTypes(editor) {
 			},
 		},
 	});
-	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "description-definition", "description-term", "side-by-side-item", "text-container"]);
 
 	// ======= END COMPONENTS ======
 	// ...
