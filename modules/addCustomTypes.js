@@ -14,6 +14,8 @@ import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
 import { addFigcaption, addFigure, addFigureCaption } from "./custom-types/addImage.js";
 import { addButton } from "./custom-types/addButton.js";
+import { addHyperlinks } from "./custom-types/addHyperlinks.js";
+import { addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -139,146 +141,28 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("button", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Hyperlinks
-	editor.DomComponents.addType("hyperlink", {
-		model: {
-			defaults: {
-				type: "link",
-				tagName: "a",
-				traits: [
-					{
-						type: "text",
-						label: "URL",
-						name: "href",
-						placeholder: "https://d2l.pima.edu/d2l/login",
-					},
-					{
-						type: "text",
-						label: "Text",
-						name: "content",
-						changeProp: 1,
-					},
-					{
-						type: "checkbox",
-						label: "Open in new tab",
-						name: "target",
-						changeProp: 1,
-						valueTrue: "_blank",
-						valueFalse: "",
-					},
-				],
-				content: "Link Text",
-			},
-			init() {
-				this.listenTo(this, "change:content", this.updateContent);
-			},
-			updateContent() {
-				this.components(this.get("content"));
-			},
-		},
-		view: {},
-		isComponent: (el) => el.tagName == "A",
-	});
+  addHyperlinks(editor);
 	restrictParentComponent("hyperlink", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	//////////////////////////// Panopto container ////////////////////////////
 	//Media object
-	editor.DomComponents.addType("panopto-container", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-container",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-object")) {
-					this.components().add({ type: "panopto-object" });
-				}
-				if (!this.components().find((component) => component.get("type") === "panopto-info")) {
-					this.components().add({ type: "panopto-info" });
-				}
-			},
-		},
-	});
+  addPanoptoObject(editor);
 	restrictParentComponent("panopto-container", ["content-body"]);
 
 	// Media object
-	editor.DomComponents.addType("panopto-object", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-object",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-iframe")) {
-					this.components().add({ type: "panopto-iframe" });
-				}
-			},
-		},
-	});
+  addPanoptoObject(editor);
 	restrictParentComponent("panopto-object", ["panopto-container"]);
 
 	// Media info
-	editor.DomComponents.addType("panopto-info", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-info",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "panopto-caption")) {
-					this.components().add({ type: "panopto-caption" });
-				}
-			},
-		},
-	});
+  addPanoptoInfo(editor);
 	restrictParentComponent("panopto-info", ["panopto-container"]);
 
 	// media caption
-	editor.DomComponents.addType("panopto-caption", {
-		model: {
-			defaults: {
-				tagName: "figcaption",
-				attributes: { contenteditable: "true" },
-				content: "Add video caption or delete if not needed",
-			},
-		},
-	});
+  addPanoptoCaption(editor);
 	restrictParentComponent("panopto-caption", ["panopto-info"]);
 
 	// Panopto Iframe
-	editor.DomComponents.addType("panopto-iframe", {
-		model: {
-			defaults: {
-				tagName: "iframe",
-				attributes: {
-					height: "405",
-					width: "720",
-					allowfullscreen: "allowfullscreen",
-					allow: "autoplay",
-				},
-				traits: [
-					{
-						type: "text",
-						label: "Source",
-						name: "src",
-						placeholder: "https://pima-cc.hosted.panopto.com",
-						default: "https://pima-cc.hosted.panopto.com",
-					},
-					{
-						type: "text",
-						label: "Title",
-						name: "title",
-						placeholder: "Add title of video",
-					},
-				],
-			},
-		},
-	});
+  addPanoptoIframe(editor);
 	restrictParentComponent("panopto-iframe", ["panopto-object"]);
 	//////////////////////////// end panopto container ////////////////////////////
 
