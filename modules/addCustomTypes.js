@@ -16,6 +16,13 @@ import { addFigcaption, addFigure, addFigureCaption } from "./custom-types/addIm
 import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
 import { addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
+import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
+import { addOrderedList } from "./custom-types/addOrderedList.js";
+import { addUnorderedList } from "./custom-types/addUnorderedList.js";
+import { addListItem } from "./custom-types/addListItem.js";
+import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
+import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
+import { addParagraph } from "./custom-types/addParagraph.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -168,339 +175,76 @@ export function addCustomTypes(editor) {
 
 	//////////////////////////// Youtube container ////////////////////////////
 	//Media object
-	editor.DomComponents.addType("youtube-container", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-container",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "youtube-object")) {
-					this.components().add({ type: "youtube-object" });
-				}
-				if (!this.components().find((component) => component.get("type") === "youtube-info")) {
-					this.components().add({ type: "youtube-info" });
-				}
-			},
-		},
-	});
+	addYoutubeContainer(editor);
 	restrictParentComponent("youtube-container", ["content-body"]);
 
 	// Media object
-	editor.DomComponents.addType("youtube-object", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-object",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "youtube-iframe")) {
-					this.components().add({ type: "youtube-iframe" });
-				}
-			},
-		},
-	});
+	addYoutubeObject(editor);
 	restrictParentComponent("youtube-object", ["youtube-container"]);
 
 	// Media info
-	editor.DomComponents.addType("youtube-info", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: {
-					class: "media-info",
-				},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "youtube-caption")) {
-					this.components().add({ type: "youtube-caption" });
-				}
-			},
-		},
-	});
+	addYoutubeInfo(editor);
 	restrictParentComponent("youtube-info", ["youtube-container"]);
 
 	// media caption
-	editor.DomComponents.addType("youtube-caption", {
-		model: {
-			defaults: {
-				tagName: "figcaption",
-				attributes: { contenteditable: "true" },
-				content: "Add video caption or delete if not needed",
-			},
-		},
-	});
+	addYoutubeCaption(editor);
 	restrictParentComponent("youtube-caption", ["youtube-info"]);
 
 	// youtube Iframe
-	editor.DomComponents.addType("youtube-iframe", {
-		model: {
-			defaults: {
-				tagName: "iframe",
-				attributes: {
-					height: "315",
-					width: "560",
-					allowfullscreen: "allowfullscreen",
-					allow: "autoplay",
-					frameborder: "0",
-					allow: "accelerometer",
-				},
-				traits: [
-					{
-						type: "text",
-						label: "Source",
-						name: "src",
-						placeholder: "https://www.youtube.com/embed/NpEaa2P7qZI",
-						default: "https://www.youtube.com/embed/NpEaa2P7qZI",
-					},
-					{
-						type: "text",
-						label: "Title",
-						name: "title",
-						placeholder: "YouTube video player",
-					},
-				],
-			},
-		},
-	});
+	addYoutubeIframe(editor);
 	restrictParentComponent("youtube-iframe", ["youtube-object"]);
 	//////////////////////////// end youtube container ////////////////////////////
 
 	// ol
-	editor.DomComponents.addType("ol", {
-		model: {
-			defaults: {
-				tagName: "ol",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "li")) {
-					this.components().add({ type: "li" });
-				}
-			},
-		},
-	});
+	addOrderedList(editor);
 	//restrictParentComponent('blockquote', ['content-body']);
 
 	// ul
-	editor.DomComponents.addType("ul", {
-		model: {
-			defaults: {
-				tagName: "ul",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "li")) {
-					this.components().add({ type: "li" });
-				}
-			},
-		},
-	});
+	addUnorderedList(editor);
 	//restrictParentComponent('blockquote', ['content-body']);
 
 	// li
-	editor.DomComponents.addType("li", {
-		model: {
-			defaults: {
-				tagName: "li",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add list item",
-					},
-				],
-			},
-		},
-	});
+	addListItem(editor);
 	//restrictParentComponent('blockquote', ['content-body']);
 
 	// Description Lists
-	editor.DomComponents.addType("dl", {
-		model: {
-			defaults: {
-				tagName: "dl",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "dt")) {
-					this.components().add({ type: "dt" });
-				}
-				if (!this.components().find((component) => component.get("type") === "dd")) {
-					this.components().add({ type: "dd" });
-				}
-			},
-		},
-	});
+	addDescriptionList(editor);
 	restrictParentComponent("dl", ["content-body"]);
 
 	// Term
-	editor.DomComponents.addType("dt", {
-		model: {
-			defaults: {
-				tagName: "dt",
-				components: [
-					{
-						type: "text",
-						content: "Add term",
-					},
-				],
-			},
-		},
-	});
+	addDescriptionTerm(editor);
 	restrictParentComponent("dt", ["dl"]);
 
 	// Definition
-	editor.DomComponents.addType("dd", {
-		model: {
-			defaults: {
-				tagName: "dd",
-				content: "Add definition",
-			},
-		},
-	});
+	addDescriptionDefinition(editor);
 	restrictParentComponent("dd", ["dl"]);
 
 	// Heading 1
-	editor.DomComponents.addType("h1", {
-		model: {
-			defaults: {
-				tagName: "h1",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add heading",
-					},
-				],
-			},
-		},
-	});
+	addH1(editor);
 	restrictParentComponent("h1", ["text-container"]);
 
 	// Heading 2
-	editor.DomComponents.addType("h2", {
-		model: {
-			defaults: {
-				tagName: "h2",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+	addH2(editor);
 	restrictParentComponent("h2", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 3
-	editor.DomComponents.addType("h3", {
-		model: {
-			defaults: {
-				tagName: "h3",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+	addH3(editor);
 	restrictParentComponent("h3", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 4
-	editor.DomComponents.addType("h4", {
-		model: {
-			defaults: {
-				tagName: "h4",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+	addH4(editor);
 	restrictParentComponent("h4", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 5
-	editor.DomComponents.addType("h5", {
-		model: {
-			defaults: {
-				tagName: "h5",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+	addH5(editor);
 	restrictParentComponent("h5", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 6
-	editor.DomComponents.addType("h6", {
-		model: {
-			defaults: {
-				tagName: "h6",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+	addH6(editor);
 	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Paragraph
-	editor.DomComponents.addType("paragraph", {
-		model: {
-			defaults: {
-				tagName: "p",
-				components: [
-					{
-						type: "text",
-						content: "Add text",
-					},
-				],
-        toolbar: [
-          {
-            attributes: { class: 'fa fa-bold' },
-            command: 'bold',
-          },
-          {
-            attributes: { class: 'fa fa-italic' },
-            command: 'italic',
-          },
-          {
-            attributes: { class: 'fa fa-underline' },
-            command: 'underline',
-          },
-          {
-            attributes: { class: 'fa fa-link' },
-            command: 'createLink',
-          },
-        ],        
-			},
-		},
-		view: {
-			onRender() {
-				this.el.setAttribute("contenteditable", "true");
-			},
-		},
-	});
+	addParagraph(editor);
 	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "description-definition", "description-term", "side-by-side-item", "text-container"]);
 
 	// ======= END COMPONENTS ======
