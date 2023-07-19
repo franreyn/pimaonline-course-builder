@@ -9,8 +9,5 @@
   },
   "keywords": [],
   "author": "Center for Learning Technology at Pima Community College",
-  "license": "Proprietary",
-  "dependencies": {
-    "live-server": "^1.2.2"
-  }
+  "license": "Proprietary"
 }
