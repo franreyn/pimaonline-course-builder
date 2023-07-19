@@ -30,6 +30,7 @@ export function addCustomTypes(editor) {
     "assignment", 
     "blockquote",
     "border", 
+		"call-out",
     "card-body", 
     "content-body", 
     "description-definition", 
@@ -250,7 +251,7 @@ export function addCustomTypes(editor) {
 
 	// Paragraph
 	addParagraph(editor);
-	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "description-definition", "description-term", "side-by-side-item", "text-container"]);
+	restrictParentComponent("paragraph", allWidgets);
 
 	// ======= END COMPONENTS ======
 	// ...
