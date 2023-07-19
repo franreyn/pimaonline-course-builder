@@ -176,6 +176,12 @@ export function initEditor() {
 					content: { type: "border" },
 				},
 				{
+					id: "call-out",
+					category: "Widgets",
+					label: "Call Out",
+					content: { type: "call-out"},
+				},
+				{
 					id: "card-horizontal",
 					category: "Widgets",
 					label: "Card Horizontal",
