@@ -23,12 +23,14 @@ import { addListItem } from "./custom-types/addListItem.js";
 import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
+import { addCallOut } from "./custom-types/addCallOut.js"
 
 export function addCustomTypes(editor) {
   const allWidgets = [
     "assignment", 
     "blockquote",
     "border", 
+		"call-out",
     "card-body", 
     "content-body", 
     "description-definition", 
@@ -84,6 +86,10 @@ export function addCustomTypes(editor) {
 	// Border widget
   addContentBody(editor);
 	restrictParentComponent("border", ["content-body"]);
+
+	//Call Out
+	addCallOut(editor);
+	restrictParentComponent("call-out", ["content-body"]);
 
 	// Card Horizontal
   addCardHorizontal(editor);  
@@ -245,7 +251,7 @@ export function addCustomTypes(editor) {
 
 	// Paragraph
 	addParagraph(editor);
-	restrictParentComponent("paragraph", ["assignment", "blockquote", "border", "card-body", "content-body", "description-definition", "description-term", "side-by-side-item", "text-container"]);
+	restrictParentComponent("paragraph", allWidgets);
 
 	// ======= END COMPONENTS ======
 	// ...
