@@ -1,38 +1,21 @@
 export function addParagraph(editor) {
   editor.DomComponents.addType("paragraph", {
-		model: {
-			defaults: {
-				tagName: "p",
-				components: [
-					{
-						type: "text",
-						content: "Add text",
-					},
-				],
-        toolbar: [
+    model: {
+      defaults: {
+        tagName: "p",
+        components: [
           {
-            attributes: { class: 'fa fa-bold' },
-            command: 'bold',
-          },
-          {
-            attributes: { class: 'fa fa-italic' },
-            command: 'italic',
-          },
-          {
-            attributes: { class: 'fa fa-underline' },
-            command: 'underline',
-          },
-          {
-            attributes: { class: 'fa fa-link' },
-            command: 'createLink',
+            type: "text",
+            content: "Add text",
           },
         ],        
-			},
-		},
-		view: {
-			onRender() {
-				this.el.setAttribute("contenteditable", "true");
-			},
-		},
-	});
+      },
+    },
+    view: {
+      onRender() {
+        this.el.setAttribute("contenteditable", "true");
+      },
+    },
+  });
+  
 }
