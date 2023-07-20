@@ -7,6 +7,17 @@ export function initEditor() {
 		width: "auto",
 		storageManager: true,
 		panels: { defaults: [] },
+		plugins: ["grapesjs-plugin-ckeditor"],
+		/* pluginsOpts: {
+			"gjs-plugin-ckeditor": {
+				options: {
+					language: "en",
+					toolbar: [
+
+					],
+				},
+			},
+		}, */
 		layerManager: {
 			appendTo: ".layers-container",
 		},
