@@ -1,3 +1,5 @@
+@import "@/styles/_typography.css";
+@import "@/styles/_variables.css";
 
 body,
 html {
@@ -38,11 +40,23 @@ html {
   margin: 0;
 }
 
+.gjs-block:hover {
+  background-color: transparent;
+}
+
 .gjs-category-title, 
 .gjs-layer-title, 
 .gjs-block-category .gjs-title, 
 .gjs-sm-sector-title {
   padding: 0.25rem 0.5rem;
+}
+
+.gjs-block-category {
+  display: block;
+}
+
+.gjs-title {
+  display: block;
 }
 
 .gjs-block-label {
@@ -90,6 +104,18 @@ html {
   position: initial;
 }
 
+.gjs-pn-buttons {
+  background-color: transparent;
+}
+
+.gjs-pn-btn {
+  background-color: transparent;
+}
+
+.gjs-pn-btn::before {
+  background-color: transparent;
+}
+
 .panel__switcher .gjs-pn-buttons {
   gap: 1rem;
 }
@@ -103,6 +129,14 @@ html {
 .gjs-pn-buttons,
 .panel__right .gjs-pn-buttons > span {
   margin: 0;
+}
+
+.gjs-resizer-c {
+  display: block;
+}
+
+.gjs-resizer-h {
+  color: transparent;
 }
 
 /* Menu Bar  */
@@ -142,6 +176,14 @@ html {
   display: block !important;
   font-size: 32px;
   margin-bottom: 8px;
+}
+
+.gjs-caret-icon {
+  background-color: transparent;
+}
+
+.gjs-caret-icon::before {
+  background-color: transparent;
 }
 
 #gjs-frame-dropzone {
