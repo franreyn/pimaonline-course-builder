@@ -1,0 +1,7 @@
+:root {
+  --color-primary: rgba(29, 34, 56, 1);
+  --color-secondary: rgba(171, 182, 241, 1);
+  --color-tertiary: rgba(235, 235, 235, 1);
+  --color-accent: rgba(41, 166, 176, 1);
+  --color-bg-alt: rgba(35, 40, 66, 1);
+}
