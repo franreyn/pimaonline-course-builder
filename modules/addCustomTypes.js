@@ -140,6 +140,7 @@ export function addCustomTypes(editor) {
 
 	// Horizontal Display
 	addHorizontalDisplay(editor);
+	restrictParentComponent("horizontal-display", ["content-body"]);
 
 	// Image no caption
   addFigure(editor);
