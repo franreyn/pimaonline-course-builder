@@ -131,12 +131,24 @@ html {
   margin: 0;
 }
 
-.gjs-block-category.gjs-open .layout-btn {
+/* .gjs-block-category.gjs-open .layout-btn {
   display: block;
 }
 
 .gjs-block-category:not(.gjs-open) .layout-btn {
   display: none;
+} */
+
+.layouts-toolbar-title {
+  text-align: left;
+  font-weight: 300;
+}
+
+.btn-container {
+  display: flex;
+  background: #6b6b6b;
+  margin: 0.8rem 0;
+  border-radius: 5px;
 }
 
 .layout-btn {
@@ -145,12 +157,25 @@ html {
   box-shadow: none;
   color: rgba(255, 255, 255, 1);
   border: none;
-  margin: 0.5rem 0;
+  margin: 0.3rem 0;
 }
 
 .layout-btn:hover {
   cursor: pointer;
   color: #d278c9;
+}
+
+.layout-btn.active {
+  background-color: rgba(210, 120, 201, .5);
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.layout-btn.active:hover {
+  cursor: default;
+  color: rgba(255, 255, 255, 1);
 }
 
 .gjs-resizer-c {
