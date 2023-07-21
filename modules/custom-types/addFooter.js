@@ -1,16 +1,9 @@
-// Define a boolean variable to control whether the component should be added or not
-let isFooterEnabled = false;
-
-// Function to toggle the component on/off
-function toggleFooter() {
-  isFooterEnabled = !isFooterEnabled;
-}
-
 export function addFooter(editor) {
   editor.DomComponents.addType("footer", {
 		model: {
 			defaults: {
 				tagName: "footer",
+				draggable: false,
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "footer-info")) {
@@ -26,6 +19,7 @@ export function addFooterInfo(editor) {
 		model: {
 			defaults: {
 				tagName: "div",
+				draggable: false,
         attributes: {
 					id: "footer",
 				},
@@ -35,7 +29,7 @@ export function addFooterInfo(editor) {
 					this.components().add({ type: "toggle-footnotes" });
 				}
         if (!this.components().find((component) => component.get("type") === "footnotes")) {
-					this.components().add({ type: "footnotes" });
+					this.components().add({ type: "footnotes" }, {draggable: false},);
 				}
 			},
 		},
@@ -47,6 +41,7 @@ export function addToggleFootnotes(editor) {
 		model: {
 			defaults: {
 				tagName: "p",
+				draggable: false,
         components: [
           {
             type: "text",
@@ -66,13 +61,14 @@ export function addFootnotes(editor) {
 		model: {
 			defaults: {
 				tagName: "div",
+				draggable: false,
         attributes: {
 					class: "footnotes",
 				},
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
+					this.components().add({ type: "paragraph" }, { draggable: false });
 				}
 			},
 		},

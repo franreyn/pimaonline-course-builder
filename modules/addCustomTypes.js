@@ -110,10 +110,16 @@ export function addCustomTypes(editor) {
 
 	// Footnotes
 	addFooter(editor);
+	restrictParentComponent("footer", ["wrapper"]);
 
 	addFooterInfo(editor);
+	restrictParentComponent("footer-info", ["footer"]);
+
 	addFootnotes(editor);
+	restrictParentComponent("footnotes", ["footer-info"]);
+
 	addToggleFootnotes(editor);
+	restrictParentComponent("toggle-footnotes", ["footer-info"]);
 
 	// Side-by-side Widget
   addSideBySide(editor);

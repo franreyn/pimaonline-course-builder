@@ -179,12 +179,6 @@ export function initEditor() {
 					label: "Content Body",
 					content: { type: "content-body" },
 				},
-				{
-					id: "footer",
-					category: "Containers",
-					label: "Footer",
-					content: { type: "footer" }
-				},
 				//=== Widgets
 				{
 					id: "assignments-widget",

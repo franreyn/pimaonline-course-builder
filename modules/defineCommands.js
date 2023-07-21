@@ -65,9 +65,13 @@ export function defineCommands(editor) {
 	editor.Commands.add("show-footer", {
 		run: (editor) => {
 			if (!isFooterAdded) {
-				editor.DomComponents.addComponent(
+				const footerComponent = editor.DomComponents.addComponent(
 					{type: "footer"},
-					{appendTo: "canvas"})
+					{appendTo: "canvas"}).set({
+						draggable: false,
+						removable: false
+					})
+
 				isFooterAdded = true;
 		} else {
 			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
