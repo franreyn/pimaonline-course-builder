@@ -71,7 +71,6 @@ export function defineCommands(editor) {
 				isFooterAdded = true;
 		} else {
 			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
-			console.log(footerInstance[0])
 			footerInstance[0].remove();
       isFooterAdded = false;
 		}
