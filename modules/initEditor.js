@@ -205,6 +205,12 @@ export function initEditor() {
 					content: { type: "card-horizontal" },
 				},
 				{
+					id: "horizontal-display",
+					category: "Widgets",
+					label: "Horizontal Display",
+					content: { type: "horizontal-display" },
+				},
+				{
 					id: "side-by-side",
 					category: "Widgets",
 					label: "Side by Side",

@@ -24,6 +24,7 @@ import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
+import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 
 export function addCustomTypes(editor) {
@@ -148,6 +149,10 @@ export function addCustomTypes(editor) {
 
 	// Raw image - Not a sole component, only used to build other components
   addRawImage(editor);
+
+	// Horizontal Display
+	addHorizontalDisplay(editor);
+	restrictParentComponent("horizontal-display", ["content-body"]);
 
 	// Image no caption
   addFigure(editor);
