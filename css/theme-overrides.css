@@ -9,3 +9,7 @@ body {
 dl.vocab-list dd {
   display: block;
 }
+
+.footnotes {
+  display: block;
+}
