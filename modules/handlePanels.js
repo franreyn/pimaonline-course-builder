@@ -7,5 +7,9 @@ export function handlePanels(editor) {
     el: ".panel__top",
   });
 
+  editor.Panels.addPanel({
+    id: "basic-actions",
+    el: ".panel__basic-actions",
+  });
   
 }

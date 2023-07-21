@@ -1,6 +1,10 @@
 
 
 export function defineCommands(editor) {
+
+	let isFooterAdded = false; 
+
+
 	//=== Define commands ===//
 	editor.Commands.add("show-layers", {
 		getRowEl(editor) {
@@ -56,6 +60,20 @@ export function defineCommands(editor) {
 	editor.Commands.add("set-device-mobile", {
 		run: (editor) => editor.setDevice("Mobile"),
 	});
+
+	//== Basic commands == //
+	editor.Commands.add("show-footer", {
+		
+		run: (editor) => {
+			if (!isFooterAdded) {
+				editor.DomComponents.addComponent(
+					{type: "footer"},
+					{appendTo: "canvas"})
+				isFooterAdded = true;
+			}
+		}
+
+	})
 
 	// Traits manager commands
 	editor.Commands.add("show-traits", {
