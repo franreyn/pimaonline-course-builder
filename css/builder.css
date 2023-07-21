@@ -131,6 +131,28 @@ html {
   margin: 0;
 }
 
+.gjs-block-category.gjs-open .layout-btn {
+  display: block;
+}
+
+.gjs-block-category:not(.gjs-open) .layout-btn {
+  display: none;
+}
+
+.layout-btn {
+  display: block;
+  background: transparent;
+  box-shadow: none;
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  margin: 0.5rem 0;
+}
+
+.layout-btn:hover {
+  cursor: pointer;
+  color: #d278c9;
+}
+
 .gjs-resizer-c {
   display: block;
 }
