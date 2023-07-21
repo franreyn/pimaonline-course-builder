@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export function handleEvents(editor, customToolbar) {
+export function handleEvents(editor, layoutsToolbar) {
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -84,7 +84,7 @@ export function handleEvents(editor, customToolbar) {
 	editor.on("component:title", setCustomLayerName);
 
 	// Add custom toolbar for layout components to avoid drag/drop layouts
-	customToolbar.addEventListener("click", (event) => {
+	layoutsToolbar.addEventListener("click", (event) => {
 		const button = event.target;
 		if (button.tagName === "BUTTON") {
 			const componentType = button.getAttribute("data-type");
@@ -93,18 +93,39 @@ export function handleEvents(editor, customToolbar) {
 	});
 
 	function addComponentToCanvas(editor, componentType) {
-		// Ensure only one type of component exists on the canvas at a time
-		removeExistingComponent(editor, componentType);
+  const existingLayout = editor.DomComponents.getComponents().find(
+    (component) => component.get("type") === componentType
+  );
 
-		// Add the component to the editor
-		const addedComponent = editor.DomComponents.addComponent({
-			type: componentType,
-			// Add any default attributes or styles if needed
-		});
+  const layoutsToolbarButtons = layoutsToolbar.querySelectorAll(".layout-btn");
+  layoutsToolbarButtons.forEach((button) => {
+    if (button.classList.contains("active")) {
+      button.classList.remove("active");
+    }
+  });
 
-		// Select the newly added component
-		editor.select(addedComponent);
-	}
+  if (!existingLayout) {
+    removeExistingComponent(editor, componentType);
+
+    // Add the component to the editor
+    const addedComponent = editor.DomComponents.addComponent({
+      type: componentType,
+      // Add any default attributes or styles if needed
+    });
+
+    // Select the newly added component
+    editor.select(addedComponent);
+  } else {
+    // If the layout is already active, just select it
+    editor.select(existingLayout);
+  }
+
+  // Mark the button as active
+  const selectedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
+  selectedButton.classList.add("active");
+}
+
+	
 
 	function removeExistingComponent(editor, componentType) {
 		const components = editor.DomComponents.getComponents();
@@ -120,12 +141,12 @@ export function handleEvents(editor, customToolbar) {
 		}
 	}
 
-	const title = customToolbar.querySelector(".gjs-title");
-  const caretIcon = customToolbar.querySelector(".gjs-caret-icon");
+	// const title = layoutsToolbar.querySelector(".gjs-title");
+  // const caretIcon = layoutsToolbar.querySelector(".gjs-caret-icon");
 
-  title.addEventListener("click", () => {
-    const isOpen = customToolbar.classList.toggle("gjs-open");
-    caretIcon.classList.toggle("fa-caret-down", isOpen);
-    caretIcon.classList.toggle("fa-caret-right", !isOpen);
-  });
+  // title.addEventListener("click", () => {
+  //   const isOpen = layoutsToolbar.classList.toggle("gjs-open");
+  //   caretIcon.classList.toggle("fa-caret-down", isOpen);
+  //   caretIcon.classList.toggle("fa-caret-right", !isOpen);
+  // });
 }
