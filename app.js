@@ -9,6 +9,8 @@ import { makeComponentsUnselectable } from "./modules/utils.js";
 
 // Init editor
 const editor = initEditor();
+const customToolbar = document.querySelector("#custom-toolbar");
+
 // Add editor style overrides (css)
 setComponents(editor)
 // Render the editor
@@ -17,7 +19,7 @@ editor.render();
 // Config
 handlePanels(editor)
 addCustomTypes(editor);
-handleEvents(editor);
+handleEvents(editor, customToolbar);
 defineCommands(editor);
 makeComponentsUnselectable(editor);
 
