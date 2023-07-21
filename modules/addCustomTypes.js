@@ -59,9 +59,11 @@ export function addCustomTypes(editor) {
 
 	// One column component
   addOneColumnLayout(editor);
+	restrictParentComponent("one-column-layout", ["wrapper"]);
 
 	// Two column components
   addTwoColumnLayout(editor);
+	restrictParentComponent("two-column-layout", ["wrapper"]);
 
 	// Header
   addHeader(editor);
