@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export function handleEvents(editor) {
+export function handleEvents(editor, customToolbar) {
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -82,4 +82,50 @@ export function handleEvents(editor) {
 	// Call function to set duplicatable/copyable components. Note: 'allowedCopyableComponents' set in config.js 
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
+
+	// Add custom toolbar for layout components to avoid drag/drop layouts
+	customToolbar.addEventListener("click", (event) => {
+		const button = event.target;
+		if (button.tagName === "BUTTON") {
+			const componentType = button.getAttribute("data-type");
+			addComponentToCanvas(editor, componentType);
+		}
+	});
+
+	function addComponentToCanvas(editor, componentType) {
+		// Ensure only one type of component exists on the canvas at a time
+		removeExistingComponent(editor, componentType);
+
+		// Add the component to the editor
+		const addedComponent = editor.DomComponents.addComponent({
+			type: componentType,
+			// Add any default attributes or styles if needed
+		});
+
+		// Select the newly added component
+		editor.select(addedComponent);
+	}
+
+	function removeExistingComponent(editor, componentType) {
+		const components = editor.DomComponents.getComponents();
+
+		// Get the type of the component to remove based on the type of the newly added component
+		const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : "one-column-layout";
+
+		// Find the existing component of the opposite type and remove it
+		const existingComponent = components.find((component) => component.get("type") === typeToRemove);
+		if (existingComponent) {
+			editor.select(existingComponent);
+			editor.runCommand("core:component-delete");
+		}
+	}
+
+	const title = customToolbar.querySelector(".gjs-title");
+  const caretIcon = customToolbar.querySelector(".gjs-caret-icon");
+
+  title.addEventListener("click", () => {
+    const isOpen = customToolbar.classList.toggle("gjs-open");
+    caretIcon.classList.toggle("fa-caret-down", isOpen);
+    caretIcon.classList.toggle("fa-caret-right", !isOpen);
+  });
 }
