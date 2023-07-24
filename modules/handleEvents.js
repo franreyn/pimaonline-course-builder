@@ -92,40 +92,39 @@ export function handleEvents(editor, layoutsToolbar) {
 		}
 	});
 
-	function addComponentToCanvas(editor, componentType) {
-  const existingLayout = editor.DomComponents.getComponents().find(
-    (component) => component.get("type") === componentType
-  );
+	function addComponentToCanvas(editor, componentType) {		
+  	const existingLayout = editor.DomComponents.getComponents().find(
+    	(component) => component.get("type") === componentType
+  	);
 
-  const layoutsToolbarButtons = layoutsToolbar.querySelectorAll(".layout-btn");
-  layoutsToolbarButtons.forEach((button) => {
-    if (button.classList.contains("active")) {
-      button.classList.remove("active");
-    }
-  });
+		const layoutsToolbarButtons = layoutsToolbar.querySelectorAll(".layout-btn");
+			layoutsToolbarButtons.forEach((button) => {
+				if (button.classList.contains("active")) {
+					button.classList.remove("active");
+				}
+			}
+		);
 
-  if (!existingLayout) {
-    removeExistingComponent(editor, componentType);
+		if (!existingLayout) {
+			removeExistingComponent(editor, componentType);
 
-    // Add the component to the editor
-    const addedComponent = editor.DomComponents.addComponent({
-      type: componentType,
-      // Add any default attributes or styles if needed
-    });
+			// Add the component to the editor
+			const addedComponent = editor.DomComponents.addComponent({
+				type: componentType,
+				// Add any default attributes or styles if needed
+			});
 
-    // Select the newly added component
-    editor.select(addedComponent);
-  } else {
-    // If the layout is already active, just select it
-    editor.select(existingLayout);
-  }
+			// Select the newly added component
+			editor.select(addedComponent);
+		} else {
+			// If the layout is already active, just select it
+			editor.select(existingLayout);
+		}
 
-  // Mark the button as active
-  const selectedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
-  selectedButton.classList.add("active");
-}
-
-	
+		// Mark the button as active
+		const selectedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
+		selectedButton.classList.add("active");
+	}
 
 	function removeExistingComponent(editor, componentType) {
 		const components = editor.DomComponents.getComponents();
@@ -140,13 +139,4 @@ export function handleEvents(editor, layoutsToolbar) {
 			editor.runCommand("core:component-delete");
 		}
 	}
-
-	// const title = layoutsToolbar.querySelector(".gjs-title");
-  // const caretIcon = layoutsToolbar.querySelector(".gjs-caret-icon");
-
-  // title.addEventListener("click", () => {
-  //   const isOpen = layoutsToolbar.classList.toggle("gjs-open");
-  //   caretIcon.classList.toggle("fa-caret-down", isOpen);
-  //   caretIcon.classList.toggle("fa-caret-right", !isOpen);
-  // });
 }

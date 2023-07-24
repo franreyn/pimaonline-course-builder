@@ -131,14 +131,6 @@ html {
   margin: 0;
 }
 
-/* .gjs-block-category.gjs-open .layout-btn {
-  display: block;
-}
-
-.gjs-block-category:not(.gjs-open) .layout-btn {
-  display: none;
-} */
-
 .layouts-toolbar-title {
   text-align: left;
   font-weight: 300;
@@ -155,7 +147,6 @@ html {
   display: block;
   background: transparent;
   box-shadow: none;
-  color: rgba(255, 255, 255, 1);
   border: none;
   margin: 0.3rem 0;
 }
