@@ -33,7 +33,7 @@ export function handleEvents(editor, layoutsToolbar) {
 	// If you add one type of layout (1 col, 2col, etc) and another is already there, remove the first one but first warn the user
 	let columnComponentCount = 0;
 	editor.on("component:add", (component) => {
-		if (component.get("type") === "one-column-layout" || component.get("type") === "two-column-layout") {
+		if (component.get("type") === "one-column-layout" || component.get("type") === "two-column-layout" || component.get("type") === "three-section-layout") {
 			columnComponentCount += 1;
 			if (columnComponentCount > 1) {
 				const confirmSwitch = window.confirm("Your content will be deleted if you switch layouts, are you sure?");
@@ -63,7 +63,7 @@ export function handleEvents(editor, layoutsToolbar) {
 	editor.on("component:mount", (component) => {
 		if (component.get("type") === "content-body") {
 			const parentType = component.parent().get("type");
-			if (parentType !== "content-wrapper" && parentType !== "second-column") {
+			if (parentType !== "content-wrapper" && parentType !== "second-column" && parentType !== "third-column") {
 				component.remove();
 			}
 		}
@@ -130,7 +130,7 @@ export function handleEvents(editor, layoutsToolbar) {
 		const components = editor.DomComponents.getComponents();
 
 		// Get the type of the component to remove based on the type of the newly added component
-		const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : "one-column-layout";
+		const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : componentType === "two-column-layout" ? "three-section-layout" : "one-column-layout";
 
 		// Find the existing component of the opposite type and remove it
 		const existingComponent = components.find((component) => component.get("type") === typeToRemove);
