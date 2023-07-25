@@ -9,3 +9,20 @@ body {
 dl.vocab-list dd {
   display: block;
 }
+
+/* Widgets */
+.table-th, .table-td {
+  word-break: break-word;
+}
+
+@media screen and (min-width: 768px) {
+  table.custom-width th:first-child {
+    width: 33.33%
+  }
+  table.custom-width th:nth-child(2) {
+    width: 33.33%;
+  }
+  table.custom-width th:last-child {
+    width: 33.33%;
+  }
+}
