@@ -10,6 +10,7 @@ export function addTable(editor) {
 			init() {
 				if (!this.components().find((component) => component.get("type") === "thead")) {
 					this.components().add({ type: "thead" });
+					this.components().add({ type: "tbody" });
 				}
 			},
 		},
@@ -23,16 +24,16 @@ export function addThead(editor) {
 				tagName: "thead",
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "tr")) {
-					this.components().add({ type: "tr" });
+				if (!this.components().find((component) => component.get("type") === "thead-tr")) {
+					this.components().add({ type: "thead-tr" });
 				}
 			},
 		},
 	});
 }
 
-export function addTr(editor) {
-  editor.DomComponents.addType("tr", {
+export function addTheadTr(editor) {
+  editor.DomComponents.addType("thead-tr", {
 		model: {
 			defaults: {
 				tagName: "tr",
@@ -67,18 +68,35 @@ export function addTh(editor) {
 
 export function addTbody(editor) {
   editor.DomComponents.addType("tbody", {
-		model: {
-			defaults: {
-				tagName: "tbody",
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "tr")) {
-					this.components().add({ type: "tr" });
-					this.components().add({ type: "tr" });
-				}
-			},
-		},
-	});
+    model: {
+      defaults: {
+        tagName: "tbody",
+      },
+      init() {
+        if (!this.components().find((component) => component.get("type") === "tbody-tr")) {
+          this.components().add({ type: "tbody-tr" });
+          this.components().add({ type: "tbody-tr" });
+        }
+      },
+    },
+  });
+}
+
+export function addTbodyTr(editor) {
+  editor.DomComponents.addType("tbody-tr", {
+    model: {
+      defaults: {
+        tagName: "tr",
+      },
+      init() {
+        if (!this.components().find((component) => component.get("type") === "td")) {
+          this.components().add({ type: "td" });
+          this.components().add({ type: "td" });
+          this.components().add({ type: "td" });
+        }
+      },
+    },
+  });
 }
 
 export function addTd(editor) {
