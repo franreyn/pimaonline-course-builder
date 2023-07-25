@@ -4,7 +4,7 @@ export function addTable(editor) {
 			defaults: {
 				tagName: "table",
 				attributes: {
-					class: "display-lg",
+					class: "display-lg custom-width",
 				},
 			},
 			init() {
@@ -56,7 +56,7 @@ export function addTh(editor) {
 		model: {
 			defaults: {
 				tagName: "th",
-        attributes: { contenteditable: "true", scope: "col" },
+        attributes: { contenteditable: "true", scope: "col", class: "table-th" },
 				components: [
 					{
 						type: "text",
@@ -106,7 +106,7 @@ export function addTd(editor) {
 		model: {
 			defaults: {
 				tagName: "td",
-        attributes: { contenteditable: "true" },
+        attributes: { contenteditable: "true", class: "table-td" },
 				components: [
 					{
 						type: "text",
