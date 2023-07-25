@@ -10,6 +10,8 @@ export function addTable(editor) {
 			init() {
 				if (!this.components().find((component) => component.get("type") === "thead")) {
 					this.components().add({ type: "thead" });
+				}
+				if (!this.components().find((component) => component.get("type") === "tbody")) {
 					this.components().add({ type: "tbody" });
 				}
 			},
