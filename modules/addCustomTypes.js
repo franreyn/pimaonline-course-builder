@@ -1,5 +1,6 @@
 import { addOneColumnLayout } from "./custom-types/addOneColumnLayout.js";
 import { addTwoColumnLayout } from "./custom-types/addTwoColumnLayout.js";
+import { addThreeSectionLayout } from "./custom-types/addThreeSectionLayout.js";
 import { addHeader } from "./custom-types/addHeader.js";
 import { addBannerImage } from "./custom-types/addBannerImage.js";
 import { addTextContainer } from "./custom-types/addTextContainer.js";
@@ -26,6 +27,7 @@ import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
+import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -65,9 +67,15 @@ export function addCustomTypes(editor) {
 
 	// One column component
   addOneColumnLayout(editor);
+	restrictParentComponent("one-column-layout", ["wrapper"]);
 
 	// Two column components
   addTwoColumnLayout(editor);
+	restrictParentComponent("two-column-layout", ["wrapper"]);
+
+	// Three section component
+  addThreeSectionLayout(editor);
+	restrictParentComponent("three-section-layout", ["wrapper"]);
 
 	// Header
   addHeader(editor);
@@ -85,9 +93,12 @@ export function addCustomTypes(editor) {
 	// Second column
   addSecondColumn(editor);
 
+	// Third column
+	addThirdColumn(editor);
+
 	// Content-body
   addContentBody(editor);
-	restrictParentComponent("content-body", ["content-wrapper", "second-column"]);
+	restrictParentComponent("content-body", ["content-wrapper", "second-column", "third-column"]);
 
 	// Border widget
   addContentBody(editor);

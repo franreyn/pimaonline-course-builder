@@ -157,21 +157,6 @@ export function initEditor() {
 		blockManager: {
 			appendTo: ".blocks-container",
 			blocks: [
-				//=== Layouts
-				{
-					id: "one-column", // id is mandatory
-					label: "<b>One Column</b>", // You can use HTML/SVG inside labels
-					// attributes: { class:'gjs-block-section' },
-					category: "Layout",
-					content: { type: "one-column-layout" },
-				},
-				{
-					id: "two-column", // id is mandatory
-					label: "<b>Two Column</b>", // You can use HTML/SVG inside labels
-					// attributes: { class:'gjs-block-section' },
-					category: "Layout",
-					content: { type: "two-column-layout" },
-				},
 				// === Containers
 				{
 					id: "content-body",
