@@ -98,15 +98,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 					});
 				footerToolbarButtons[0].classList.add("active");
 				footerToolbarButtons[1].classList.remove("active");
-				console.log(footerToolbarButtons)
 
 			} else if(componentType == "footer-off") {
 			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
 			  footerInstance[0].remove();
 				footerToolbarButtons[1].classList.add("active");
 				footerToolbarButtons[0].classList.remove("active");
-				console.log(footerToolbarButtons)
-
 			}
 		}
 	});
