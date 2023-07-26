@@ -1,10 +1,26 @@
+export function saveToLocal(editor) {
+  // Prompt the user for the file name
+  const fileName = prompt("Enter the file name to save:", "_grapes-project.json");
 
+  if (!fileName) {
+    // If the user cancels the prompt or doesn't provide a name, abort the save process
+    return;
+  }
 
+  const storedProjectData = editor.store();
+  const blob = new Blob([JSON.stringify(storedProjectData)], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
 
-export async function saveToLocal(editor) {
-  const storedProjectData = await editor.store();
-  const blob = new Blob([JSON.stringify(storedProjectData)], {type: "application/json;charset=utf-8"});
-  saveAs(blob, "_grapes-project.json");
+  // Create an anchor element with the download link
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = fileName;
+
+  // Simulate a click on the anchor to trigger the download
+  anchor.click();
+
+  // Clean up the object URL
+  URL.revokeObjectURL(url);
 }
 
 export function openFromLocal(editor) {
