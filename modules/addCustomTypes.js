@@ -27,6 +27,7 @@ import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
+import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -268,6 +269,34 @@ export function addCustomTypes(editor) {
 	// Paragraph
 	addParagraph(editor);
 	restrictParentComponent("paragraph", allWidgets);
+
+	// Table
+	addTable(editor);
+	restrictParentComponent("table", ["content-body"]);
+
+	// thead
+	addThead(editor);
+	restrictParentComponent("thead", ["table"]);
+
+	// tr
+	addTheadTr(editor);
+	restrictParentComponent("thead-tr", ["thead"]);
+
+	// th
+	addTh(editor);
+	restrictParentComponent("th", ["thead-tr"]);
+
+	// tbody
+	addTbody(editor);
+	restrictParentComponent("tbody", ["table"]);
+
+	// tr nested in tbody
+	addTbodyTr(editor);
+	restrictParentComponent("tbody-tr", ["tbody"]);
+
+	// td
+	addTd(editor);
+	restrictParentComponent("td", ["tbody-tr"]);
 
 	// ======= END COMPONENTS ======
 	// ...
