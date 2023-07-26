@@ -62,24 +62,6 @@ export function defineCommands(editor) {
 	});
 
 	//== Basic commands == //
-	editor.Commands.add("show-footer", {
-		run: (editor) => {
-			if (!isFooterAdded) {
-				const footerComponent = editor.DomComponents.addComponent(
-					{type: "footer"},
-					{appendTo: "canvas"}).set({
-						draggable: false,
-						removable: false
-					})
-
-				isFooterAdded = true;
-		} else {
-			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
-			footerInstance[0].remove();
-      isFooterAdded = false;
-		}
-	}	
-	})
 
 	// Traits manager commands
 	editor.Commands.add("show-traits", {
