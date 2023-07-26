@@ -1,5 +1,7 @@
 #one-column {
   width: 100%;
+  max-width: 998px;
+  margin: auto;
 }
 
 body {
@@ -12,4 +14,15 @@ dl.vocab-list dd {
 
 .footnotes {
   display: block;
+}
+
+footer {
+  width: 95%;
+  max-width: 1160px;
+}
+
+#one-column + footer {
+  width: 100%;
+  max-width: 998px;
+  padding: 2.5%;
 }
