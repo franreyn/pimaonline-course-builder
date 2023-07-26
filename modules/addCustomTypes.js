@@ -27,6 +27,7 @@ import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
+import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -121,6 +122,22 @@ export function addCustomTypes(editor) {
 	// Side-by-side Item
   addSideBySideItem(editor);
 	restrictParentComponent("side-by-side-item", ["side-by-side"]);
+
+	// Vocab cards
+	addVocabCards(editor);
+	restrictParentComponent("vocab-cards", ["content-body"]);
+
+	// Vocab item
+	addVocabItem(editor);
+	restrictParentComponent("vocab-item", ["vocab-cards"]);
+
+	// Vocab card term
+	addVocabCardTerm(editor);
+	restrictParentComponent("vocab-card-term", ["vocab-item"]);
+
+	// Vocab card definition
+	addVocabCardDef(editor);
+	restrictParentComponent("vocab-card-def", ["vocab-item"]);
 
 	// Vocabulary widget
   addVocabulary(editor);
