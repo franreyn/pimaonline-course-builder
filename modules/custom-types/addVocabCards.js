@@ -8,19 +8,19 @@ export function addVocabCards(editor) {
 				},
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "vocab")) {
-					this.components().add({ type: "vocab" });
-					this.components().add({ type: "vocab" });
-					this.components().add({ type: "vocab" });
-					this.components().add({ type: "vocab" });
+				if (!this.components().find((component) => component.get("type") === "vocab-item")) {
+					this.components().add({ type: "vocab-item" });
+					this.components().add({ type: "vocab-item" });
+					this.components().add({ type: "vocab-item" });
+					this.components().add({ type: "vocab-item" });
 				}
 			},
 		},
 	});
 }
 
-export function addVocab(editor) {
-  editor.DomComponents.addType("vocab", {
+export function addVocabItem(editor) {
+  editor.DomComponents.addType("vocab-item", {
 		model: {
 			defaults: {
 				tagName: "div",
@@ -29,19 +29,19 @@ export function addVocab(editor) {
 				},
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "vocab-dt")) {
-					this.components().add({ type: "vocab-dt" });
+				if (!this.components().find((component) => component.get("type") === "vocab-card-term")) {
+					this.components().add({ type: "vocab-card-term" });
 				}
-				if (!this.components().find((component) => component.get("type") === "vocab-dd")) {
-					this.components().add({ type: "vocab-dd" });
+				if (!this.components().find((component) => component.get("type") === "vocab-card-def")) {
+					this.components().add({ type: "vocab-card-def" });
 				}
 			},
 		},
 	});
 }
 
-export function addVocabDt(editor) {
-  editor.DomComponents.addType("vocab-dt", {
+export function addVocabCardTerm(editor) {
+  editor.DomComponents.addType("vocab-card-term", {
 		model: {
 			defaults: {
 				tagName: "dt",
@@ -57,8 +57,8 @@ export function addVocabDt(editor) {
 	});
 }
 
-export function addVocabDd(editor) {
-  editor.DomComponents.addType("vocab-dd", {
+export function addVocabCardDef(editor) {
+  editor.DomComponents.addType("vocab-card-def", {
 		model: {
 			defaults: {
 				tagName: "dd",
