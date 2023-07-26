@@ -1,6 +1,6 @@
 import { config } from "../config.js";
 
-export function handleEvents(editor, layoutsToolbar) {
+export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -82,6 +82,34 @@ export function handleEvents(editor, layoutsToolbar) {
 	// Call function to set duplicatable/copyable components. Note: 'allowedCopyableComponents' set in config.js 
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
+
+	//Add custom toolbar for footer 
+	footerToolbar.addEventListener("click", (event) => {
+		const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+		const button = event.target;
+		if (button.tagName === "BUTTON") {
+			const componentType = button.getAttribute("data-type");
+			if(componentType == "footer-on") {
+				editor.DomComponents.addComponent(
+					{type: "footer"},
+					{appendTo: "canvas"}).set({
+						draggable: false,
+						removable: false
+					});
+				footerToolbarButtons[0].classList.add("active");
+				footerToolbarButtons[1].classList.remove("active");
+				console.log(footerToolbarButtons)
+
+			} else if(componentType == "footer-off") {
+			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
+			  footerInstance[0].remove();
+				footerToolbarButtons[1].classList.add("active");
+				footerToolbarButtons[0].classList.remove("active");
+				console.log(footerToolbarButtons)
+
+			}
+		}
+	});
 
 	// Add custom toolbar for layout components to avoid drag/drop layouts
 	layoutsToolbar.addEventListener("click", (event) => {

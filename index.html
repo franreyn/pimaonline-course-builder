@@ -1,62 +1,69 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/css/grapes.min.css"> -->
-  <link rel="stylesheet" href="./grapesjs/grapes.min.css">
-  <link rel="stylesheet" href="./css/builder.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/grapes.min.js" defer></script> -->
-  <script src="./grapesjs/grapes.min.js" defer></script>
-  <!-- <script type="module" src="./modules/initEditor.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/css/grapes.min.css"> -->
+    <link rel="stylesheet" href="./grapesjs/grapes.min.css" />
+    <link rel="stylesheet" href="./css/builder.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/grapes.min.js" defer></script> -->
+    <script src="./grapesjs/grapes.min.js" defer></script>
+    <!-- <script type="module" src="./modules/initEditor.js" defer></script>
   <script type="module" src="./modules/addCustomTypes.js" defer></script>
   <script type="module" src="./modules/handleEvents.js" defer></script>
   <script type="module" src="./modules/setComponents.js" defer></script>
   <script type="module" src="./modules/handlePanels.js" defer></script>
   <script type="module" src="./modules/fileOperations.js" defer></script> -->
-  <!-- <script type="module" src="./modules/custom-types/addOneColumnLayout.js" defer></script> -->
-  <!-- <script type="module" src="./modules/custom-types/addTwoColumnLayout.js" defer></script> -->
-  <script type="module" src="./app.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/src/FileSaver.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@latest"></script>
-  <title>PimaOnline Course Builder</title>
-</head>
-<body>
-  <div class="menu-bar">
-    <!-- <button id="btn-save">Save</button> -->
-    <button id="btn-save-as">Save As</button>
-    <button id="btn-open">Open</button>
-    <button id="btn-export">Export HTML</button>
-  </div>
-  <div class="panel__top">
-    <div class="panel__devices"></div>
-    <div class="panel__basic-actions"></div>
-    <div class="panel__switcher"></div>
-  </div>  
-  <div class="editor-row">
-    <div class="editor-canvas">
-      <div id="gjs">
-        <!-- <h1>Hello World Component!</h1> -->
-      </div>
+    <!-- <script type="module" src="./modules/custom-types/addOneColumnLayout.js" defer></script> -->
+    <!-- <script type="module" src="./modules/custom-types/addTwoColumnLayout.js" defer></script> -->
+    <script type="module" src="./app.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/src/FileSaver.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@latest"></script>
+    <title>PimaOnline Course Builder</title>
+  </head>
+  <body>
+    <div class="menu-bar">
+      <!-- <button id="btn-save">Save</button> -->
+      <button id="btn-save-as">Save As</button>
+      <button id="btn-open">Open</button>
+      <button id="btn-export">Export HTML</button>
     </div>
-    <div class="panel__right">
-      <div id="layouts-toolbar" class="gjs-block-category gjs-open">
-        <div class="layouts-toolbar-title">Layouts</div>
-        <div class="btn-container">
-          <button data-type="one-column-layout" class="layout-btn gjs-two-color">1 Column</button>
-          <button data-type="two-column-layout" class="layout-btn gjs-two-color">2 Column</button>
-          <button data-type="three-section-layout" class="layout-btn gjs-two-color">3 Section</button>
+    <div class="panel__top">
+      <div class="panel__devices"></div>
+      <div class="panel__basic-actions"></div>
+      <div class="panel__switcher"></div>
+    </div>
+    <div class="editor-row">
+      <div class="editor-canvas">
+        <div id="gjs">
+          <!-- <h1>Hello World Component!</h1> -->
         </div>
       </div>
-      <div class="blocks-container" style="display: none;"></div>
-      <div class="layers-container"></div>
-      <div class="styles-container"></div>
-      <div class="traits-container"></div>
+      <div class="panel__right">
+        <div id="layouts-toolbar" class="gjs-block-category gjs-open">
+          <div class="layouts-toolbar-title">Layouts</div>
+          <div class="btn-container">
+            <button data-type="one-column-layout" class="layout-btn gjs-two-color">1 Column</button>
+            <button data-type="two-column-layout" class="layout-btn gjs-two-color">2 Column</button>
+            <button data-type="three-section-layout" class="layout-btn gjs-two-color">3 Section</button>
+          </div>
+        </div>
+        <div id="footer-toolbar" class="gjs-block-category gjs-open">
+          <div class="layouts-toolbar-title">Footer</div>
+          <div class="btn-container-sm">
+            <button data-type="footer-on" class="footer-btn gjs-two-color">On</button>
+            <button data-type="footer-off" class="footer-btn gjs-two-color active">Off</button>
+          </div>
+        </div>
+        <div class="blocks-container" style="display: none"></div>
+        <div class="layers-container"></div>
+        <div class="styles-container"></div>
+        <div class="traits-container"></div>
+      </div>
     </div>
-  </div>
-  <!-- <div id="blocks"></div> -->
-</body>
+    <!-- <div id="blocks"></div> -->
+  </body>
 </html>
