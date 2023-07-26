@@ -17,6 +17,8 @@ export const config = {
     "panopto-container", 
     "paragraph", 
     "ul", 
+    "vocab-cards",
+    "vocab-item",
     "youtube-container", 
   ],
   unselectableComponents: [
