@@ -196,6 +196,12 @@ export function initEditor() {
 					content: { type: "side-by-side" },
 				},
 				{
+					id: "table",
+					category: "Widgets",
+					label: "Table",
+					content: { type: "table" },
+				},
+				{
 					id: "vocab-cards",
 					category: "Widgets",
 					label: "Vocab Cards",
