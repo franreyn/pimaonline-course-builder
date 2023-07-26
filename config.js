@@ -21,6 +21,8 @@ export const config = {
     "tbody-tr",
     "td",
     "ul", 
+    "vocab-cards",
+    "vocab-item",
     "youtube-container", 
   ],
   unselectableComponents: [
