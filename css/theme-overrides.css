@@ -16,13 +16,7 @@ dl.vocab-list dd {
 }
 
 @media screen and (min-width: 768px) {
-  table.custom-width th:first-child {
-    width: 33.33%
-  }
-  table.custom-width th:nth-child(2) {
-    width: 33.33%;
-  }
-  table.custom-width th:last-child {
-    width: 33.33%;
+  table.custom-width th {
+    width: 10% !important;
   }
 }
