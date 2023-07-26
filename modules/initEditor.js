@@ -83,18 +83,6 @@ export function initEditor() {
 							togglable: false,
 						},
 					],
-				},{
-					id: "basic-actions",
-					el: ".panel__basic-actions",
-					buttons: [
-						{
-							id: "show-footer",
-							active: false,
-							label: `<span>[] show footer</span>`,
-							command: "show-footer",
-							togglable: true,
-						},
-					],
 				},
 				{
 					id: "panel-switcher",
