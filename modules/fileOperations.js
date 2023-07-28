@@ -1,4 +1,4 @@
-export function saveToLocal(editor) {
+export async function saveToLocal(editor) {
   // Prompt the user for the file name
   const fileName = prompt("Enter the file name to save:", "_grapes-project.json");
 
@@ -7,7 +7,7 @@ export function saveToLocal(editor) {
     return;
   }
 
-  const storedProjectData = editor.store();
+  const storedProjectData = await editor.store();
   const blob = new Blob([JSON.stringify(storedProjectData)], { type: "application/json;charset=utf-8" });
   const url = URL.createObjectURL(blob);
 
@@ -29,11 +29,29 @@ export function openFromLocal(editor) {
   input.accept = 'application/json';
   input.onchange = async () => {
     const file = input.files[0];
+    console.log('Selected file:', file); // Log the selected file
+  
     const reader = new FileReader();
     reader.onload = async () => {
-      const projectData = JSON.parse(reader.result);
-      await editor.load(projectData);
+      console.log('File content:', reader.result); // Log the file content
+
+      try {
+        const projectData = JSON.parse(reader.result);
+        console.log('Parsed project data:', projectData); // Log the parsed project data
+
+        editor.setComponents(projectData.pages[0].frames[0].component.components);
+        editor.setStyle(projectData.styles);
+
+        console.log('Project data loaded into editor'); // Log success message
+      } catch (error) {
+        console.error('Error parsing or loading project data:', error); // Log any errors
+      }
     };
+  
+    reader.onerror = (error) => {
+    console.error('Error reading file:', error); // Log any errors during file reading
+    };
+  
     reader.readAsText(file);
   };
   input.click();
