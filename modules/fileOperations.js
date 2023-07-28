@@ -29,20 +29,14 @@ export function openFromLocal(editor) {
   input.accept = 'application/json';
   input.onchange = async () => {
     const file = input.files[0];
-    console.log('Selected file:', file); // Log the selected file
   
     const reader = new FileReader();
     reader.onload = async () => {
-      console.log('File content:', reader.result); // Log the file content
-
       try {
         const projectData = JSON.parse(reader.result);
-        console.log('Parsed project data:', projectData); // Log the parsed project data
 
         editor.setComponents(projectData.pages[0].frames[0].component.components);
         editor.setStyle(projectData.styles);
-
-        console.log('Project data loaded into editor'); // Log success message
       } catch (error) {
         console.error('Error parsing or loading project data:', error); // Log any errors
       }
