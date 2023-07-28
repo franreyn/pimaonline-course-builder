@@ -5,7 +5,7 @@ export function initEditor() {
 		fromElement: true,
 		height: "100%",
 		width: "auto",
-		storageManager: true,
+		storageManager: false,
 		panels: { defaults: [] },
 		plugins: ["grapesjs-plugin-ckeditor"],
 		/* pluginsOpts: {
@@ -128,18 +128,6 @@ export function initEditor() {
 		// =====
 		selectorManager: {
 			appendTo: ".styles-container",
-		},
-		// Storage manager
-		storageManager: {
-			id: "gjs-", // Prefix identifier that will be used inside storing and loading
-			type: "local", // Type of the storage
-			autosave: false, // Store data automatically
-			autoload: false, // Autoload stored data on init
-			stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
-			storeComponents: true, // Enable/Disable storing of components in JSON format
-			storeStyles: true, // Enable/Disable storing of rules in JSON format
-			storeHtml: true, // Enable/Disable storing of components as HTML string
-			storeCss: true, // Enable/Disable storing of rules as CSS string
 		},
 		// Block manager
 		blockManager: {
