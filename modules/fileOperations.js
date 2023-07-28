@@ -1,7 +1,50 @@
-export async function saveToLocal(editor) {
-  // Prompt the user for the file name
-  const fileName = prompt("Enter the file name to save:", "_grapes-project.json");
+export function openFromLocal(editor) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.onchange = async () => {
+    const file = input.files[0];
+  
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const projectData = JSON.parse(reader.result);
+        
+        // Get the file name without the extension from the loaded file
+        loadedFileName = file.name.split('.').slice(0, -1).join('.');
 
+        editor.setComponents(projectData.pages[0].frames[0].component.components);
+        editor.setStyle(projectData.styles);
+      } catch (error) {
+        console.error('Error parsing or loading project data:', error); // Log any errors
+      }
+    };
+  
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error); // Log any errors during file reading
+    };
+  
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// Add a variable to store the loaded file name
+let loadedFileName = "";
+
+export async function saveToLocal(editor) {
+  // Check if a file has been loaded previously
+  if (loadedFileName) {
+    // If a file has been loaded, use its name for saving the changes
+    await saveAsToLocal(editor, loadedFileName);
+  } else {
+    // If no file has been loaded, prompt the user for a new file name
+    const fileName = prompt("Enter the file name to save:", "_grapes-project.json");
+    await saveAsToLocal(editor, fileName);
+  }
+}
+
+export async function saveAsToLocal(editor, fileName) {
   if (!fileName) {
     // If the user cancels the prompt or doesn't provide a name, abort the save process
     return;
@@ -21,35 +64,11 @@ export async function saveToLocal(editor) {
 
   // Clean up the object URL
   URL.revokeObjectURL(url);
+
+  // Update the loaded file name variable with the new file name
+  loadedFileName = fileName;
 }
 
-export function openFromLocal(editor) {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'application/json';
-  input.onchange = async () => {
-    const file = input.files[0];
-  
-    const reader = new FileReader();
-    reader.onload = async () => {
-      try {
-        const projectData = JSON.parse(reader.result);
-
-        editor.setComponents(projectData.pages[0].frames[0].component.components);
-        editor.setStyle(projectData.styles);
-      } catch (error) {
-        console.error('Error parsing or loading project data:', error); // Log any errors
-      }
-    };
-  
-    reader.onerror = (error) => {
-    console.error('Error reading file:', error); // Log any errors during file reading
-    };
-  
-    reader.readAsText(file);
-  };
-  input.click();
-}
 
 export function exportFile(editor) {
 	const filename = "exported.html";
