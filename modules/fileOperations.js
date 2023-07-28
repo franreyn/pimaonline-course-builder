@@ -39,7 +39,7 @@ export async function saveToLocal(editor) {
     await saveAsToLocal(editor, loadedFileName);
   } else {
     // If no file has been loaded, prompt the user for a new file name
-    const fileName = prompt("Enter the file name to save:", "_grapes-project.json");
+    const fileName = prompt("Enter the file name to save:", "project.json");
     await saveAsToLocal(editor, fileName);
   }
 }
