@@ -39,7 +39,9 @@ export function handleEvents(editor, layoutsToolbar) {
 				const confirmSwitch = window.confirm("Your content will be deleted if you switch layouts, are you sure?");
 				if (confirmSwitch) {
 						editor.runCommand("remove-sibling-components", { component });
-					}
+				} else {
+					component.remove(); // Remove the component if the user cancels the first confirmation
+				}
 			}
 		}
 		setCustomLayerName(component);
