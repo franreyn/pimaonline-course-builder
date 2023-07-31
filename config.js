@@ -16,7 +16,13 @@ export const config = {
     "ol", 
     "panopto-container", 
     "paragraph", 
+    "table",
+    "th",
+    "tbody-tr",
+    "td",
     "ul", 
+    "vocab-cards",
+    "vocab-item",
     "youtube-container", 
   ],
   unselectableComponents: [

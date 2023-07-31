@@ -12,6 +12,46 @@ dl.vocab-list dd {
   display: block;
 }
 
+/* Widgets */
+.table-th, .table-td {
+  word-break: break-word;
+}
+
+@media screen and (min-width: 768px) {
+  table.custom-width th {
+    width: 10% !important;
+  }
+}
+
+/* Vocabulary Cards Widget */
+.vocab-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1em;
+}
+
+.vocab {
+  border-radius: 15px 15px 15px 15px;
+  background-color: var(--color-pcc-white);
+  box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, .15);
+  margin: 10px auto;
+  width: 250px;
+  padding: 1em;
+  justify-content: center;
+  transition: .5s;
+
+  dt {
+    margin: .5em 0;
+  }
+
+  &:hover {
+    transform: translate(0, -5px);
+    transition: .5s;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, .25);
+
+  }
+}
+
 .footnotes {
   display: block;
 }

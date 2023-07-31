@@ -24,8 +24,8 @@ handleEvents(editor, layoutsToolbar, footerToolbar);
 defineCommands(editor);
 makeComponentsUnselectable(editor);
 
-const btnSaveAs = document.querySelector("#btn-save-as");
-btnSaveAs.addEventListener("click", () => saveToLocal(editor));
+const btnSave = document.querySelector("#btn-save");
+btnSave.addEventListener("click", () => saveToLocal(editor));
 
 const btnOpen = document.querySelector("#btn-open");
 btnOpen.addEventListener("click", () => openFromLocal(editor));

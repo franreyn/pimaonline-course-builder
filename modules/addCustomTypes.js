@@ -28,6 +28,8 @@ import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
+import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
+import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -139,6 +141,22 @@ export function addCustomTypes(editor) {
 	// Side-by-side Item
   addSideBySideItem(editor);
 	restrictParentComponent("side-by-side-item", ["side-by-side"]);
+
+	// Vocab cards
+	addVocabCards(editor);
+	restrictParentComponent("vocab-cards", ["content-body"]);
+
+	// Vocab item
+	addVocabItem(editor);
+	restrictParentComponent("vocab-item", ["vocab-cards"]);
+
+	// Vocab card term
+	addVocabCardTerm(editor);
+	restrictParentComponent("vocab-card-term", ["vocab-item"]);
+
+	// Vocab card definition
+	addVocabCardDef(editor);
+	restrictParentComponent("vocab-card-def", ["vocab-item"]);
 
 	// Vocabulary widget
   addVocabulary(editor);
@@ -286,6 +304,34 @@ export function addCustomTypes(editor) {
 	// Paragraph
 	addParagraph(editor);
 	restrictParentComponent("paragraph", allWidgets);
+
+	// Table
+	addTable(editor);
+	restrictParentComponent("table", ["content-body"]);
+
+	// thead
+	addThead(editor);
+	restrictParentComponent("thead", ["table"]);
+
+	// tr
+	addTheadTr(editor);
+	restrictParentComponent("thead-tr", ["thead"]);
+
+	// th
+	addTh(editor);
+	restrictParentComponent("th", ["thead-tr"]);
+
+	// tbody
+	addTbody(editor);
+	restrictParentComponent("tbody", ["table"]);
+
+	// tr nested in tbody
+	addTbodyTr(editor);
+	restrictParentComponent("tbody-tr", ["tbody"]);
+
+	// td
+	addTd(editor);
+	restrictParentComponent("td", ["tbody-tr"]);
 
 	// ======= END COMPONENTS ======
 	// ...
