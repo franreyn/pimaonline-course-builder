@@ -84,6 +84,9 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 	editor.on("component:title", setCustomLayerName);
 
 	//Add custom toolbar for footer 
+
+	let isFooterActive = false;
+
 	footerToolbar.addEventListener("click", (event) => {
 		const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
 		const button = event.target;
@@ -98,15 +101,35 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 					});
 				footerToolbarButtons[0].classList.add("active");
 				footerToolbarButtons[1].classList.remove("active");
+				isFooterActive = true;
 
 			} else if(componentType == "footer-off") {
 			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
 			  footerInstance[0].remove();
 				footerToolbarButtons[1].classList.add("active");
 				footerToolbarButtons[0].classList.remove("active");
+				isFooterActive = false;
 			}
 		}
 	});
+
+	// When layouts switch, remove and add footer (so that it stays at bottom)
+	function checkFooterStatus (isFooterActive) {
+		if(isFooterActive) {
+			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
+			footerInstance[0].remove();
+			console.log("footer removed");
+
+			editor.DomComponents.addComponent(
+				{type: "footer"},
+				{appendTo: "canvas"}).set({
+					draggable: false,
+					removable: false
+				});
+				console.log("footer added");
+
+		}
+	}
 
 	// Add custom toolbar for layout components to avoid drag/drop layouts
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -138,6 +161,9 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 				type: componentType,
 				// Add any default attributes or styles if needed
 			});
+
+			//Add footer right here. 
+			checkFooterStatus(isFooterActive);
 
 			// Select the newly added component
 			editor.select(addedComponent);
