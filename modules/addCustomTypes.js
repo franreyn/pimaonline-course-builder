@@ -29,6 +29,7 @@ import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
 import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
+import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -282,6 +283,30 @@ export function addCustomTypes(editor) {
 	// Heading 6
 	addH6(editor);
 	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+
+//////////////////////////// H5P container ////////////////////////////
+
+	// H5P 
+	addH5pContainer(editor);
+	restrictParentComponent("h5p-container", ["content-body"]);
+
+	// H5P object
+	addH5pObject(editor);
+	restrictParentComponent("h5p-object", ["h5p-container"]);
+
+	// H5P info
+	addH5pInfo(editor);
+	restrictParentComponent("h5p-info", ["h5p-container"]);
+
+	// H5P caption
+	addH5pCaption(editor);
+	restrictParentComponent("h5p-caption", ["h5p-info"]);
+
+	// H5P Iframe
+	addH5pIframe(editor);
+	restrictParentComponent("h5p-iframe", ["h5p-object"]);
+
+	//////////////////////////// end youtube container ////////////////////////////
 
 	// Paragraph
 	addParagraph(editor);
