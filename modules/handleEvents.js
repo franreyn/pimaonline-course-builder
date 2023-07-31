@@ -38,12 +38,7 @@ export function handleEvents(editor, layoutsToolbar) {
 			if (columnComponentCount > 1) {
 				const confirmSwitch = window.confirm("Your content will be deleted if you switch layouts, are you sure?");
 				if (confirmSwitch) {
-					const doubleCheck = window.confirm("Just double checking you're sure.");
-					if (doubleCheck) {
 						editor.runCommand("remove-sibling-components", { component });
-					} else {
-						component.remove(); // Remove the component if the user cancels the second confirmation
-					}
 				} else {
 					component.remove(); // Remove the component if the user cancels the first confirmation
 				}
