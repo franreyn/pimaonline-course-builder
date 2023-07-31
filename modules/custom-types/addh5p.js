@@ -59,7 +59,7 @@ export function addH5pCaption(editor) {
   editor.DomComponents.addType("h5p-caption", {
 		model: {
 			defaults: {
-				tagName: "figcaption",
+				tagName: "p",
 				attributes: { contenteditable: "true" },
 				content: "Add video caption or delete if not needed",
 			},
