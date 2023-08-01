@@ -42,6 +42,7 @@ export function addCustomTypes(editor) {
     "description-definition", 
     "description-term",
     "side-by-side-item", 
+		"text-container",
   ]
 
 	// Prevent addition of component if it's not being added to parent component.
