@@ -77,52 +77,54 @@ export function defineCommands(editor) {
 		},
 	});
 
-  //
-  editor.Commands.add("remove-sibling-components", {
-    run(editor, sender, data) {
-      const component = data.component;
-      const parent = component.parent();
-      const siblings = parent.components();
-      siblings.forEach((sibling) => {
-        if (sibling !== component) {
-          sibling.remove();
-          // Trigger a custom event after removing the component
-          sibling.trigger("custom:update");
-        }
-      });
-    },
-  });
+	// Swap layouts by removing old layout
+	editor.Commands.add("remove-sibling-components", {
+		run(editor, sender, data) {
+			const component = data.component;
+			const parent = component.parent();
+			const siblings = parent.components();
+			siblings.forEach((sibling) => {
+				if (sibling !== undefined) {
+					if (sibling !== component) {
+						sibling.remove();
+						// Trigger a custom event after removing the component
+						sibling.trigger("custom:update");
+					}
+				}
+			});
+		},
+	});
 
-  editor.Commands.add('duplicate-layer', {
-    run: function(editor, sender) {
-      sender.set('active', false); // Deactivate the button after it's clicked
-  
-      var selectedComponent = editor.getSelected();
-      if (selectedComponent) {
-        var blockId = selectedComponent.get('type'); // Get the type of the selected component
-        var blockDefinition = editor.BlockManager.get(blockId); // Get the original block definition
-  
-        if (blockDefinition) {
-          var content = blockDefinition.get('content'); // Get the original content of the block
-          selectedComponent.parent().append(content); // Add a new instance of the block to the canvas
-        }
-  
-        editor.trigger('component:update'); // Trigger an update
-      }
-    }
-  });
+	editor.Commands.add('duplicate-layer', {
+		run: function (editor, sender) {
+			sender.set('active', false); // Deactivate the button after it's clicked
 
-  editor.Commands.add('delete-layer', {
-    run: function(editor, sender) {
-      sender.set('active', false); // Deactivate the button after it's clicked
-  
-      var selectedComponent = editor.getSelected();
-      if (selectedComponent) {
-        selectedComponent.remove(); // Remove the selected component
-        editor.trigger('component:update'); // Trigger an update
-      }
-    }
-  });
-  
-    
+			var selectedComponent = editor.getSelected();
+			if (selectedComponent) {
+				var blockId = selectedComponent.get('type'); // Get the type of the selected component
+				var blockDefinition = editor.BlockManager.get(blockId); // Get the original block definition
+
+				if (blockDefinition) {
+					var content = blockDefinition.get('content'); // Get the original content of the block
+					selectedComponent.parent().append(content); // Add a new instance of the block to the canvas
+				}
+
+				editor.trigger('component:update'); // Trigger an update
+			}
+		}
+	});
+
+	editor.Commands.add('delete-layer', {
+		run: function (editor, sender) {
+			sender.set('active', false); // Deactivate the button after it's clicked
+
+			var selectedComponent = editor.getSelected();
+			if (selectedComponent) {
+				selectedComponent.remove(); // Remove the selected component
+				editor.trigger('component:update'); // Trigger an update
+			}
+		}
+	});
+
+
 }

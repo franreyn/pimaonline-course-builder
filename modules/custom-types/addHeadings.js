@@ -1,9 +1,15 @@
 export function addH1(editor) {
-  editor.DomComponents.addType("dd", {
+  editor.DomComponents.addType("h1", {
 		model: {
 			defaults: {
-				tagName: "dd",
-				content: "Add definition",
+				tagName: "h1",
+				attributes: { contenteditable: "true" },
+				components: [
+					{
+						type: "text",
+						content: "Add subheading",
+					},
+				],
 			},
 		},
 	});

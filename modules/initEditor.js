@@ -238,6 +238,12 @@ export function initEditor() {
 					label: "Youtube Video",
 					content: { type: "youtube-container" },
 				},
+				{
+					id: "h5p",
+					category: "Content",
+					label: "H5P Player",
+					content: { type: "h5p-container" },
+				},
 				// text
 				{
 					id: "figure",

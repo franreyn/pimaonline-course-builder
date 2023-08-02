@@ -12,6 +12,7 @@ export const config = {
     "h4", 
     "h5", 
     "h6", 
+    "h5p-container",
     "li",
     "ol", 
     "panopto-container", 
