@@ -5,7 +5,7 @@ export function handleEvents(editor, layoutsToolbar) {
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
 
-  // Allow Layers to be renameable
+	// Allow Layers to be renameable
 	function setCustomLayerName(component) {
 		switch (component.get("type")) {
 			case "text":
@@ -19,16 +19,30 @@ export function handleEvents(editor, layoutsToolbar) {
 		}
 	}
 
+	function removeExistingComponent(editor, componentType) {
+		const components = editor.DomComponents.getComponents();
+
+		// Get the type of the component to remove based on the type of the newly added component
+		const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : componentType === "two-column-layout" ? "three-section-layout" : "one-column-layout";
+
+		// Find the existing component of the opposite type and remove it
+		const existingComponent = components.find((component) => component.get("type") === typeToRemove);
+		if (existingComponent) {
+			editor.select(existingComponent);
+			editor.runCommand("core:component-delete");
+		}
+	}
+
 	/*
-  // When a component is duplicated, remove it's children
-  editor.on('component:clone', (component) => {
-    // Check if the component has any child components
-    if (component.components().length > 0) {
-      // If so, remove them
-      component.components().reset();
-    }
-  });
-  */
+	// When a component is duplicated, remove it's children
+	editor.on('component:clone', (component) => {
+		// Check if the component has any child components
+		if (component.components().length > 0) {
+			// If so, remove them
+			component.components().reset();
+		}
+	});
+	*/
 
 	// If you add one type of layout (1 col, 2col, etc) and another is already there, remove the first one but first warn the user
 	let columnComponentCount = 0;
@@ -38,7 +52,7 @@ export function handleEvents(editor, layoutsToolbar) {
 			if (columnComponentCount > 1) {
 				const confirmSwitch = window.confirm("Your content will be deleted if you switch layouts, are you sure?");
 				if (confirmSwitch) {
-						editor.runCommand("remove-sibling-components", { component });
+					editor.runCommand("remove-sibling-components", { component });
 				} else {
 					component.remove(); // Remove the component if the user cancels the first confirmation
 				}
@@ -87,51 +101,61 @@ export function handleEvents(editor, layoutsToolbar) {
 		}
 	});
 
-	function addComponentToCanvas(editor, componentType) {		
-  	const existingLayout = editor.DomComponents.getComponents().find(
-    	(component) => component.get("type") === componentType
-  	);
-
+	function addComponentToCanvas(editor, componentType) {
 		const layoutsToolbarButtons = layoutsToolbar.querySelectorAll(".layout-btn");
-			layoutsToolbarButtons.forEach((button) => {
-				if (button.classList.contains("active")) {
-					button.classList.remove("active");
-				}
-			}
+		// let activeButton = null;
+
+		// Make active btn unclickable if clicked again
+		const clickedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
+		if (clickedButton.classList.contains("active")) {
+			return; // Do nothing if the button is already active
+		}
+
+		let addedComponent;
+
+		const existingLayout = editor.DomComponents.getComponents().find(
+			(component) => component.get("type") === componentType
 		);
 
 		if (!existingLayout) {
 			removeExistingComponent(editor, componentType);
 
-			// Add the component to the editor
-			const addedComponent = editor.DomComponents.addComponent({
+			addedComponent = editor.DomComponents.addComponent({
 				type: componentType,
 				// Add any default attributes or styles if needed
 			});
 
-			// Select the newly added component
 			editor.select(addedComponent);
+
+			// Remove previously selected btn
+			layoutsToolbarButtons.forEach((button) => {
+				if (button.classList.contains("active")) {
+					button.classList.remove("active");
+				}
+			});
+
+			const selectedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
+			selectedButton.classList.add("active");
 		} else {
-			// If the layout is already active, just select it
-			editor.select(existingLayout);
+			// If the layout is already active, show the confirmation dialog
+			const confirmSwitch = window.confirm("Your content will be deleted if you switch layouts, are you sure?");
+			if (confirmSwitch) {
+				editor.runCommand("remove-sibling-components", { component: existingLayout });
+				
+				// Remove active class from all buttons and mark the clicked button as active
+				layoutsToolbarButtons.forEach((button) => {
+					if (button.dataset.type !== componentType) {
+						// button.classList.remove("active");
+					} else {
+						console.log(confirmSwitch);
+						// button.classList.add("active");
+					}
+				});
+			}
 		}
 
-		// Mark the button as active
-		const selectedButton = layoutsToolbar.querySelector(`[data-type="${componentType}"]`);
-		selectedButton.classList.add("active");
-	}
-
-	function removeExistingComponent(editor, componentType) {
-		const components = editor.DomComponents.getComponents();
-
-		// Get the type of the component to remove based on the type of the newly added component
-		const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : componentType === "two-column-layout" ? "three-section-layout" : "one-column-layout";
-
-		// Find the existing component of the opposite type and remove it
-		const existingComponent = components.find((component) => component.get("type") === typeToRemove);
-		if (existingComponent) {
-			editor.select(existingComponent);
-			editor.runCommand("core:component-delete");
-		}
-	}
+		// Set custom layer name and refresh layers panel
+		setCustomLayerName(existingLayout || addedComponent);
+		editor.LayerManager.render();
+	}	
 }
