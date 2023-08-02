@@ -113,7 +113,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 		if(isFooterActive) {
 			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
 			footerInstance[0].remove();
-			console.log("footer removed");
 
 			editor.DomComponents.addComponent(
 				{type: "footer"},
@@ -121,7 +120,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 					draggable: false,
 					removable: false
 				});
-				console.log("footer added");
 
 		}
 	}
