@@ -45,10 +45,10 @@ export const config = {
     "h5",
     "h6",
     "text",
-    "paragraph"
+    "paragraph",
+    "content-body",
   ],
   clickOnlyComponents: [
-    "content-body",
   ]
 };
 
