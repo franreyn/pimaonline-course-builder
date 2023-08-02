@@ -34,12 +34,21 @@ export const config = {
     "description-definition",
     "card-body",
     "card-img",
-    "side-by-side-item"
+    "side-by-side-item",
+    "textnode"
   ],
-  section3: {
-    title: "Conclusion",
-    content: "This is the conclusion section of the document.",
-    images: ["image5.jpg", "image6.jpg"]
-  }
+  shiftClickComponents: [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "text",
+    "paragraph"
+  ],
+  clickOnlyComponents: [
+    "content-body",
+  ]
 };
 
