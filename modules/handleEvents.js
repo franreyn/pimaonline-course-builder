@@ -83,22 +83,33 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 	let isFooterActive = false;
 
 	footerToolbar.addEventListener("click", (event) => {
+
+		const elements = editor.DomComponents.getWrapper().find("body")[0];
+
+		if(!elements) {
+			window.alert("Please add a layout first")
+		} else {
 		const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
 		const button = event.target;
 		if (button.tagName === "BUTTON") {
-			const componentType = button.getAttribute("data-type");
-			if(componentType == "footer-on") {
-				editor.DomComponents.addComponent(
-					{type: "footer"},
-					{appendTo: "canvas"}).set({
-						draggable: false,
-						removable: false
-					});
+			const footStatus = button.getAttribute("data-type");
+			if(footStatus == "footer-on") {
+
+				const footerComponent = editor.DomComponents.addComponent({
+					type: 'footer',
+					draggable: false,
+					removable: false,
+				 });
+
+				const elements = editor.DomComponents.getWrapper().find("body")[0];
+
+				elements.append(footerComponent);
+
 				footerToolbarButtons[0].classList.add("active");
 				footerToolbarButtons[1].classList.remove("active");
 				isFooterActive = true;
 
-			} else if(componentType == "footer-off") {
+			} else if(footStatus == "footer-off") {
 			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
 			  footerInstance[0].remove();
 				footerToolbarButtons[1].classList.add("active");
@@ -106,20 +117,22 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 				isFooterActive = false;
 			}
 		}
+	}
 	});
 
 	// When layouts switch, remove and add footer (so that it stays at bottom)
 	function checkFooterStatus (isFooterActive) {
 		if(isFooterActive) {
-			const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
-			footerInstance[0].remove();
 
-			editor.DomComponents.addComponent(
-				{type: "footer"},
-				{appendTo: "canvas"}).set({
-					draggable: false,
-					removable: false
-				});
+			const elements = editor.DomComponents.getWrapper().find("body")[0];
+
+			const footerComponent = editor.DomComponents.addComponent({
+				type: 'footer',
+				draggable: false,
+				removable: false,
+			 });
+
+				elements.append(footerComponent);
 
 		}
 	}
