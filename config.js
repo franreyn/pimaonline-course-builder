@@ -34,7 +34,8 @@ export const config = {
     "description-definition",
     "card-body",
     "card-img",
-    "side-by-side-item"
+    "side-by-side-item",
+    "toggle-footnotes"
   ],
   section3: {
     title: "Conclusion",

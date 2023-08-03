@@ -125,7 +125,6 @@ export function addCustomTypes(editor) {
 
 	// Footnotes
 	addFooter(editor);
-	restrictParentComponent("footer", ["wrapper"]);
 
 	addFooterInfo(editor);
 	restrictParentComponent("footer-info", ["footer"]);

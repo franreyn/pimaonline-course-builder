@@ -42,9 +42,12 @@ export function addToggleFootnotes(editor) {
 			defaults: {
 				tagName: "p",
 				draggable: false,
+				contentEditable: false,
         components: [
           {
             type: "text",
+						draggable: false,
+						contentEditable: false,
             content: "Show Footnotes",
           },
         ],   
