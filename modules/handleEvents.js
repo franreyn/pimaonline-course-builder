@@ -1,6 +1,12 @@
 import { config } from "../config.js";
 
-export function handleEvents(editor, layoutsToolbar) {
+export function handleEvents(editor, layoutsToolbar, panelSwitcher) {
+
+	// Initalize layer buttons and set to display none
+	const layoutBtns = document.querySelectorAll(".layer-btn");
+	layoutBtns.forEach((btn) => {
+		btn.style.display = "none";
+	})
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -18,17 +24,6 @@ export function handleEvents(editor, layoutsToolbar) {
 				component.set("title", "Custom Layer");
 		}
 	}
-
-	/*
-  // When a component is duplicated, remove it's children
-  editor.on('component:clone', (component) => {
-    // Check if the component has any child components
-    if (component.components().length > 0) {
-      // If so, remove them
-      component.components().reset();
-    }
-  });
-  */
 
 	// If you add one type of layout (1 col, 2col, etc) and another is already there, remove the first one but first warn the user
 	let columnComponentCount = 0;
@@ -74,6 +69,26 @@ export function handleEvents(editor, layoutsToolbar) {
 			}
 		});
 	}
+
+
+	
+	//Remove layer editing buttons for all other panels other than the layer panel
+	panelSwitcher.addEventListener("click", (event) => {
+		const panelType = event.target;
+
+		if(panelType.classList.contains("layers")) {
+
+			layoutBtns.forEach((btn) => {
+				btn.style.display = "";
+			})
+
+		} else {
+			layoutBtns.forEach((btn) => {
+				btn.style.display = "none";
+			})		}
+	})
+
+
 	// Call function to set duplicatable/copyable components. Note: 'allowedCopyableComponents' set in config.js 
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
