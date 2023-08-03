@@ -2,9 +2,6 @@
 
 export function defineCommands(editor) {
 
-	let isFooterAdded = false; 
-
-
 	//=== Define commands ===//
 	editor.Commands.add("show-layers", {
 		getRowEl(editor) {
