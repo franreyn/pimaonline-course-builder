@@ -56,10 +56,6 @@ dl.vocab-list dd {
   display: block;
 }
 
-footer {
-  width: 95%;
-  max-width: 1160px;
-}
 
 #one-column + footer {
   width: 100%;
