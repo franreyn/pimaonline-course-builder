@@ -124,6 +124,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 	function checkFooterStatus (isFooterActive) {
 		if(isFooterActive) {
 
+			const footerComponents = editor.DomComponents.getWrapper().find("footer");
+
+			console.log(footerComponents)
+
+			if(footerComponents.length == 0) {
+
 			const elements = editor.DomComponents.getWrapper().find("body")[0];
 
 			const footerComponent = editor.DomComponents.addComponent({
@@ -133,6 +139,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 			 });
 
 				elements.append(footerComponent);
+			}
 
 		}
 	}
