@@ -4,6 +4,7 @@ export function addFooter(editor) {
 			defaults: {
 				tagName: "footer",
 				draggable: false,
+				removable: false,
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "footer-info")) {
@@ -20,6 +21,7 @@ export function addFooterInfo(editor) {
 			defaults: {
 				tagName: "div",
 				draggable: false,
+				removable: false,
         attributes: {
 					id: "footer",
 				},
@@ -42,18 +44,11 @@ export function addToggleFootnotes(editor) {
 			defaults: {
 				tagName: "p",
 				draggable: false,
-				contentEditable: false,
-        components: [
-          {
-            type: "text",
-						draggable: false,
-						contentEditable: false,
-            content: "Show Footnotes",
-          },
-        ],   
-        attributes: {
+				removable: false,
+				attributes: { 
 					class: "text-center toggle-footnotes",
-				},
+					contentEditable: false },
+				content: "Show Footnotes",
 			},
 		},
 	});
