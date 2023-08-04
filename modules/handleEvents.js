@@ -126,8 +126,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 
 			const footerComponents = editor.DomComponents.getWrapper().find("footer");
 
-			console.log(footerComponents)
-
 			if(footerComponents.length == 0) {
 
 			const elements = editor.DomComponents.getWrapper().find("body")[0];
@@ -207,20 +205,15 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 	// Check if footer is deleted or not and change the footer button active status
 	editor.on("component:remove", (component) => {
 
-		console.log(component)
-
 		if (component.get("type") === "footer") {
+
 			isFooterActive = false;
+
 			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
-
-
-			console.log(footerToolbarButtons)
 
       footerToolbarButtons[0].classList.remove("active");
       footerToolbarButtons[1].classList.add("active");
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
 	})
-
-
 }
