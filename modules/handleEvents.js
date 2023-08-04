@@ -220,3 +220,4 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
 	})
+}
