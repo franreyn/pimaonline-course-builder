@@ -34,6 +34,7 @@ export const config = {
     "card-img",
     "description-term",
     "description-definition",
+    "footer",
     "footer-info",
     "footnotes",
     "side-by-side-item",

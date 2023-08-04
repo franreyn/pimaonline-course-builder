@@ -95,7 +95,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 		const button = event.target;
 		if (button.tagName === "BUTTON") {
 			const footStatus = button.getAttribute("data-type");
-			if(footStatus == "footer-on") {
+			if(footStatus == "footer-on" && !isFooterActive) {
 
 				const footerComponent = editor.DomComponents.addComponent({
 					type: 'footer',
