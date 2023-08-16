@@ -87,6 +87,24 @@ export function exportFile(editor) {
 
 	// Use the updated innerHTML for the exported content
 	const updatedHtmlContent = tempDiv.innerHTML;
+  
+  // Parse the updatedHtmlContent string into a DOM element
+	const parser = new DOMParser();
+	const parsedHtml = parser.parseFromString(updatedHtmlContent, "text/html");
+
+	// Change #content-wrapper-2 to #content-wrapper and #second-column-2 to #second-column
+	const contentWrapper2 = parsedHtml.querySelector("#content-wrapper-2");
+	if (contentWrapper2) {
+		contentWrapper2.id = "content-wrapper";
+	}
+
+	const secondColumn2 = parsedHtml.querySelector("#second-column-2");
+	if (secondColumn2) {
+		secondColumn2.id = "second-column";
+	}
+
+	// Serialize the DOM back to HTML
+	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
 
 	const content = `
 <!DOCTYPE html>
@@ -100,7 +118,7 @@ export function exportFile(editor) {
 <title>Starter Template</title>
 </head>
 <body>
-${updatedHtmlContent}
+${serializedHtmlContent}
 </body>
 </html>
 `;
