@@ -93,15 +93,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
 
-  // Listen for click on layout selection buttons
-	layoutsToolbar.addEventListener("click", (event) => {
-		const button = event.target;
-		if (button.tagName === "BUTTON") {
-			const componentType = button.getAttribute("data-type");
-			addComponentToCanvas(editor, componentType);
-		}
-	});
-
 	//Add custom toolbar for footer 
 
 	let isFooterActive =  false;
