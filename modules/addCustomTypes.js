@@ -26,6 +26,7 @@ import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHead
 import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
+import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
 import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
@@ -43,6 +44,10 @@ export function addCustomTypes(editor) {
     "content-body", 
     "description-definition", 
     "description-term",
+		"footer",
+		"footnotes",
+		"toggle-footnotes",
+		"footer-info",
     "side-by-side-item", 
 		"text-container",
   ]
@@ -119,6 +124,18 @@ export function addCustomTypes(editor) {
 
   addCardImg(editor);
 	restrictParentComponent("card-img", ["card-horizontal"]);
+
+	// Footnotes
+	addFooter(editor);
+
+	addFooterInfo(editor);
+	restrictParentComponent("footer-info", ["footer"]);
+
+	addFootnotes(editor);
+	restrictParentComponent("footnotes", ["footer-info"]);
+
+	addToggleFootnotes(editor);
+	restrictParentComponent("toggle-footnotes", ["footer-info"]);
 
 	// Side-by-side Widget
   addSideBySide(editor);

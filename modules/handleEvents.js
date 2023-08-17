@@ -1,7 +1,7 @@
 import { config } from "../config.js";
 import { addComponentToCanvas } from "./utils.js" 
 
-export function handleEvents(editor, layoutsToolbar) {
+export function handleEvents(editor, layoutsToolbar, footerToolbar) {
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -92,4 +92,70 @@ export function handleEvents(editor, layoutsToolbar) {
 	// Call function to set duplicatable/copyable components. Note: 'allowedCopyableComponents' set in config.js 
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
+
+	//Add custom toolbar for footer 
+
+	let isFooterActive =  false;
+
+  // Wait for the editor to load before accessing its properties
+  editor.on("load", () => {
+    // Now it's safe to access editor properties
+    isFooterActive = editor.getWrapper().find('[data-gjs-type="footer"]').length > 0;
+		console.log(isFooterActive)
+  });
+
+	footerToolbar.addEventListener("click", (event) => {
+
+		const elements = editor.DomComponents.getWrapper().find("body")[0];
+
+		if(!elements) {
+			window.alert("Please add a layout first")
+		} else {
+		const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+		const button = event.target;
+		if (button.tagName === "BUTTON") {
+			const footStatus = button.getAttribute("data-type");
+			if(footStatus == "footer-on" && !isFooterActive) {
+
+				const footerComponent = editor.DomComponents.addComponent({
+					type: 'footer',
+					draggable: false,
+					removable: false,
+				 });
+
+				const elements = editor.DomComponents.getWrapper().find("body")[0];
+
+				elements.append(footerComponent);
+
+				footerToolbarButtons[0].classList.add("active");
+				footerToolbarButtons[1].classList.remove("active");
+				isFooterActive = true;
+
+			} else if(footStatus == "footer-off") {
+			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
+			  footerInstance[0].remove();
+				footerToolbarButtons[1].classList.add("active");
+				footerToolbarButtons[0].classList.remove("active");
+				isFooterActive = false;
+			}
+		}
+	}
+	});
+
+	// Check if footer is deleted or not and change the footer button active status
+	editor.on("component:remove", (component) => {
+
+		if (component.get("type") === "footer") {
+
+			isFooterActive = false;
+
+			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+
+			footerToolbarButtons[0].classList.remove("active");
+			footerToolbarButtons[1].classList.add("active");
+			}
+			editor.LayerManager.render(); // Force layers panel to refresh
+	})
+
+
 }
