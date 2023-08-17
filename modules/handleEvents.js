@@ -92,4 +92,28 @@ export function handleEvents(editor, layoutsToolbar) {
 	// Call function to set duplicatable/copyable components. Note: 'allowedCopyableComponents' set in config.js 
 	setCopyableComponents(allowedCopyableComponents);
 	editor.on("component:title", setCustomLayerName);
+
+	// Restrict layoutsToolbar to display only when blocks-container is displayed
+	function toggleLayoutsToolbar() {
+    const blocksContainer = document.querySelector(".blocks-container");
+    const otherPanels = document.querySelectorAll(".layers-container, .styles-container, .traits-container");
+
+    if (getComputedStyle(blocksContainer).display === "block") {
+      // Check if any other panel is displayed
+      const anyPanelDisplayed = Array.from(otherPanels).some(panel => getComputedStyle(panel).display === "block");
+      layoutsToolbar.style.display = anyPanelDisplayed ? "none" : "block";
+    } else {
+      layoutsToolbar.style.display = "none";
+    }
+  }
+
+  // Call the toggleLayoutsToolbar function initially
+  toggleLayoutsToolbar();
+  window.addEventListener("load", toggleLayoutsToolbar);
+
+  // Attach event listeners to the panels to update the layoutsToolbar visibility
+  const otherPanels = document.querySelectorAll(".layers-container, .styles-container, .traits-container");
+  otherPanels.forEach(panel => {
+    panel.addEventListener("click", toggleLayoutsToolbar);
+  });
 }
