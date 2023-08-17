@@ -30,11 +30,15 @@ export const config = {
     "one-column-layout", 
     "two-column-layout", 
     "content-wrapper", 
-    "description-term",
-    "description-definition",
     "card-body",
     "card-img",
-    "side-by-side-item"
+    "description-term",
+    "description-definition",
+    "footer",
+    "footer-info",
+    "footnotes",
+    "side-by-side-item",
+    "toggle-footnotes"
   ],
   section3: {
     title: "Conclusion",
