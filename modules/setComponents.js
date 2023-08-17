@@ -1,4 +1,4 @@
-
+// Rules added here are only for elements inside the editor 
 
 export function setComponents(editor) {
 	editor.setComponents(`

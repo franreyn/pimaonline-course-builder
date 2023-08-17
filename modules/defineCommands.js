@@ -1,6 +1,7 @@
 
 
 export function defineCommands(editor) {
+
 	//=== Define commands ===//
 	editor.Commands.add("show-layers", {
 		getRowEl(editor) {
@@ -56,6 +57,8 @@ export function defineCommands(editor) {
 	editor.Commands.add("set-device-mobile", {
 		run: (editor) => editor.setDevice("Mobile"),
 	});
+
+	//== Basic commands == //
 
 	// Traits manager commands
 	editor.Commands.add("show-traits", {

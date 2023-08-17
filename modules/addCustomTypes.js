@@ -16,7 +16,7 @@ import { addRawImage } from "./custom-types/addRawImage.js";
 import { addFigcaption, addFigure, addFigureCaption } from "./custom-types/addImage.js";
 import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
-import { addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
+import { addPanoptoDisplay, addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
 import { addOrderedList } from "./custom-types/addOrderedList.js";
 import { addUnorderedList } from "./custom-types/addUnorderedList.js";
@@ -26,10 +26,13 @@ import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHead
 import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
 import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
+import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
 import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
+import { addBorder } from "./custom-types/addBorder.js"
+
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -41,6 +44,10 @@ export function addCustomTypes(editor) {
     "content-body", 
     "description-definition", 
     "description-term",
+		"footer",
+		"footnotes",
+		"toggle-footnotes",
+		"footer-info",
     "side-by-side-item", 
 		"text-container",
   ]
@@ -100,7 +107,7 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("content-body", ["content-wrapper", "second-column", "third-column"]);
 
 	// Border widget
-  addContentBody(editor);
+  addBorder(editor);
 	restrictParentComponent("border", ["content-body"]);
 
 	//Call Out
@@ -117,6 +124,18 @@ export function addCustomTypes(editor) {
 
   addCardImg(editor);
 	restrictParentComponent("card-img", ["card-horizontal"]);
+
+	// Footnotes
+	addFooter(editor);
+
+	addFooterInfo(editor);
+	restrictParentComponent("footer-info", ["footer"]);
+
+	addFootnotes(editor);
+	restrictParentComponent("footnotes", ["footer-info"]);
+
+	addToggleFootnotes(editor);
+	restrictParentComponent("toggle-footnotes", ["footer-info"]);
 
 	// Side-by-side Widget
   addSideBySide(editor);
@@ -195,7 +214,7 @@ export function addCustomTypes(editor) {
 
 	//////////////////////////// Panopto container ////////////////////////////
 	//Media object
-  addPanoptoObject(editor);
+  addPanoptoDisplay(editor);
 	restrictParentComponent("panopto-container", ["content-body"]);
 
 	// Media object

@@ -120,14 +120,12 @@ html {
   gap: 1rem;
 }
 
-
 .panel__switcher .gjs-pn-buttons span {
   padding: .25rem .5rem;
 }
 .panel__switcher .gjs-pn-buttons {
   gap: 0;
 }
-
 
 .panel__right .gjs-pn-buttons {
   background-color: rgba(0, 0, 0, .2);
@@ -151,6 +149,41 @@ html {
   background: #6b6b6b;
   margin: 0.8rem 0;
   border-radius: 5px;
+}
+
+.btn-container-sm {
+  display: flex;
+  justify-content: space-between;
+  background: #6b6b6b;
+  margin: 0.8rem 0;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.footer-btn {
+  display: block;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  margin: 0.3rem 0;
+}
+
+.footer-btn:hover {
+  cursor: pointer;
+  color: #d278c9;
+}
+
+.footer-btn.active {
+  background-color: rgba(210, 120, 201, .5);
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.footer-btn.active:hover {
+  cursor: default;
+  color: rgba(255, 255, 255, 1);
 }
 
 .layout-btn {
