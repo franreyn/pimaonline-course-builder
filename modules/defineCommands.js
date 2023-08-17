@@ -118,6 +118,7 @@ export function defineCommands(editor) {
 			var selectedComponent = editor.getSelected();
 			if (selectedComponent) {
 				selectedComponent.remove(); // Remove the selected component
+				editor.select(null);
 				editor.trigger('component:update'); // Trigger an update
 			}
 		}
