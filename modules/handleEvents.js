@@ -45,7 +45,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	// If you add one type of layout component (1 col, 2col, etc) and another is already there, remove the first one but first warn the user. Triggered by `layoutsToolbar.addEventListener("click")`.
   let columnComponentCount = 0;
-	
+
   editor.on("component:add", component => {
     if (("one-column-layout" === component.get("type") || "two-column-layout" === component.get("type") || "three-section-layout" === component.get("type")) && (columnComponentCount += 1) > 1) {
 			// User confirmed, so remove sibling components and update active class
@@ -125,7 +125,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
   editor.on("load", () => {
     // Now it's safe to access editor properties
     isFooterActive = editor.getWrapper().find('[data-gjs-type="footer"]').length > 0;
-		console.log(isFooterActive)
   });
 
 	footerToolbar.addEventListener("click", (event) => {
