@@ -1,5 +1,3 @@
-
-
 export function defineCommands(editor) {
 	//=== Define commands ===//
 	editor.Commands.add("show-layers", {
@@ -57,6 +55,8 @@ export function defineCommands(editor) {
 		run: (editor) => editor.setDevice("Mobile"),
 	});
 
+	//== Basic commands == //
+
 	// Traits manager commands
 	editor.Commands.add("show-traits", {
 		getTraitsEl(editor) {
@@ -89,36 +89,75 @@ export function defineCommands(editor) {
 		},
 	});
 
-	editor.Commands.add('duplicate-layer', {
+	editor.Commands.add("duplicate-layer", {
 		run: function (editor, sender) {
-			sender.set('active', false); // Deactivate the button after it's clicked
+			sender.set("active", false); // Deactivate the button after it's clicked
 
 			var selectedComponent = editor.getSelected();
 			if (selectedComponent) {
-				var blockId = selectedComponent.get('type'); // Get the type of the selected component
+				var blockId = selectedComponent.get("type"); // Get the type of the selected component
 				var blockDefinition = editor.BlockManager.get(blockId); // Get the original block definition
 
 				if (blockDefinition) {
-					var content = blockDefinition.get('content'); // Get the original content of the block
+					var content = blockDefinition.get("content"); // Get the original content of the block
 					selectedComponent.parent().append(content); // Add a new instance of the block to the canvas
 				}
 
-				editor.trigger('component:update'); // Trigger an update
+				editor.trigger("component:update"); // Trigger an update
 			}
-		}
+		},
 	});
 
-	editor.Commands.add('delete-layer', {
+	editor.Commands.add("delete-layer", {
 		run: function (editor, sender) {
-			sender.set('active', false); // Deactivate the button after it's clicked
+			sender.set("active", false); // Deactivate the button after it's clicked
 
 			var selectedComponent = editor.getSelected();
 			if (selectedComponent) {
 				selectedComponent.remove(); // Remove the selected component
-				editor.trigger('component:update'); // Trigger an update
+				editor.select(null);
+				editor.trigger("component:update"); // Trigger an update
 			}
-		}
+		},
 	});
 
+	// Sets a component to non-draggable upon being placed in the editor
+	editor.on("component:add", function (component) {
+		component.set("draggable", false);
+	});
 
+	// Toggle draggable property of component (used in function directly below)
+	editor.Commands.add("toggle-drag", {
+		run: function (editor, sender) {
+			const selectedComponent = editor.getSelected();
+			if (selectedComponent) {
+				const draggable = selectedComponent.get("draggable");
+				selectedComponent.set("draggable", !draggable);
+			}
+		},
+	});
+
+	// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+	editor.on("component:selected", function (component) {
+		const toolbar = component.get("toolbar");
+		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
+		if (!toggleDragButtonExists) {
+			toolbar.push({
+				attributes: { id:"toolbar-drag", class: "fa fa-lock" },
+				command: "toggle-drag",
+				events: {
+					click: function (event) {
+            console.log("click")
+						editor.runCommand("toggle-drag");
+						let element = document.getElementById("toolbar-drag");
+						if (element) {
+							element.classList.toggle("fa-lock");
+							element.classList.toggle("fa-lock-open");
+						}
+					},
+				},
+			});
+			component.set("toolbar", toolbar);
+		}
+	});
 }

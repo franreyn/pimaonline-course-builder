@@ -10,6 +10,8 @@ import { makeComponentsUnselectable } from "./modules/utils.js";
 // Init editor
 const editor = initEditor();
 const layoutsToolbar = document.querySelector("#layouts-toolbar");
+const panelSwitcher = document.querySelector(".panel__switcher");
+const footerToolbar = document.querySelector("#footer-toolbar");
 
 // Add editor style overrides (css)
 setComponents(editor)
@@ -19,7 +21,7 @@ editor.render();
 // Config
 handlePanels(editor)
 addCustomTypes(editor);
-handleEvents(editor, layoutsToolbar);
+handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher);
 defineCommands(editor);
 makeComponentsUnselectable(editor);
 
