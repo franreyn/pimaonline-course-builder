@@ -23,8 +23,19 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		} else {
 			layoutBtns.forEach((btn) => {
 				btn.style.display = "none";
-			})		}
+			})		
+		}
 	})
+	const panelButtons = panelSwitcher.querySelectorAll(".gjs-pn-btn");
+    panelButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.classList.contains("blocks")) {
+                layoutsToolbar.style.display = ""; // Display the layoutsToolbar
+            } else {
+                layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
+            }
+        });
+    });
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -179,30 +190,4 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
 	})
-
-
-
-	// Restrict layoutsToolbar to display only when blocks-container is displayed
-	function toggleLayoutsToolbar() {
-    const blocksContainer = document.querySelector(".blocks-container");
-    const otherPanels = document.querySelectorAll(".layers-container, .styles-container, .traits-container");
-
-    if (getComputedStyle(blocksContainer).display === "block") {
-      // Check if any other panel is displayed
-      const anyPanelDisplayed = Array.from(otherPanels).some(panel => getComputedStyle(panel).display === "block");
-      layoutsToolbar.style.display = anyPanelDisplayed ? "none" : "block";
-    } else {
-      layoutsToolbar.style.display = "none";
-    }
-  }
-
-  // Call the toggleLayoutsToolbar function initially
-  toggleLayoutsToolbar();
-  window.addEventListener("load", toggleLayoutsToolbar);
-
-  // Attach event listeners to the panels to update the layoutsToolbar visibility
-  const otherPanels = document.querySelectorAll(".layers-container, .styles-container, .traits-container");
-  otherPanels.forEach(panel => {
-    panel.addEventListener("click", toggleLayoutsToolbar);
-  });
 }
