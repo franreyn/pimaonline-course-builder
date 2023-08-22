@@ -83,6 +83,19 @@ export function initEditor() {
 							command: "set-device-mobile",
 							togglable: false,
 						},
+						// Add undo/redo buttons
+						{
+							id: 'undo',
+							className: 'fa fa-undo',
+							command: 'undo',
+							attributes: { title: 'Undo' }
+						},
+						{
+							id: 'redo',
+							className: 'fa fa-rotate-right',
+							command: 'redo',
+							attributes: { title: 'Redo' }
+						},
 					],
 				},
 				{
