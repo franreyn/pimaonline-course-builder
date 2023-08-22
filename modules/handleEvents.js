@@ -23,8 +23,19 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		} else {
 			layoutBtns.forEach((btn) => {
 				btn.style.display = "none";
-			})		}
+			})		
+		}
 	})
+	const panelButtons = panelSwitcher.querySelectorAll(".gjs-pn-btn");
+    panelButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.classList.contains("blocks")) {
+                layoutsToolbar.style.display = ""; // Display the layoutsToolbar
+            } else {
+                layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
+            }
+        });
+    });
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
@@ -179,5 +190,4 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
 	})
-
 }
