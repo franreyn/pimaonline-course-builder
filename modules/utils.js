@@ -1,6 +1,13 @@
 // Utils.js is used to house misc functions
 import { config } from "../config.js";
 
+// This function adds scripts2.js to the editor
+function addScriptsJs(editor) {
+  console.log("script added")
+  editor.DomComponents.addComponent({ type: "script" });
+}
+
+
 // This function takes the components in the array 'types' and prevents mouse selection.
 export function makeComponentsUnselectable(editor) {
   const types = config.unselectableComponents;
@@ -38,6 +45,7 @@ export function addComponentToCanvas(editor, componentType) {
     removeExistingComponent(editor, componentType);
     let newComponent = editor.DomComponents.addComponent({ type: componentType });
     editor.select(newComponent);
+    addScriptsJs();
   }
 }  
 

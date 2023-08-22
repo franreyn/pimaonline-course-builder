@@ -31,7 +31,8 @@ import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
 import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
-import { addBorder } from "./custom-types/addBorder.js"
+import { addBorder } from "./custom-types/addBorder.js";
+import { addScript } from "./custom-types/addScript.js";
 
 
 export function addCustomTypes(editor) {
@@ -70,6 +71,10 @@ export function addCustomTypes(editor) {
 			}
 		});
 	}
+
+	// Add Scripts2.js
+	addScript(editor);
+	restrictParentComponent("script", ["wrapper"]);
 
 	// One column component
   addOneColumnLayout(editor);
