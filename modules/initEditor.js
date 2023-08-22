@@ -6,6 +6,7 @@ export function initEditor() {
 		height: "100%",
 		width: "auto",
 		storageManager: false,
+		undoManager: { trackSelection: false },
 		panels: { defaults: [] },
 		plugins: ["grapesjs-plugin-ckeditor"],
 		/* pluginsOpts: {
