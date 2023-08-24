@@ -206,10 +206,6 @@ html {
   background-color: rgba(197, 0, 0, 1);
 }
 
-.yellow-dot, .red-dot {
-  display: none;
-}
-
 .footer-btn {
   display: block;
   background: transparent;
