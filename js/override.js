@@ -1,4 +1,4 @@
-const courseBody = document.querySelector("body");
+const courseBody = document.querySelector(".layout");
 const contentWrapper = document.querySelector("#content-wrapper");
 const secondColumn = document.querySelector("#second-column");
 const thirdColumn = document.querySelector("#third-column");
@@ -13,7 +13,6 @@ const vocabCloseBtns = document.querySelectorAll("dl.vocab-list button");
 const vocabLists = document.querySelectorAll("dl[class^='vocab-list']");
 const mediaContainers = document.querySelectorAll(".media-container"); 
 const tabsWidgets = document.querySelectorAll(".tabs");
-
 
 // Clean up HTML
 const cleanMarkup = () => {
@@ -257,55 +256,3 @@ if (document.querySelector(".toggle-btn") || document.querySelector(".toggle-foo
     })
   }
 }
-
-// Change footnotes from 'show' to 'hide'
-const footnotes = document.querySelector(".toggle-footnotes");
-
-// footnotes.addEventListener("click", () => {
-//   footnotes.innerHTML = (footnotes.innerHTML === "[Show Footnotes]") ? "[Hide Footnotes]" : "[Show Footnotes]";
-// })
-
-// Animated border for HRS theme
-const hrsBorders = document.querySelectorAll(".hrs-border");
-
-if(hrsBorders) {
-  for (let hrsBorder = 0; hrsBorder < hrsBorders.length; hrsBorder++) {
-    const callAnimateBorder = new IntersectionObserver(entries => {
-      // Loop over the entries
-      entries.forEach(entry => {
-        // If the element is visible
-        if (entry.isIntersecting) {
-          // Add the animation class
-          entry.target.classList.add('animate-border');
-        }
-      });
-    });
-    callAnimateBorder.observe(hrsBorders[hrsBorder]);
-  }
-};
-
-// Call function with jQuery scripts
-const callJquery = () => {
-  // Toggle Button's Arrow Right Points Down on Click
-  $('.arrow-right').on('click', function () {
-    $(this).toggleClass('arrow-down');
-  });
-  // TOOLTIP
-  //  Allows Screen readers to toggle a tooltip on click and to say if the tooltip is collapsed or expanded.
-  $(".tooltip").click(function () {
-    $(this).children(".tip-hover").toggle();
-    if ($(this).children(".tip-hover").is(':visible')) {
-      $(this).attr('aria-expanded', 'true');
-      $(this).removeClass('hidden');
-    } else {
-      $(this).attr('aria-expanded', 'false');
-      $(this).addClass('hidden');
-    }
-  });
-  let start = 999;
-  $('.tooltip').each(function (i) {
-    $(this).css('z-index', start--);
-  });
-  $(".tooltip .video-container").parent().css("width", "450px");
-}
-callJquery();
