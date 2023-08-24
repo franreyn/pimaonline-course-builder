@@ -3,12 +3,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/css/grapes.min.css">
     <link rel="stylesheet" href="./grapesjs/grapes.min.css" />
     <link rel="stylesheet" href="./css/builder.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/grapes.min.js" defer></script>
     <script src="./grapesjs/grapes.min.js" defer></script>
     <script type="module" src="./app.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/src/FileSaver.js"></script>
@@ -32,7 +34,12 @@
         </div>
         <div class="footer-bar">
           <p>v0.0.1</p>
-          <p>Live</p>
+          <div class="status">
+            <span class="dot green-dot"></span>
+            <span class="dot yellow-dot"></span>
+            <span class="dot red-dot"></span>
+            <p>Live</p>
+          </div>
         </div>
       </div>
       <div class="panel__right">

@@ -173,12 +173,41 @@ html {
   z-index: 1;
   background-color: rgba(68, 68, 68, 1);
   color: rgba(255, 255, 255, 1);
-  padding-left: 1rem;
-  width: calc(100% - 1.8rem);
+  padding-left: .5rem;
+  width: calc(100% - 1.3rem);
   display: flex;
   gap: 1.5rem;
-  font-size: .5rem;
-  line-height: .3;
+  font-size: .7rem;
+  line-height: 0;
+}
+
+.status {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  align-self: center;
+  display: block;
+}
+
+.green-dot {
+  background-color: rgba(0, 146, 0, 1);
+}
+
+.yellow-dot {
+  background-color: rgba(220, 162, 14, 1);
+}
+
+.red-dot {
+  background-color: rgba(197, 0, 0, 1);
+}
+
+.yellow-dot, .red-dot {
+  display: none;
 }
 
 .footer-btn {
