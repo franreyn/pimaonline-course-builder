@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas } from "./utils.js" 
+import { addComponentToCanvas } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -189,5 +189,17 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			footerToolbarButtons[1].classList.add("active");
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
+	})
+
+	// Check to see if certain components are added and remove and add the script
+	editor.on("component:add", (component) => {
+		if ("footer" === component.get("type") || "h5p-container" === component.get("type") || "panopto-container" === component.get("type") || "youtube-container" === component.get("type") || "table" === component.get("type") || "vocab-list" === component.get("type")) {
+			const existingScript = editor.DomComponents.getComponents().find(comp => comp.get("type") === "script");
+      if (existingScript) {
+				console.log(existingScript)
+				existingScript.remove()
+      }
+      editor.DomComponents.addComponent({ type: "script" });
+		}
 	})
 }
