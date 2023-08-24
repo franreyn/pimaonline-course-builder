@@ -12,14 +12,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.3/grapes.min.js" defer></script> -->
     <script src="./grapesjs/grapes.min.js" defer></script>
-    <!-- <script type="module" src="./modules/initEditor.js" defer></script>
-  <script type="module" src="./modules/addCustomTypes.js" defer></script>
-  <script type="module" src="./modules/handleEvents.js" defer></script>
-  <script type="module" src="./modules/setComponents.js" defer></script>
-  <script type="module" src="./modules/handlePanels.js" defer></script>
-  <script type="module" src="./modules/fileOperations.js" defer></script> -->
-    <!-- <script type="module" src="./modules/custom-types/addOneColumnLayout.js" defer></script> -->
-    <!-- <script type="module" src="./modules/custom-types/addTwoColumnLayout.js" defer></script> -->
     <script type="module" src="./app.js" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/eligrey/FileSaver.js/src/FileSaver.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@latest"></script>
@@ -39,7 +31,15 @@
     <div class="editor-row">
       <div class="editor-canvas">
         <div id="gjs">
-          <!-- <h1>Hello World Component!</h1> -->
+        </div>
+        <div class="footer-bar">
+          <p>v0.0.1</p>
+          <div class="status">
+            <span class="dot green-dot"></span>
+            <!-- <span class="dot yellow-dot"></span>
+            <span class="dot red-dot"></span> -->
+            <p>Live</p>
+          </div>
         </div>
       </div>
       <div class="panel__right">
@@ -64,6 +64,5 @@
         <div class="traits-container"></div>
       </div>
     </div>
-    <!-- <div id="blocks"></div> -->
   </body>
 </html>
