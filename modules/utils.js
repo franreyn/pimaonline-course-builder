@@ -1,13 +1,6 @@
 // Utils.js is used to house misc functions
 import { config } from "../config.js";
 
-// This function adds scripts2.js to the editor
-function addScriptsJs(editor) {
-  console.log("script added")
-  editor.DomComponents.addComponent({ type: "script" });
-}
-
-
 // This function takes the components in the array 'types' and prevents mouse selection.
 export function makeComponentsUnselectable(editor) {
   const types = config.unselectableComponents;
@@ -24,28 +17,45 @@ function removeExistingComponent(editor, componentType) {
   const components = editor.DomComponents.getComponents();
 
   // Get the type of the component to remove based on the type of the newly added component
-  const typeToRemove = componentType === "one-column-layout" ? "two-column-layout" : componentType === "two-column-layout" ? "three-section-layout" : "one-column-layout";
-
-  // Find the existing component of the opposite type and remove it
-  const existingComponent = components.find((component) => component.get("type") === typeToRemove);
-  if (existingComponent) {
-    editor.select(existingComponent);
-    editor.runCommand("core:component-delete");
+  let typesToRemove = [];
+  if (componentType === "one-column-layout") {
+    typesToRemove = ["two-column-layout", "three-section-layout"];
+  } else if (componentType === "two-column-layout") {
+    typesToRemove = ["one-column-layout", "three-section-layout"];
+  } else if (componentType === "three-section-layout") {
+    typesToRemove = ["one-column-layout", "two-column-layout"];
   }
+
+  // Find the existing components of the opposite types and remove them
+  typesToRemove.forEach(typeToRemove => {
+    const existingComponent = components.find((component) => component.get("type") === typeToRemove);
+
+    if (existingComponent) {
+      editor.select(existingComponent);
+      existingComponent.remove();
+    }
+  });
 }
+
 
 // Adds the selected layout component, if it already exists it just selects itself (nullifying click)
 export function addComponentToCanvas(editor, componentType) {
   let existingComponent = editor.DomComponents.getComponents().find(comp => comp.get("type") === componentType);
+
   if (existingComponent) {
-    // selects itself, meaning nothing happens (doesn't switch to other layout)
+    // Selects itself, meaning nothing happens (doesn't switch to other layout)
     editor.select(existingComponent);
   } else {
-    // remove current layout and replace with new one
+    // Remove current layout and replace with new one
     removeExistingComponent(editor, componentType);
     let newComponent = editor.DomComponents.addComponent({ type: componentType });
     editor.select(newComponent);
-    addScriptsJs();
+
+    // Check if script exists or not
+    let existingScript = editor.DomComponents.getComponents().find(comp => comp.get("type") === "script");
+    if (!existingScript) {
+        editor.DomComponents.addComponent({ type: "script" });
+    }
   }
 }  
 
