@@ -1,62 +1,7 @@
-const courseBody = document.querySelector(".layout");
-const contentWrapper = document.querySelector("#content-wrapper");
-const secondColumn = document.querySelector("#second-column");
-const thirdColumn = document.querySelector("#third-column");
-const columnWidget = document.querySelector("#column-widget");
-const videoWrapper = document.querySelector("#video-wrapper");
-const rolePres = document.querySelectorAll('[role="presentation"]');
+// This JS file is for JS that runs only within the editor for widgets that require JS
+
 const imageGallery = document.querySelector(".image-gallery");
-const vocabListWidget = document.querySelector("dl.vocab-list");
-const vocabTerms = document.querySelectorAll("dl.vocab-list dt");
-const vocabDefs = document.querySelectorAll("dl.vocab-list dd");
-const vocabCloseBtns = document.querySelectorAll("dl.vocab-list button");
-const vocabLists = document.querySelectorAll("dl[class^='vocab-list']");
-const mediaContainers = document.querySelectorAll(".media-container"); 
 const tabsWidgets = document.querySelectorAll(".tabs");
-
-// Clean up HTML
-const cleanMarkup = () => {
-// Remove role="presentation" attr from any element that has it  
-  if (rolePres) {
-    rolePres.forEach((roleElem) => roleElem.removeAttribute("role"));
-  }  
-  // Set functino to remove atrributes from elements
-  const discardAttributes = (element, ...attributes) => { 
-    attributes.forEach((attribute) => element.removeAttribute(attribute)); 
-  }
-  // Remove attributes from tables
-  const tableElems = document.querySelectorAll("table, thead, tbody, tr, th, td");
-  tableElems.forEach((elem) => {
-    discardAttributes(elem, "cellspacing", "cellpadding", "width", "style");
-  });
-};
-cleanMarkup();
-
-// Helper JS for Responsive Tables
-const initResponsiveTables = () => {
-  const tables = document.querySelectorAll(".display, .display-lg")
-  for (let table = 0; table < tables.length; table++) {
-    let headertext = [],
-      headers = tables[table].querySelectorAll(".display table th, table.display th, .display-lg table th, table.display-lg th"),
-      tablebody = tables[table].querySelector(".display table tbody, table.display tbody, .display-lg table tbody, table.display-lg tbody");
-    for (let header = 0; header < headers.length; header++) {
-      let current = headers[header];
-      headertext.push(current.textContent.replace(/\r?\n|\r/, ""));
-    }
-    for (let y = 0, row; row = tablebody.rows[y]; y++) {
-      for (let j = 0, col; col = row.cells[j]; j++) {
-        col.setAttribute("data-th", headertext[j]);
-      }
-    }
-  }
-}
-initResponsiveTables();
-
-// This is called by anchor links via onlick="" in the HTML
-//  Added because default anchor links don't work on all browsers using D2L
-const jumpTo = (anchor) => {
-  document.getElementById(anchor).scrollIntoView();
-}  
 
 // Image gallery
 const callImageGallery = () => {
@@ -137,59 +82,6 @@ if (imageGallery) {
   callImageGallery();
 }
 
-// Vocab list widget
-const callVocabList = () => {
-  if (vocabCloseBtns) {
-    for(let btn = 0; btn < vocabCloseBtns.length; btn++) {
-      vocabCloseBtns[btn].addEventListener("click", () => {
-        for(let node = 0; node < vocabLists[btn].children.length;node++) {
-          if(vocabLists[btn].children[node].tagName == "DD") {
-            vocabLists[btn].children[node].removeAttribute("style");
-          }
-          if(vocabLists[btn].children[node].tagName == "DT") {
-            vocabLists[btn].children[node].removeAttribute("class");
-          }
-        }});    
-    }
-  }  
-  for (let activeTerm = 0; activeTerm < vocabTerms.length; activeTerm++) {
-    vocabTerms[activeTerm].addEventListener("click", function() {
-      this.classList.toggle("active");
-      let termPanel = this.nextElementSibling;
-      if (termPanel.style.display === "block") { termPanel.removeAttribute("style"); } 
-      else { termPanel.style.display = "block"; }
-    });
-
-    vocabTerms[activeTerm].addEventListener("keydown", function(e) {
-      if(e.key === "Enter") {
-      this.classList.toggle("active");
-      let termPanel = this.nextElementSibling;
-      if (termPanel.style.display === "block") { termPanel.removeAttribute("style"); } 
-      else { termPanel.style.display = "block"; }
-      }
-    });
-  }
-}
-if (vocabListWidget) {callVocabList();}
-
-// Media Container
-const addMediaContainersAria = () => {
-  mediaContainers.forEach((eachContainer, index) => {
-    // loopID: find the current index value, convert it to its letter equivalent, then convert to lowercase
-    let loopId = String.fromCharCode(index + 65).toLowerCase();
-    let mediaObject = eachContainer.querySelector(".media-object");
-    let iframe = mediaObject.firstElementChild;
-    let mediaInfo = mediaObject.nextElementSibling;  
-
-    // If element DOES NOT have "aria-describedby" && it DOES have a sibling element.
-    if (!iframe.hasAttribute("aria-describedby") && mediaInfo != null) {
-      iframe.setAttribute("aria-describedby", `${loopId}`);
-      mediaInfo.id = `${[loopId]}`;
-    }
-  });
-}
-if (mediaContainers) {addMediaContainersAria();}
-
 //Tabs Widget
 const callTabsWidget = () => {
 
@@ -234,25 +126,3 @@ const callTabsWidget = () => {
   })
 }
 if (tabsWidgets) {callTabsWidget();}
-
-// Toggle footnotes
-const toggleBtns = document.querySelectorAll(".toggle-btn, .toggle-footnotes");
-
-if (document.querySelector(".toggle-btn") || document.querySelector(".toggle-footnotes")) {
-  for (let toggleBtn = 0; toggleBtn < toggleBtns.length; toggleBtn++) {
-    // Add tabindex
-    toggleBtns[toggleBtn].setAttribute("tabindex", "0");
-
-    // Show/hide on click
-    toggleBtns[toggleBtn].addEventListener("click", () => {      
-      toggleBtns[toggleBtn].nextElementSibling.classList.toggle("show");      
-    })
-
-    // Show/hide on enter for users who use tab
-    toggleBtns[toggleBtn].addEventListener("keydown", (enter) => {
-      if (enter.keyCode === 13) {
-        toggleBtns[toggleBtn].nextElementSibling.classList.toggle("show");
-      }
-    })
-  }
-}
