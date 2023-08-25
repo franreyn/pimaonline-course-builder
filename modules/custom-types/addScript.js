@@ -5,6 +5,7 @@ export function addScript(editor) {
 				tagName: "script",
 				type: "text/javascript",
 				src: "../../js/override.js",
+				attributes: { id: "override"},
 				defer: "true",
 			},
 			init() {
