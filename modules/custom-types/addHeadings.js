@@ -3,10 +3,10 @@ export function addH1(editor) {
 		model: {
 			defaults: {
 				tagName: "h1",
-				attributes: { contenteditable: "true" },
+				// attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -20,10 +20,10 @@ export function addH2(editor) {
 		model: {
 			defaults: {
 				tagName: "h2",
-				attributes: { contenteditable: "true" },
+				// attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -40,7 +40,7 @@ export function addH3(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -57,7 +57,7 @@ export function addH4(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],

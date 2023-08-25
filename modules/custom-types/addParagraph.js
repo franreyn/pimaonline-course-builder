@@ -11,11 +11,11 @@ export function addParagraph(editor) {
         ],        
       },
     },
-    view: {
-      onRender() {
-        this.el.setAttribute("contenteditable", "true");
-      },
-    },
+    // view: {
+    //   onRender() {
+    //     this.el.setAttribute("contenteditable", "true");
+    //   },
+    // },
   });
   
 }
