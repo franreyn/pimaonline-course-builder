@@ -147,7 +147,6 @@ export function defineCommands(editor) {
 				command: "toggle-drag",
 				events: {
 					click: function (event) {
-            console.log("click")
 						editor.runCommand("toggle-drag");
 						let element = document.getElementById("toolbar-drag");
 						if (element) {
