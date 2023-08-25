@@ -50,12 +50,6 @@ export function addComponentToCanvas(editor, componentType) {
     removeExistingComponent(editor, componentType);
     let newComponent = editor.DomComponents.addComponent({ type: componentType });
     editor.select(newComponent);
-
-    // Check if script exists or not
-    let existingScript = editor.DomComponents.getComponents().find(comp => comp.get("type") === "script");
-    if (!existingScript) {
-        editor.DomComponents.addComponent({ type: "script" });
-    }
   }
 }  
 

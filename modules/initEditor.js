@@ -28,8 +28,6 @@ export function initEditor() {
 		canvas: {
 			scripts: [
 				"https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js",
-				// "../js/override.js",
-				// 'https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/js/scripts2.js',
 			],
 			styles: ["https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/css/themes/cards/styles.css", "./css/theme-overrides.css"],
 		},
