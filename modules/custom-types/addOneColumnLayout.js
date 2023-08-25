@@ -3,7 +3,10 @@ export function addOneColumnLayout(editor) {
 		model: {
 			defaults: {
 				tagName: "body",
-				attributes: { id: "one-column" },
+				attributes: { 
+					id: "one-column",
+					class: "layout",
+			 },
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "header")) {

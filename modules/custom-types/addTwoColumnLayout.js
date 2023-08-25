@@ -4,7 +4,8 @@ export function addTwoColumnLayout(editor) {
 		model: {
 			defaults: {
 				tagName: "body",
-				attributes: { id: "two-column" },
+				attributes: { id: "two-column",
+				class: "layout", },
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "header")) {

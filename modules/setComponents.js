@@ -4,7 +4,7 @@ export function setComponents(editor) {
 	editor.setComponents(`
   <style>
     body, html {
-      height: 100%;
+      height: auto;
       margin: 0;
       padding: 0;
     }

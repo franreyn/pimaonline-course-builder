@@ -40,10 +40,10 @@ export const config = {
     "side-by-side-item",
     "toggle-footnotes"
   ],
-  section3: {
-    title: "Conclusion",
-    content: "This is the conclusion section of the document.",
-    images: ["image5.jpg", "image6.jpg"]
-  }
+  requiresJsComponents: [
+    "image-gallery",
+    "tabs",
+    "youtube-container",
+  ],
 };
 

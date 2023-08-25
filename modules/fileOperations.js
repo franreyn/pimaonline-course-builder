@@ -103,6 +103,12 @@ export function exportFile(editor) {
 		secondColumn2.id = "second-column";
 	}
 
+  // Remove injected override script from exported html
+  const overrideScript = parsedHtml.querySelector("#override");
+	if (overrideScript) {
+		overrideScript.remove();
+	}
+
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
 
