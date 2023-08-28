@@ -4,7 +4,9 @@ editor.DomComponents.addType("three-section-layout", {
   model: {
     defaults: {
       tagName: "body",
-      attributes: { id: "three-column" },
+      attributes: { id: "three-column",
+      class: "layout"
+    },
     },
     init() {
       if (!this.components().find((component) => component.get("type") === "header")) {

@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas } from "./utils.js" 
+import { addComponentToCanvas } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -189,5 +189,19 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			footerToolbarButtons[1].classList.add("active");
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
+	})
+
+	// Check to see if certain components are added and remove and add the script
+	editor.on("component:add", (component) => {
+		for(let jsCopmonentIndex = 0; jsCopmonentIndex < config.requiresJsComponents.length; jsCopmonentIndex++) {
+			if(component.get("type") == config.requiresJsComponents[jsCopmonentIndex]) {
+				const existingScript = editor.DomComponents.getComponents().find(comp => comp.get("type") === "script");
+				if (existingScript) {
+					existingScript.remove()	
+				}
+				// Adds JS back to the DOM to refire the JS 
+				editor.DomComponents.addComponent({ type: "script" });
+			}
+		}
 	})
 }

@@ -3,6 +3,7 @@ export function initEditor() {
 		container: "#gjs",
 		autorender: 0,
 		fromElement: true,
+		allowScripts: 1,
 		height: "100%",
 		width: "auto",
 		storageManager: false,
@@ -28,8 +29,6 @@ export function initEditor() {
 		canvas: {
 			scripts: [
 				"https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js",
-				//'https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/js/scripts2.js',
-				"./js/overrides.js",
 			],
 			styles: ["https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/css/themes/cards/styles.css", "./css/theme-overrides.css"],
 		},

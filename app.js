@@ -19,7 +19,7 @@ setComponents(editor)
 editor.render();
 
 // Config
-handlePanels(editor)
+handlePanels(editor);
 addCustomTypes(editor);
 handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher);
 defineCommands(editor);
