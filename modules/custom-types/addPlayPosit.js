@@ -1,4 +1,4 @@
-export function addYoutubeContainer(editor) {
+export function addPlaypositContainer(editor) {
   editor.DomComponents.addType("playposit-container", {
 		model: {
 			defaults: {
@@ -19,7 +19,7 @@ export function addYoutubeContainer(editor) {
 	});
 }
 
-export function addYoutubeObject(editor) {
+export function addPlaypositObject(editor) {
   editor.DomComponents.addType("playposit-object", {
 		model: {
 			defaults: {
@@ -37,7 +37,7 @@ export function addYoutubeObject(editor) {
 	});
 }
 
-export function addYoutubeInfo(editor) {
+export function addPlaypositInfo(editor) {
   editor.DomComponents.addType("playposit-info", {
 		model: {
 			defaults: {
@@ -55,7 +55,7 @@ export function addYoutubeInfo(editor) {
 	});
 }
 
-export function addYoutubeCaption(editor) {
+export function addPlaypositCaption(editor) {
   editor.DomComponents.addType("playposit-caption", {
 		model: {
 			defaults: {
@@ -67,7 +67,7 @@ export function addYoutubeCaption(editor) {
 	});
 }
 
-export function addYoutubeIframe(editor) {
+export function addPlaypositIframe(editor) {
   editor.DomComponents.addType("playposit-iframe", {
 		model: {
 			defaults: {
@@ -92,7 +92,7 @@ export function addYoutubeIframe(editor) {
 						type: "text",
 						label: "Title",
 						name: "title",
-						placeholder: "YouTube video player",
+						placeholder: "Playposit video",
 					},
 				],
 			},

@@ -250,6 +250,12 @@ export function initEditor() {
 					content: { type: "panopto-container" },
 				},
 				{
+					id: "playposit",
+					category: "Content",
+					label: "Playposit Video",
+					content: { type: "playposit-container" },
+				},
+				{
 					id: "youtube",
 					category: "Content",
 					label: "Youtube Video",
