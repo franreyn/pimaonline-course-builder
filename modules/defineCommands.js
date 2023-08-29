@@ -71,6 +71,21 @@ export function defineCommands(editor) {
 		},
 	});
 
+	// Functionality for redo and undo buttons
+	editor.Commands.add('undo', {
+    run: function(editor, sender) {
+			editor.UndoManager.undo();
+        sender.set('active', false);
+    }
+	});
+
+	editor.Commands.add('redo', {
+    run: function(editor, sender) {
+			editor.UndoManager.redo();
+			sender.set('active', false);
+    }
+	});
+
 	// Swap layouts by removing old layout
 	editor.Commands.add("remove-sibling-components", {
 		run(editor, sender, data) {
