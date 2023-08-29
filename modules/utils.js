@@ -48,7 +48,10 @@ export function addComponentToCanvas(editor, componentType) {
   } else {
     // Remove current layout and replace with new one
     removeExistingComponent(editor, componentType);
-    let newComponent = editor.DomComponents.addComponent({ type: componentType });
+    let newComponent =
+    editor.UndoManager.skip( () => {
+    editor.DomComponents.addComponent({ type: componentType });
+    })
     editor.select(newComponent);
   }
 }  

@@ -1,35 +1,33 @@
 export function addH1(editor) {
   editor.DomComponents.addType("h1", {
-		model: {
-			defaults: {
-				tagName: "h1",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "textnode",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+    model: {
+      defaults: {
+        tagName: "h1",
+        components: [
+          {
+            type: "text",
+            content: "Add subheading",
+          },
+        ],
+      },
+    },
+  });
 }
 
 export function addH2(editor) {
   editor.DomComponents.addType("h2", {
-		model: {
-			defaults: {
-				tagName: "h2",
-				attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "textnode",
-						content: "Add subheading",
-					},
-				],
-			},
-		},
-	});
+    model: {
+      defaults: {
+        tagName: "h2",
+        components: [
+          {
+            type: "text",
+            content: "Add subheading",
+          },
+        ],
+      },
+    },
+  });
 }
 
 export function addH3(editor) {
@@ -40,7 +38,7 @@ export function addH3(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -57,7 +55,7 @@ export function addH4(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -74,7 +72,7 @@ export function addH5(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],
@@ -91,7 +89,7 @@ export function addH6(editor) {
 				attributes: { contenteditable: "true" },
 				components: [
 					{
-						type: "textnode",
+						type: "text",
 						content: "Add subheading",
 					},
 				],

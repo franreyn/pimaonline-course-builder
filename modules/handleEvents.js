@@ -150,7 +150,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		if (button.tagName === "BUTTON") {
 			const footStatus = button.getAttribute("data-type");
 			if(footStatus == "footer-on" && !isFooterActive) {
-
+				editor.UndoManager.skip( () => {
 				const footerComponent = editor.DomComponents.addComponent({
 					type: 'footer',
 					draggable: false,
@@ -164,7 +164,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				footerToolbarButtons[0].classList.add("active");
 				footerToolbarButtons[1].classList.remove("active");
 				isFooterActive = true;
-
+			})
 			} else if(footStatus == "footer-off") {
 			  const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
 			  footerInstance[0].remove();
