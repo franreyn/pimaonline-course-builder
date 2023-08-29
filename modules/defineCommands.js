@@ -75,7 +75,6 @@ export function defineCommands(editor) {
 	editor.Commands.add('undo', {
     run: function(editor, sender) {
 			editor.UndoManager.undo();
-			console.log("undo pressed");
         sender.set('active', false);
     }
 	});
@@ -83,7 +82,6 @@ export function defineCommands(editor) {
 	editor.Commands.add('redo', {
     run: function(editor, sender) {
 			editor.UndoManager.redo();
-			console.log("redo pressed");
 			sender.set('active', false);
     }
 	});
