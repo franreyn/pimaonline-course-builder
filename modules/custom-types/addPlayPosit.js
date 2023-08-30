@@ -61,7 +61,7 @@ export function addPlaypositCaption(editor) {
 			defaults: {
 				tagName: "figcaption",
 				attributes: { contenteditable: "true" },
-				content: "Add video caption or delete if not needed",
+				content: "Add Playposit video caption or delete if not needed",
 			},
 		},
 	});
@@ -85,8 +85,8 @@ export function addPlaypositIframe(editor) {
 						type: "text",
 						label: "Source",
 						name: "src",
-						placeholder: "https://www.youtube.com/embed/NpEaa2P7qZI",
-						default: "https://www.youtube.com/embed/NpEaa2P7qZI",
+						placeholder: "https://api.playposit.com/player_v2?type=share&bulb_id=404014",
+						default: "https://api.playposit.com/player_v2?type=share&bulb_id=404014",
 					},
 					{
 						type: "text",
