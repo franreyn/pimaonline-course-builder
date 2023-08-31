@@ -33,6 +33,7 @@ import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
+import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js"
 
 
 export function addCustomTypes(editor) {
@@ -238,6 +239,28 @@ export function addCustomTypes(editor) {
   addPanoptoIframe(editor);
 	restrictParentComponent("panopto-iframe", ["panopto-object"]);
 	//////////////////////////// end panopto container ////////////////////////////
+
+		//////////////////////////// Playposit container ////////////////////////////
+	//Media object
+  addPlaypositContainer(editor);
+	restrictParentComponent("playposit-container", ["content-body"]);
+
+	// Media object
+  addPlaypositObject(editor);
+	restrictParentComponent("playposit-object", ["playposit-container"]);
+
+	// Media info
+  addPlaypositInfo(editor);
+	restrictParentComponent("playposit-info", ["playposit-container"]);
+
+	// media caption
+  addPlaypositCaption(editor);
+	restrictParentComponent("playposit-caption", ["playposit-info"]);
+
+	// Playposit Iframe
+  addPlaypositIframe(editor);
+	restrictParentComponent("playposit-iframe", ["playposit-object"]);
+	//////////////////////////// end playposit container ////////////////////////////
 
 	//////////////////////////// Youtube container ////////////////////////////
 	//Media object
