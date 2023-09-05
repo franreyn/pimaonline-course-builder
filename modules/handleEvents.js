@@ -215,11 +215,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		
 		if(parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6") {
 			ckToolbar.classList.add('remove-ck-toolbar');
-			console.log(ckToolbar)
-
 		} else {
 			ckToolbar.classList.remove('remove-ck-toolbar');
-			console.log(ckToolbar)
 		}
 	});
 	
