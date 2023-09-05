@@ -33,6 +33,7 @@ import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
+import { addTabGroup, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
 
 export function addCustomTypes(editor) {
@@ -340,6 +341,22 @@ export function addCustomTypes(editor) {
 	// Table
 	addTable(editor);
 	restrictParentComponent("table", ["content-body"]);
+
+	// Tabs
+	addTabs(editor);
+	// restrictParentComponent("tabs", ["content-body"]);
+
+	addTabGroup(editor);
+	// restrictParentComponent("tab-group", ["tabs"]);
+
+	addTabHeader(editor);
+	// restrictParentComponent("tab-header", ["tab-group"])
+
+	addTabInput(editor);
+	// restrictParentComponent("tab-input", ["tab-group"]);
+
+	addTabPanel(editor);
+	// restrictParentComponent("tab-panel", ["tab-group"]);
 
 	// thead
 	addThead(editor);
