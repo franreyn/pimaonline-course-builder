@@ -14,9 +14,8 @@ export function initEditor() {
 			"grapesjs-plugin-ckeditor": {
 				options: {
 					toolbar: [
-						{ name: 'basicstyles',
-						  items: ['Bold', 'Italic', 'FontColor',
-							'|', 'Link'] },
+						{ name: "basicstyles",
+						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link"] },
 					],
 					language: "en",
 				},
