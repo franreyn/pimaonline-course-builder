@@ -73,7 +73,11 @@ p {
   color: inherit;
 }
 
-.header .text-container p {
-  font-size: inherit;
+.header .text-container h1 p{
+  font-size: 2.5rem;
+}
+
+.header .text-container p{
+  font-size: 1.155rem;
 }
 /* ---------------------------------------------------------- */
