@@ -351,3 +351,8 @@ html {
     padding: 1.5px;
     outline: none;
 }
+
+/* Toggled class for ck editor toolbar for headings */
+.remove-ck-toolbar {
+  display: none !important;
+}
