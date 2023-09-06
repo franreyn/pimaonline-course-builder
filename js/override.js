@@ -91,20 +91,9 @@ const callTabsWidget = () => {
 
   tabsWidgets.forEach((tab,index) => {
 
-    console.log(tab)
-
     let tabInputs = tab.querySelectorAll("input")
-
-    console.log(tab)
-
     let tabLabels = tab.querySelectorAll("label")
-    
-    console.log(tab)
-
     let tabDivs = tab.querySelectorAll("div.tab-panel")
-
-    console.log(tab)
-
 
     let groupNum = index + 1;
 
