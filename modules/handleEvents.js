@@ -1,6 +1,7 @@
 import { config } from "../config.js";
 import { addComponentToCanvas } from "./utils.js";
 
+
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
 	// Initalize layer buttons and set to display none
@@ -204,4 +205,23 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 		}
 	})
+
+	// Check if component is a heading and if it is, remove the CK Editor toolbar
+	editor.on('component:selected', function(component) {
+
+		let parentComponent = component.parent();
+		let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
+
+		if (parentComponent) {
+
+			let parentType = parentComponent.get('type');
+
+		if(parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6") {
+			ckToolbar.classList.add('remove-ck-toolbar');
+		} else {
+			ckToolbar.classList.remove('remove-ck-toolbar');
+		}
+	}
+	});
+	
 }

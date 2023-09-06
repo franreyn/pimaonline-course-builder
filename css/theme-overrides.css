@@ -67,3 +67,17 @@ dl.vocab-list dd {
   margin: 0 auto;
   width: 100%;
 }
+
+/* These text styles help keep ck editor from changing styles */
+p {
+  color: inherit;
+}
+
+.header .text-container h1 p{
+  font-size: 2.5rem;
+}
+
+.header .text-container p{
+  font-size: 1.155rem;
+}
+/* ---------------------------------------------------------- */

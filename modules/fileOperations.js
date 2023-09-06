@@ -109,6 +109,58 @@ export function exportFile(editor) {
 		overrideScript.remove();
 	}
 
+  // Remove the extra div tags within headings
+  const headings = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  headings.forEach((heading) => {
+    const divChild = heading.querySelector("div");
+    if (divChild) {
+      // Move the content of the div to the heading and remove the div
+      heading.innerHTML = divChild.innerHTML;
+    }
+    // // Remove any nested p tags within the heading
+    const nestedPTags = heading.querySelectorAll("p");
+    nestedPTags.forEach((pTag) => {
+      heading.innerHTML = pTag.innerHTML;
+
+    });
+  });
+
+  // Remove empty <p></p> tags
+  const emptyPTags = parsedHtml.querySelectorAll("p:empty");
+  emptyPTags.forEach((emptyPTag) => {
+    emptyPTag.remove();
+  });
+
+  // Get all <div> elements containing <p> elements
+  const divsWithParagraphs = parsedHtml.querySelectorAll('div p');
+
+  if(divsWithParagraphs) {
+  // Loop through the selected elements and remove their parent <div> elements
+  divsWithParagraphs.forEach((paragraph) => {
+    const parentDiv = paragraph.parentElement;
+    parentDiv.parentNode.replaceChild(paragraph, parentDiv);
+  });
+  }
+
+  //Edits HTML that is entered in as a paragraph, but never edited in CK Editor
+// Get all <div> elements
+const divElements = parsedHtml.querySelectorAll('div');
+
+// Loop through the selected <div> elements
+divElements.forEach((divElement) => {
+  // Check if the text content of the <div> matches "Add text"
+  if (divElement.textContent.trim() === 'Add text') {
+    // Create a new <p> element
+    const newParagraph = parsedHtml.createElement('p');
+
+    // Set the text content of the new <p> element
+    newParagraph.textContent = 'Add text';
+
+    // Replace the <div> with the new <p> element
+    divElement.parentNode.replaceChild(newParagraph, divElement);
+  }
+});
+
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
 
