@@ -195,6 +195,12 @@ export function initEditor() {
 					content: { type: "horizontal-display" },
 				},
 				{
+					id: "image-gallery",
+					category: "Widgets",
+					label: "Image Gallery",
+					content: { type: "image-gallery" },
+				},
+				{
 					id: "side-by-side",
 					category: "Widgets",
 					label: "Side by Side",
