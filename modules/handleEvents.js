@@ -204,4 +204,16 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 		}
 	})
+
+	// Check for radio and labels and add click events for them
+	editor.on("component:add", (component) => {
+		if(component.get("type") === "tab-group") {
+			var tabInputs = document.querySelectorAll('.tab-group');
+			console.log(tabInputs)
+		}
+
+	})
+
+
+
 }

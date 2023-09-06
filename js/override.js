@@ -87,10 +87,24 @@ const callTabsWidget = () => {
 
   let tabsWidgetsNum = 0;
 
+  console.log(tabsWidgets)
+
   tabsWidgets.forEach((tab,index) => {
+
+    console.log(tab)
+
     let tabInputs = tab.querySelectorAll("input")
+
+    console.log(tab)
+
     let tabLabels = tab.querySelectorAll("label")
-    let tabDivs = tab.querySelectorAll("div")
+    
+    console.log(tab)
+
+    let tabDivs = tab.querySelectorAll("div.tab-panel")
+
+    console.log(tab)
+
 
     let groupNum = index + 1;
 
@@ -101,6 +115,7 @@ const callTabsWidget = () => {
     for(tabIndex = 0; tabIndex < tabInputs.length; tabIndex++) {
 
       let tabNum = tabsWidgetsNum + 1;
+
 
       //Add class, id, name, and aria-described by for inputs
       tabInputs[tabIndex].classList.add("tab-input");

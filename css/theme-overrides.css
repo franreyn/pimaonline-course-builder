@@ -67,3 +67,7 @@ dl.vocab-list dd {
   margin: 0 auto;
   width: 100%;
 }
+
+input:checked + label {
+  color: red;
+}

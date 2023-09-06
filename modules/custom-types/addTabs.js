@@ -9,6 +9,9 @@ export function addTabs(editor) {
 			init() {
 				if (!this.components().find((component) => component.get("type") === "tab-group")) {
 					this.components().add({ type: "tab-group" });
+					this.components().add({ type: "tab-group" });
+					this.components().add({ type: "tab-group" });
+					this.components().add({ type: "tab-group" });
 				}
 			},
 		},
@@ -20,6 +23,7 @@ export function addTabGroup(editor) {
 		model: {
 			defaults: {
 				tagName: "div",
+				attributes: { class: "tab-group"},
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "tab-input")) {
@@ -65,15 +69,13 @@ export function addTabPanel(editor) {
 		model: {
 			defaults: {
 				tagName: "div",
-				content: "Tab Panel Text",
-			},
-			init() {
-				// if (!this.components().find((component) => component.get("type") === "h4")) {
-				// 	this.components().add({ type: "h4" });
-				// }
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
-				}
+				attributes: {class: "tab-panel"},
+				components: [
+					{
+						type: "text",
+						content: "Add text",
+					},
+				],
 			},
 		},
 	});
