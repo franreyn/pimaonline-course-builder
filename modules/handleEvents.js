@@ -208,10 +208,23 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	// Check for radio and labels and add click events for them
 	editor.on("component:add", (component) => {
 		if(component.get("type") === "tab-group") {
-			var tabInputs = document.querySelectorAll('.tab-group');
-			console.log(tabInputs)
+			var tabInputs = editor.Canvas.getBody().querySelectorAll(".tab-group input");
+			var tabLabel = editor.Canvas.getBody().querySelectorAll(".tab-group input + *");
+			tabInputs.forEach( (input) => {
+				input.addEventListener("click", () => {
+					input.checked = true;
+				})
+			})
+			tabLabel.forEach( (label) => {
+				label.addEventListener("click", () => {
+					let input = label.previousElementSibling;
+					console.log("previous sibling: ", input)
+					if (input && input.type === 'radio') {
+            input.checked = true;
+        }
+				})
+			})
 		}
-
 	})
 
 
