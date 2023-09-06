@@ -33,7 +33,8 @@ import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
-import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js"
+import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
+import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 
 
 export function addCustomTypes(editor) {
@@ -387,6 +388,20 @@ export function addCustomTypes(editor) {
 	// td
 	addTd(editor);
 	restrictParentComponent("td", ["tbody-tr"]);
+
+	////////////// Image gallery /////////////
+
+	addImageGallery(editor);
+	restrictParentComponent("image-gallery", ["content-body"]);
+
+	addGalleryWrapper(editor);
+	restrictParentComponent("gallery-wrapper", ["image-gallery"]);
+
+	addImageBox(editor);
+	restrictParentComponent("image-box", ["gallery-wrapper"]);
+
+	addStaticImage(editor);
+	restrictParentComponent("static-image", ["image-box"]);
 
 	// ======= END COMPONENTS ======
 	// ...
