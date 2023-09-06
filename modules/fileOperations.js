@@ -137,11 +137,13 @@ export function exportFile(editor) {
   console.log(parsedHtml);
   console.log(divsWithParagraphs);
 
+  if(divsWithParagraphs) {
   // Loop through the selected elements and remove their parent <div> elements
   divsWithParagraphs.forEach((paragraph) => {
     const parentDiv = paragraph.parentElement;
     parentDiv.parentNode.replaceChild(paragraph, parentDiv);
   });
+  }
 
   //Edits HTML that is entered in as a paragraph, but never edited in CK Editor
 // Get all <div> elements
