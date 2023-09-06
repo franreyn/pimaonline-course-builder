@@ -24,7 +24,9 @@ export const config = {
     "ul", 
     "vocab-cards",
     "vocab-item",
-    "youtube-container", 
+    "youtube-container",
+    "image-gallery",
+    "image-box",
   ],
   unselectableComponents: [
     "one-column-layout", 
@@ -38,7 +40,8 @@ export const config = {
     "footer-info",
     "footnotes",
     "side-by-side-item",
-    "toggle-footnotes"
+    "toggle-footnotes",
+    "gallery-wrapper",
   ],
   requiresJsComponents: [
     "image-gallery",
