@@ -26,6 +26,7 @@ export const config = {
     "vocab-item",
     "youtube-container",
     "image-gallery",
+    "image-box",
   ],
   unselectableComponents: [
     "one-column-layout", 
