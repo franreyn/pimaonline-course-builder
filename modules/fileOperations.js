@@ -134,9 +134,6 @@ export function exportFile(editor) {
   // Get all <div> elements containing <p> elements
   const divsWithParagraphs = parsedHtml.querySelectorAll('div p');
 
-  console.log(parsedHtml);
-  console.log(divsWithParagraphs);
-
   if(divsWithParagraphs) {
   // Loop through the selected elements and remove their parent <div> elements
   divsWithParagraphs.forEach((paragraph) => {
