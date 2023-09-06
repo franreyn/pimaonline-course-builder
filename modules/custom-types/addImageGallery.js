@@ -31,6 +31,8 @@ export function addGalleryWrapper(editor) {
           this.components().add({ type: "image-box" });
 					this.components().add({ type: "image-box" });
           this.components().add({ type: "image-box" });
+					this.components().add({ type: "image-box" });
+          this.components().add({ type: "image-box" });
 				}
 			},
 		},
