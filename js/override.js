@@ -13,70 +13,15 @@ const callImageGallery = () => {
   docHead.appendChild(fontAwesomeCdn);
   // Begin image gallery
   const imgGalleries = document.querySelectorAll(".image-gallery"),
-    imgBoxes = document.querySelectorAll(".image-box"),
     modalBoxContent = `<div class="modal-box invisible">
         <div class="gallery-overlay"></div>
         <figure class="modal-box--image"><i class="fa-solid fa-x close-img"></i> <img src="#" alt="image here" /><figcaption class="img-caption"></figcaption></figure>
         </div>
         <button class="hide-gallery">Hide</button>`;
 
-  //  createModalBox.innerHTML = modalBoxContent;
   for (let imgGallery = 0; imgGallery < imgGalleries.length; imgGallery++) {
     imgGalleries[imgGallery].insertAdjacentHTML("afterbegin", modalBoxContent);
   }
-
-  if (document.querySelector(".modal-box")) {
-    const overlay = document.querySelector(".gallery-overlay"),
-      modalBox = document.querySelector(".modal-box"),
-      modalImg = document.querySelector(".modal-box--image img"),
-      modalCaption = document.querySelector(".img-caption"),
-      closeImg = document.querySelector(".close-img");
-
-    for (let imgBox = 0; imgBox < imgBoxes.length; imgBox++) {
-      imgBoxes[imgBox].onclick = function () {
-        modalBox.classList.remove("invisible");
-        let imgSrc = this.querySelector("img").src;
-        modalImg.src = imgSrc;
-        let imgCaption = this.querySelector("img").alt;
-        modalCaption.innerHTML = imgCaption;
-      }
-
-      // Make images tab-able
-      imgBoxes[imgBox].setAttribute("tabindex", "0");
-      imgBoxes[imgBox].addEventListener("keydown", function (enter) {
-        if (enter.key === "Enter") {
-          modalBox.classList.remove("invisible");
-          let imgSrc = this.querySelector("img").src;
-          modalImg.src = imgSrc;
-          let imgCaption = this.querySelector("img").alt;
-          modalCaption.innerHTML = imgCaption;
-        }
-      })
-    }
-    overlay.onclick = () => {
-      modalBox.classList.add("invisible");
-    }
-    window.onkeydown = (esc) => {
-      if (esc.keyCode === 27) {
-        modalBox.classList.add("invisible");
-      }
-    }
-
-    closeImg.onclick = () => {
-      modalBox.classList.add("invisible");
-    }
-    const hideGalleries = document.querySelectorAll(".hide-gallery");
-    for (let hideGallery = 0; hideGallery < hideGalleries.length; hideGallery++) {
-      hideGalleries[hideGallery].addEventListener("click", () => {
-        hideGalleries[hideGallery].nextElementSibling.classList.toggle("invisible");
-        if (hideGalleries[hideGallery].innerHTML === "Hide") {
-          hideGalleries[hideGallery].innerHTML = "Show";
-        } else {
-          hideGalleries[hideGallery].innerHTML = "Hide";
-        }
-      });
-    }
-  };
 }
 if (imageGallery) {
   callImageGallery();
