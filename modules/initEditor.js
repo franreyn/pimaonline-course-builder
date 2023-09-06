@@ -10,16 +10,17 @@ export function initEditor() {
 		undoManager: { trackSelection: false },
 		panels: { defaults: [] },
 		plugins: ["grapesjs-plugin-ckeditor"],
-		/* pluginsOpts: {
-			"gjs-plugin-ckeditor": {
+		pluginsOpts: {
+			"grapesjs-plugin-ckeditor": {
 				options: {
-					language: "en",
 					toolbar: [
-
+						{ name: "basicstyles",
+						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link"] },
 					],
+					language: "en",
 				},
 			},
-		}, */
+		}, 
 		layerManager: {
 			appendTo: ".layers-container",
 		},
