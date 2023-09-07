@@ -131,14 +131,26 @@ export function exportFile(editor) {
     emptyPTag.remove();
   });
 
-  // Get all <div> elements containing <p> elements
-  const divsWithParagraphs = parsedHtml.querySelectorAll('div p');
+// Get all <div> elements containing <p> elements
+const divsWithParagraphs = parsedHtml.querySelectorAll('div p');
 
-  if(divsWithParagraphs) {
-  // Loop through the selected elements and remove their parent <div> elements
-  divsWithParagraphs.forEach((paragraph) => {
-    const parentDiv = paragraph.parentElement;
-    parentDiv.parentNode.replaceChild(paragraph, parentDiv);
+if (divsWithParagraphs) {
+  // Loop through the selected <div> elements
+  divsWithParagraphs.forEach((parentDiv) => {
+    const paragraphs = parentDiv.querySelectorAll('p');
+    
+    if (paragraphs.length > 1) {
+      // Create a new container <div> element
+      const containerDiv = document.createElement('div');
+
+      // Loop through the <p> elements and move them to the new container
+      paragraphs.forEach((paragraph) => {
+        containerDiv.appendChild(paragraph);
+      });
+
+      // Replace the parent <div> with the new container
+      parentDiv.parentNode.replaceChild(containerDiv, parentDiv);
+    }
   });
   }
 
