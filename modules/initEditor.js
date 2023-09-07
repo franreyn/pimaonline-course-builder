@@ -190,6 +190,12 @@ export function initEditor() {
 					content: { type: "card-horizontal" },
 				},
 				{
+					id: "columns",
+					category: "Widgets",
+					label: "Columns",
+					content: { type: "columns" },
+				},
+				{
 					id: "horizontal-display",
 					category: "Widgets",
 					label: "Horizontal Display",
