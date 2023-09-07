@@ -23,6 +23,13 @@ dl.vocab-list dd {
   }
 }
 
+.accordion .arrow-right:after {
+  background-image: none;
+  font-family: "FontAwesome";
+  content: "\f054";
+  align-self: center;
+}
+
 /* Vocabulary Cards Widget */
 .vocab-cards {
   display: grid;
