@@ -160,6 +160,12 @@ export function initEditor() {
 				},
 				//=== Widgets
 				{
+					id: "accordion",
+					category: "Widgets",
+					label: "Accordion",
+					content: { type: "accordion" },
+				},
+				{
 					id: "assignments-widget",
 					category: "Widgets",
 					label: "Assignments",
