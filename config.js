@@ -28,6 +28,8 @@ export const config = {
     "image-gallery",
     "image-box",
     "accordion-item",
+    "columns",
+    "col-item",
   ],
   unselectableComponents: [
     "one-column-layout", 
