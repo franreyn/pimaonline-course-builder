@@ -20,6 +20,25 @@ export function setComponents(editor) {
     .content-body {
       margin-bottom: 15px !important;
     }
+
+    .accordion-content {
+      display: block;
+    }
+
+    .accordion-item {
+      margin-bottom: 10px;
+    }
+
+    .accordion-title {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .accordion .accordion-title h3 {
+      flex-basis: 50%;
+      margin-bottom: 0;
+      max-width: 100%;
+    }
   </style>
 `);
 }

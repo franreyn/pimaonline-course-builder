@@ -35,11 +35,14 @@ import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
+import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns } from "./custom-types/addColumns.js";
 
 
 export function addCustomTypes(editor) {
   const allWidgets = [
+		"accordion-title",
+		"accordion-content",
     "assignment", 
     "blockquote",
     "border", 
@@ -321,7 +324,7 @@ export function addCustomTypes(editor) {
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 4
 	addH4(editor);
@@ -404,6 +407,20 @@ export function addCustomTypes(editor) {
 
 	addStaticImage(editor);
 	restrictParentComponent("static-image", ["image-box"]);
+
+	////////////// Accordion ///////////////
+
+	addAccordion(editor);
+	restrictParentComponent("accordion", ["content-body"]);
+
+	addAccordionItem(editor);
+	restrictParentComponent("accordion-item", ["accordion"]);
+
+	addAccordionTitle(editor);
+	restrictParentComponent("accordion-title", ["accordion-item"]);
+
+	addAccordionContent(editor);
+	restrictParentComponent("accordion-content", ["accordion-item"]);
 
 	///////////// Columns //////////////////
 

@@ -27,6 +27,7 @@ export const config = {
     "youtube-container",
     "image-gallery",
     "image-box",
+    "accordion-item",
     "columns",
     "col-item",
   ],
