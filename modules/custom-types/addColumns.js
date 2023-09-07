@@ -10,7 +10,6 @@ export function addColumns(editor) {
 					this.components().add({ type: "col-item" });
 					this.components().add({ type: "col-item" });
 					this.components().add({ type: "col-item" });
-					this.components().add({ type: "col-item" });
 				}
 			},
 		},
