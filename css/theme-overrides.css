@@ -13,7 +13,7 @@ dl.vocab-list dd {
 }
 
 /* Widgets */
-.table-th, .table-td {
+.table-th, .table-td, h1, h2, h3, h4, h5, h6, p {
   word-break: break-word;
 }
 
