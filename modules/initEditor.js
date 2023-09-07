@@ -294,18 +294,6 @@ export function initEditor() {
 					content: { type: "figure" },
 				},
 				{
-					id: "ol",
-					category: "Text",
-					label: "Ordered List",
-					content: { type: "ol" },
-				},
-				{
-					id: "ul",
-					category: "Text",
-					label: "Unordered List",
-					content: { type: "ul" },
-				},
-				{
 					id: "dl",
 					category: "Text",
 					label: "Description List",
