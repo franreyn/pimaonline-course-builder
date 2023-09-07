@@ -27,6 +27,7 @@ export const config = {
     "youtube-container",
     "image-gallery",
     "image-box",
+    "accordion-item",
   ],
   unselectableComponents: [
     "one-column-layout", 
