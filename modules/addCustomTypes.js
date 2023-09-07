@@ -35,6 +35,7 @@ import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
+import { addColItem, addColumns } from "./custom-types/addColumns.js";
 
 
 export function addCustomTypes(editor) {
@@ -44,6 +45,7 @@ export function addCustomTypes(editor) {
     "border", 
 		"call-out",
     "card-body", 
+		"col-item",
     "content-body", 
     "description-definition", 
     "description-term",
@@ -319,7 +321,7 @@ export function addCustomTypes(editor) {
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h3", ["assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 4
 	addH4(editor);
@@ -402,6 +404,14 @@ export function addCustomTypes(editor) {
 
 	addStaticImage(editor);
 	restrictParentComponent("static-image", ["image-box"]);
+
+	///////////// Columns //////////////////
+
+	addColumns(editor);
+	restrictParentComponent("columns", ["content-body"]);
+
+	addColItem(editor);
+	restrictParentComponent("col-item", ["columns"]);
 
 	// ======= END COMPONENTS ======
 	// ...
