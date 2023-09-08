@@ -18,9 +18,9 @@ import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
 import { addPanoptoDisplay, addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
-import { addOrderedList } from "./custom-types/addOrderedList.js";
-import { addUnorderedList } from "./custom-types/addUnorderedList.js";
-import { addListItem } from "./custom-types/addListItem.js";
+// import { addOrderedList } from "./custom-types/addOrderedList.js";
+// import { addUnorderedList } from "./custom-types/addUnorderedList.js";
+// import { addListItem } from "./custom-types/addListItem.js";
 import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
@@ -289,18 +289,6 @@ export function addCustomTypes(editor) {
 	addYoutubeIframe(editor);
 	restrictParentComponent("youtube-iframe", ["youtube-object"]);
 	//////////////////////////// end youtube container ////////////////////////////
-
-	// ol
-	addOrderedList(editor);
-	//restrictParentComponent('blockquote', ['content-body']);
-
-	// ul
-	addUnorderedList(editor);
-	//restrictParentComponent('blockquote', ['content-body']);
-
-	// li
-	addListItem(editor);
-	//restrictParentComponent('blockquote', ['content-body']);
 
 	// Description Lists
 	addDescriptionList(editor);
