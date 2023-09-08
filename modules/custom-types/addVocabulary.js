@@ -6,6 +6,22 @@ export function addVocabulary(editor) {
 				attributes: { class: "vocab-list" },
 			},
 			init() {
+				if (!this.components().find((component) => component.get("type") === "vocab-wrapper")) {
+					this.components().add({ type: "vocab-wrapper" });
+				}
+			},
+		},
+	});
+}
+
+export function addVocabularyWrapper(editor) {
+  editor.DomComponents.addType("vocab-wrapper", {
+		model: {
+			defaults: {
+				tagName: "div",
+				attributes: { class: "vocab-wrapper" },
+			},
+			init() {
 				if (!this.components().find((component) => component.get("type") === "description-term")) {
 					this.components().add({ type: "description-term" });
 				}
