@@ -9,7 +9,7 @@ import { addSecondColumn } from "./custom-types/addSecondColumn.js";
 import { addContentBody } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
-import { addVocabulary, addVocabularyDefinition, addVocabularyTerm } from "./custom-types/addVocabulary.js";
+import { addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
 import { addAssignments, addAssignment } from "./custom-types/addAssignments.js";
 import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
@@ -177,13 +177,17 @@ export function addCustomTypes(editor) {
   addVocabulary(editor);
 	restrictParentComponent("vocab-list", ["content-body"]);
 
+	// Vocab item
+	addVocabularyWrapper(editor);
+	restrictParentComponent("vocab-wrapper", ["vocab-list"]);
+
 	// Vocabulary widget TERM
   addVocabularyTerm(editor);
-	restrictParentComponent("description-term", ["vocab-list"]);
+	restrictParentComponent("description-term", ["vocab-wrapper"]);
 
 	// Vocabulary widget DEFINITION
   addVocabularyDefinition(editor);
-	restrictParentComponent("description-definition", ["vocab-list"]);
+	restrictParentComponent("description-definition", ["vocab-wrapper"]);
 
 	// Assignments Widget
   addAssignments(editor);
