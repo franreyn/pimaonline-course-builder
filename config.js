@@ -24,6 +24,8 @@ export const config = {
     "ul", 
     "vocab-cards",
     "vocab-item",
+    "vocab-list",
+    "vocab-wrapper",
     "youtube-container",
     "image-gallery",
     "image-box",
