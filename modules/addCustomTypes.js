@@ -33,16 +33,23 @@ import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
+import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
+import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
+import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
+import { addColItem, addColumns } from "./custom-types/addColumns.js";
 import { addTabGroup, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
 
 export function addCustomTypes(editor) {
   const allWidgets = [
+		"accordion-title",
+		"accordion-content",
     "assignment", 
     "blockquote",
     "border", 
 		"call-out",
     "card-body", 
+		"col-item",
     "content-body", 
     "description-definition", 
     "description-term",
@@ -240,6 +247,28 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("panopto-iframe", ["panopto-object"]);
 	//////////////////////////// end panopto container ////////////////////////////
 
+		//////////////////////////// Playposit container ////////////////////////////
+	//Media object
+  addPlaypositContainer(editor);
+	restrictParentComponent("playposit-container", ["content-body"]);
+
+	// Media object
+  addPlaypositObject(editor);
+	restrictParentComponent("playposit-object", ["playposit-container"]);
+
+	// Media info
+  addPlaypositInfo(editor);
+	restrictParentComponent("playposit-info", ["playposit-container"]);
+
+	// media caption
+  addPlaypositCaption(editor);
+	restrictParentComponent("playposit-caption", ["playposit-info"]);
+
+	// Playposit Iframe
+  addPlaypositIframe(editor);
+	restrictParentComponent("playposit-iframe", ["playposit-object"]);
+	//////////////////////////// end playposit container ////////////////////////////
+
 	//////////////////////////// Youtube container ////////////////////////////
 	//Media object
 	addYoutubeContainer(editor);
@@ -296,7 +325,7 @@ export function addCustomTypes(editor) {
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 4
 	addH4(editor);
@@ -381,6 +410,42 @@ export function addCustomTypes(editor) {
 	// td
 	addTd(editor);
 	restrictParentComponent("td", ["tbody-tr"]);
+
+	////////////// Image gallery /////////////
+
+	addImageGallery(editor);
+	restrictParentComponent("image-gallery", ["content-body"]);
+
+	addGalleryWrapper(editor);
+	restrictParentComponent("gallery-wrapper", ["image-gallery"]);
+
+	addImageBox(editor);
+	restrictParentComponent("image-box", ["gallery-wrapper"]);
+
+	addStaticImage(editor);
+	restrictParentComponent("static-image", ["image-box"]);
+
+	////////////// Accordion ///////////////
+
+	addAccordion(editor);
+	restrictParentComponent("accordion", ["content-body"]);
+
+	addAccordionItem(editor);
+	restrictParentComponent("accordion-item", ["accordion"]);
+
+	addAccordionTitle(editor);
+	restrictParentComponent("accordion-title", ["accordion-item"]);
+
+	addAccordionContent(editor);
+	restrictParentComponent("accordion-content", ["accordion-item"]);
+
+	///////////// Columns //////////////////
+
+	addColumns(editor);
+	restrictParentComponent("columns", ["content-body"]);
+
+	addColItem(editor);
+	restrictParentComponent("col-item", ["columns"]);
 
 	// ======= END COMPONENTS ======
 	// ...

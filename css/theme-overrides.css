@@ -13,7 +13,7 @@ dl.vocab-list dd {
 }
 
 /* Widgets */
-.table-th, .table-td {
+.table-th, .table-td, h1, h2, h3, h4, h5, h6, p {
   word-break: break-word;
 }
 
@@ -21,6 +21,13 @@ dl.vocab-list dd {
   table.custom-width th {
     width: 10% !important;
   }
+}
+
+.accordion .arrow-right:after {
+  background-image: none;
+  font-family: "FontAwesome";
+  content: "\f054";
+  align-self: center;
 }
 
 /* Vocabulary Cards Widget */
@@ -67,6 +74,20 @@ dl.vocab-list dd {
   margin: 0 auto;
   width: 100%;
 }
+
+/* These text styles help keep ck editor from changing styles */
+p {
+  color: inherit;
+}
+
+.header .text-container h1 p{
+  font-size: 2.5rem;
+}
+
+.header .text-container p{
+  font-size: 1.155rem;
+}
+/* ---------------------------------------------------------- */
 
 input:checked + label {
   color: red;

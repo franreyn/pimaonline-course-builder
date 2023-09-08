@@ -10,16 +10,17 @@ export function initEditor() {
 		undoManager: { trackSelection: false },
 		panels: { defaults: [] },
 		plugins: ["grapesjs-plugin-ckeditor"],
-		/* pluginsOpts: {
-			"gjs-plugin-ckeditor": {
+		pluginsOpts: {
+			"grapesjs-plugin-ckeditor": {
 				options: {
-					language: "en",
 					toolbar: [
-
+						{ name: "basicstyles",
+						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link"] },
 					],
+					language: "en",
 				},
 			},
-		}, */
+		}, 
 		layerManager: {
 			appendTo: ".layers-container",
 		},
@@ -159,6 +160,12 @@ export function initEditor() {
 				},
 				//=== Widgets
 				{
+					id: "accordion",
+					category: "Widgets",
+					label: "Accordion",
+					content: { type: "accordion" },
+				},
+				{
 					id: "assignments-widget",
 					category: "Widgets",
 					label: "Assignments",
@@ -189,10 +196,22 @@ export function initEditor() {
 					content: { type: "card-horizontal" },
 				},
 				{
+					id: "columns",
+					category: "Widgets",
+					label: "Columns",
+					content: { type: "columns" },
+				},
+				{
 					id: "horizontal-display",
 					category: "Widgets",
 					label: "Horizontal Display",
 					content: { type: "horizontal-display" },
+				},
+				{
+					id: "image-gallery",
+					category: "Widgets",
+					label: "Image Gallery",
+					content: { type: "image-gallery" },
 				},
 				{
 					id: "side-by-side",
@@ -254,6 +273,12 @@ export function initEditor() {
 					category: "Content",
 					label: "Panopto Video",
 					content: { type: "panopto-container" },
+				},
+				{
+					id: "playposit",
+					category: "Content",
+					label: "Playposit Video",
+					content: { type: "playposit-container" },
 				},
 				{
 					id: "youtube",
