@@ -92,3 +92,29 @@ p {
 input:checked + label {
   color: red;
 }
+
+button:hover {
+  cursor: pointer;
+}
+
+label.tab-header {
+  padding: 3px;
+}
+
+label.tab-header p {
+  margin-bottom: 0;
+}
+
+.add-tab-btn {
+  background-color: transparent;
+  color: darkblue;
+  padding: 0 0 0 5px;
+  margin: 0;
+}
+
+.add-tab-btn:hover {
+  background-color: transparent !important;
+  color: blue;
+  padding: 0 0 0 5px;
+  margin: 0;
+}
