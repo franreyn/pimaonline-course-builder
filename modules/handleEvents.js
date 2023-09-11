@@ -216,7 +216,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 			let parentType = parentComponent.get('type');
 
-		if(parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6") {
+		if(parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6" || parentType == "tab-header") {
 			ckToolbar.classList.add('remove-ck-toolbar');
 		} else {
 			ckToolbar.classList.remove('remove-ck-toolbar');
@@ -225,25 +225,119 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	});
 	
 
-	// Check for radio and labels and add click events for them
+	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
-		if(component.get("type") === "tab-group") {
-			var tabInputs = editor.Canvas.getBody().querySelectorAll(".tab-group input");
-			var tabLabel = editor.Canvas.getBody().querySelectorAll(".tab-group input + *");
-			tabInputs.forEach( (input) => {
-				input.addEventListener("click", () => {
-					input.checked = true;
-				})
-			})
-			tabLabel.forEach( (label) => {
-				label.addEventListener("click", () => {
-					let input = label.previousElementSibling;
-					console.log("previous sibling: ", input)
-					if (input && input.type === 'radio') {
-            input.checked = true;
-        }
-				})
-			})
+
+		// Keep track of the number of tabs widgets
+		if(component.get("type") === "tabs") {
+		labelTabs();
 		}
-	})
+
+		// If add tab button is clicked
+		if (component.get("type") === "tab-btn") {
+			component.view.el.addEventListener("click", () => {
+
+				let tabSelector = component.view.el.attributes.id.value;
+
+				tabSelector = tabSelector.replace(/^addBtn/, "tabWidget");
+
+        const addTabLocation = editor.getWrapper().find(`#${tabSelector}`);
+
+        if (addTabLocation) {
+            // Attempt to add the component
+            let tabInputComponent = editor.DomComponents.addComponent({ type: "tab-input" });
+            let tabHeaderComponent = editor.DomComponents.addComponent({ type: "tab-header" });
+            let tabPanelComponent = editor.DomComponents.addComponent({ type: "tab-panel" });
+
+						addTabLocation[0].append([tabInputComponent, tabHeaderComponent, tabPanelComponent], {at: 0});
+						labelTabs();
+            }
+        }
+			)}
+
+	});
+
+	// When one part of tabs is removed, remove the rest of the tab parts
+  editor.on("component:remove", (removedComponent) => {
+
+		if(removedComponent.parent().attributes.type == "tab-header") {
+
+			let idInput = removedComponent.parent().view.el.attributes.for.value;
+
+			//Edit the returned value to target panel
+			let idPanel = idInput
+			idPanel = idPanel.replace(/^tab/, "tabContent");
+
+			// Remove input
+			let input = editor.getWrapper().find(`#${idInput}`);
+			if(input.length > 0) {
+			input[0].remove();
+			}
+
+			// Remove panel
+			let panel = editor.getWrapper().find(`#${idPanel}`);
+			if(panel.length > 0) {
+			panel[0].remove();
+			}
+
+			// Remove label
+			removedComponent.parent().remove();
+		} 
+	});
+	
+	// This function runs through the editor and assigns all tab related classes and attributes
+	function labelTabs() {
+
+		let tabNum = 1;
+		let tabWidgets = editor.Canvas.getBody().querySelectorAll(".tabs");
+
+		// For every tabs widget there is, parse through each tab
+		tabWidgets.forEach( (tab,index) => {
+
+			let tabWidgetNum = index + 1;
+
+			tabWidgets[index].setAttribute("id", `tabWidget${tabWidgetNum}`);
+
+			let tabInputs = tab.querySelectorAll("input");
+			let tabLabels = tab.querySelectorAll("label");
+			let tabPanels = tab.querySelectorAll(".tab-panel");
+			let addTabBtn = tab.querySelector(".add-tab-btn");
+			let groupNum = index + 1;
+
+			for(let tabIndex = 0; tabIndex < tabInputs.length; tabIndex++) {
+
+				// Edit tab inputs 
+				tabInputs[tabIndex].setAttribute("id", `tab${tabNum}`);
+				tabInputs[tabIndex].setAttribute("name", `hint-group-${groupNum}`);
+				tabInputs[tabIndex].addEventListener("click", () => {
+				tabInputs[tabIndex].checked = true;
+				})
+
+				// Edit tab labels
+				tabLabels[tabIndex].setAttribute("for", `tab${tabNum}`);
+				tabLabels[tabIndex].addEventListener("click", () => {
+					let input = tabLabels[tabIndex].previousElementSibling;
+					if (input && input.type === 'radio') {
+						input.checked = true;
+					}	
+				})
+
+				// Edit panels 
+				tabPanels[tabIndex].setAttribute("id", `tabContent${tabNum}`)
+
+				// Add hide tab at the end
+				if(tabIndex + 1 == tabInputs.length) {
+					tabLabels[tabIndex].classList.add("hide-tab");
+					tabInputs[tabIndex].checked = true;
+					tabPanels[tabIndex].classList.add("hide-panel")
+				}
+				tabNum++;
+			}
+
+			//Add id to add tab button
+			addTabBtn.setAttribute("id", `addBtn${tabWidgetNum}`)
+		})
+}
+
+
 }
