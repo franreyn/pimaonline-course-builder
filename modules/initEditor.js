@@ -166,10 +166,18 @@ export function initEditor() {
 					content: { type: "accordion" },
 				},
 				{
+					id: "accordion-item",
+					content: { type: "accordion-item" },
+				},
+				{
 					id: "assignments-widget",
 					category: "Widgets",
 					label: "Assignments",
 					content: { type: "assignments-widget" },
+				},
+				{
+					id: "assignment",
+					content: { type: "assignment" },
 				},
 				{
 					id: "blockquote",
@@ -214,6 +222,10 @@ export function initEditor() {
 					content: { type: "image-gallery" },
 				},
 				{
+					id: "image-box",
+					content: { type: "image-box" },
+				},
+				{
 					id: "side-by-side",
 					category: "Widgets",
 					label: "Side by Side",
@@ -224,6 +236,14 @@ export function initEditor() {
 					category: "Widgets",
 					label: "Table",
 					content: { type: "table" },
+				},
+				{
+					id: "th",
+					content: { type: "th" },
+				},
+				{
+					id: "tbody-tr",
+					content: { type: "tbody-tr" },
 				},
 				{
 					id: "tabs",
@@ -238,10 +258,18 @@ export function initEditor() {
 					content: { type: "vocab-cards" },
 				},
 				{
+					id: "vocab-item",
+					content: { type: "vocab-item" },
+				},
+				{
 					id: "vocab-list",
 					category: "Widgets",
 					label: "Vocab List",
 					content: { type: "vocab-list" },
+				},
+				{
+					id: "vocab-wrapper",
+					content: { type: "vocab-wrapper" },
 				},
 				{
 					id: "figure",
@@ -298,18 +326,6 @@ export function initEditor() {
 					category: "Text",
 					label: "Image",
 					content: { type: "figure" },
-				},
-				{
-					id: "ol",
-					category: "Text",
-					label: "Ordered List",
-					content: { type: "ol" },
-				},
-				{
-					id: "ul",
-					category: "Text",
-					label: "Unordered List",
-					content: { type: "ul" },
 				},
 				{
 					id: "dl",
