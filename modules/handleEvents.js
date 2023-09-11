@@ -249,7 +249,13 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
             let tabHeaderComponent = editor.DomComponents.addComponent({ type: "tab-header" });
             let tabPanelComponent = editor.DomComponents.addComponent({ type: "tab-panel" });
 
-						addTabLocation[0].append([tabInputComponent, tabHeaderComponent, tabPanelComponent], {at: 0});
+						// Get the number of existing components in the container
+						const tabLength = addTabLocation[0].components().length;
+
+						// Accounting for the add tab button and hide tab
+						const addTabIndex = tabLength - 4;
+
+						addTabLocation[0].append([tabInputComponent, tabHeaderComponent, tabPanelComponent], {at: addTabIndex});
 						labelTabs();
             }
         }
