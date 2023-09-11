@@ -131,37 +131,43 @@ export function exportFile(editor) {
     emptyPTag.remove();
   });
 
-// Get all <div> elements containing <p> elements
-const divsWithParagraphs = parsedHtml.querySelectorAll('div p');
-
-if (divsWithParagraphs) {
-  // Loop through the selected <div> elements
-  divsWithParagraphs.forEach((parentDiv) => {
-    const paragraphs = parentDiv.querySelectorAll('p');
-    
-    if (paragraphs.length > 1) {
-      // Create a new container <div> element
-      const containerDiv = document.createElement('div');
-
-      // Loop through the <p> elements and move them to the new container
-      paragraphs.forEach((paragraph) => {
-        containerDiv.appendChild(paragraph);
-      });
-
-      // Replace the parent <div> with the new container
-      parentDiv.parentNode.replaceChild(containerDiv, parentDiv);
-    }
-  });
-  }
-
   //Edits HTML that is entered in as a paragraph, but never edited in CK Editor
 // Get all <div> elements
 const divElements = parsedHtml.querySelectorAll('div');
 
 // Loop through the selected <div> elements
 divElements.forEach((divElement) => {
+
   // Check if the text content of the <div> matches "Add text"
-  if (divElement.textContent.trim() === 'Add text') {
+  if(divElement.parentElement.classList.contains("tab-panel")) {
+
+     // Get the parent of the <div>
+     const parentElement = divElement.parentElement;
+
+    while (divElement.firstChild) {
+      parentElement.insertBefore(divElement.firstChild, divElement);
+    }
+
+    // Remove the <div> element
+    parentElement.removeChild(divElement);
+  } else if(divElement.parentElement.classList.contains("tab-header")){
+
+    // Get the parent of the <div>
+    const parentElement = divElement.parentElement;
+
+    // Create a new text node with the text content of the <div>
+    const textNode = document.createTextNode(divElement.textContent);
+
+    // Insert the text node before the <div> element
+    parentElement.insertBefore(textNode, divElement);
+
+    // Remove the <div> element
+    parentElement.removeChild(divElement);
+  }
+
+  
+  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel")) {
+
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
 
@@ -172,6 +178,14 @@ divElements.forEach((divElement) => {
     divElement.parentNode.replaceChild(newParagraph, divElement);
   }
 });
+
+  // Remove add tabs button 
+  const addTabsBtns = parsedHtml.querySelectorAll(".add-tab-btn");
+  if(addTabsBtns) {
+    addTabsBtns.forEach((button)=> {
+      button.remove();
+    })
+  }
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);

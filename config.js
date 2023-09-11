@@ -18,6 +18,7 @@ export const config = {
     "panopto-container", 
     "paragraph", 
     "table",
+    "tab-group",
     "th",
     "tbody-tr",
     "td",

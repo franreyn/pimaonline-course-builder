@@ -246,6 +246,12 @@ export function initEditor() {
 					content: { type: "tbody-tr" },
 				},
 				{
+					id: "tabs",
+					category: "Widgets",
+					label: "Tabs",
+					content: { type: "tabs" },
+				},
+				{
 					id: "vocab-cards",
 					category: "Widgets",
 					label: "Vocab Cards",
