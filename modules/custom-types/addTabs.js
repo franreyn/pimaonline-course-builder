@@ -50,12 +50,14 @@ export function addTabHeader(editor) {
 				tagName: "label",
 				attributes: { 
 					contenteditable: "true",
+					draggable: false,
 					class: "tab-header",
 					tabindex: "0",
 				},
 				components: [
 					{
 						type: "text",
+						draggable: false,
 						content: "Tab Title 1",
 					},
 				],
