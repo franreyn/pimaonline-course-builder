@@ -37,8 +37,7 @@ import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPla
 import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns } from "./custom-types/addColumns.js";
-import { addTabGroup, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
-
+import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
 export function addCustomTypes(editor) {
   const allWidgets = [
@@ -58,6 +57,7 @@ export function addCustomTypes(editor) {
 		"toggle-footnotes",
 		"footer-info",
     "side-by-side-item", 
+		"tab-panel",
 		"text-container",
   ]
 
@@ -325,19 +325,19 @@ export function addCustomTypes(editor) {
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 4
 	addH4(editor);
-	restrictParentComponent("h4", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h4", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 5
 	addH5(editor);
-	restrictParentComponent("h5", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h5", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 6
 	addH6(editor);
-	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 //////////////////////////// H5P container ////////////////////////////
 
@@ -371,21 +371,25 @@ export function addCustomTypes(editor) {
 	addTable(editor);
 	restrictParentComponent("table", ["content-body"]);
 
-	// Tabs
+	//////////////////////////// Tabs ////////////////////////////
 	addTabs(editor);
-	// restrictParentComponent("tabs", ["content-body"]);
+	restrictParentComponent("tabs", ["content-body"]);
 
-	addTabGroup(editor);
-	// restrictParentComponent("tab-group", ["tabs"]);
+	addTabButton(editor);
+	restrictParentComponent("add-tab-btn", ["tabs"]);
 
 	addTabHeader(editor);
-	// restrictParentComponent("tab-header", ["tab-group"])
+
+	addTabHide(editor);
+	restrictParentComponent("tab-hide", ["tabs"])
 
 	addTabInput(editor);
-	// restrictParentComponent("tab-input", ["tab-group"]);
+	restrictParentComponent("tab-input", ["tabs"]);
 
 	addTabPanel(editor);
-	// restrictParentComponent("tab-panel", ["tab-group"]);
+	restrictParentComponent("tab-panel", ["tabs"]);
+
+		//////////////////////////// end tabs ////////////////////////////
 
 	// thead
 	addThead(editor);
