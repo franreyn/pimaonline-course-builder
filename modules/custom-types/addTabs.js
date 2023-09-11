@@ -7,36 +7,23 @@ export function addTabs(editor) {
 				content: "I'm a tabs",
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "tab-group")) {
-					this.components().add({ type: "tab-group" });
-					this.components().add({ type: "tab-group" });
-					this.components().add({ type: "tab-group" });
-					this.components().add({ type: "tab-group" });
-				}
-			},
-		},
-	});
-}
+				this.components().add({ type: "tab-input" });
+				this.components().add({ type: "tab-header" });
+				this.components().add({ type: "tab-panel" });
 
-export function addTabGroup(editor) {
-  editor.DomComponents.addType("tab-group", {
-		model: {
-			defaults: {
-				tagName: "div",
-				attributes: { class: "tab-group"},
-			},
-			init() {
-				if (!this.components().find((component) => component.get("type") === "tab-input")) {
-					this.components().add({ type: "tab-input" });
-				}
+				this.components().add({ type: "tab-input" });
+				this.components().add({ type: "tab-header" });
+				this.components().add({ type: "tab-panel" });
 
-				if (!this.components().find((component) => component.get("type") === "tab-header")) {
-					this.components().add({ type: "tab-header" });
-				}
+				this.components().add({ type: "tab-input" });
+				this.components().add({ type: "tab-header" });
+				this.components().add({ type: "tab-panel" });
 
-				if (!this.components().find((component) => component.get("type") === "tab-panel")) {
-					this.components().add({ type: "tab-panel" });
-				}
+				this.components().add({ type: "tab-input" });
+				this.components().add({ type: "tab-hide" });
+				this.components().add({ type: "tab-panel" });
+
+				this.components().add({ type: "tab-btn" });
 			},
 		},
 	});
@@ -47,6 +34,10 @@ export function addTabInput(editor) {
 		model: {
 			defaults: {
 				tagName: "input",
+				attributes: { 
+					class: "tab-input",
+					type: "radio",
+				},
 			},
 		},
 	});
@@ -57,8 +48,38 @@ export function addTabHeader(editor) {
 		model: {
 			defaults: {
 				tagName: "label",
-				attributes: { contenteditable: "true" },
-				content: "Tab Title 1",
+				attributes: { 
+					contenteditable: "true",
+					class: "tab-header",
+					tabindex: "0",
+				},
+				components: [
+					{
+						type: "text",
+						content: "Tab Title 1",
+					},
+				],
+			},
+		},
+	});
+}
+
+export function addTabHide(editor) {
+  editor.DomComponents.addType("tab-hide", {
+		model: {
+			defaults: {
+				tagName: "label",
+				attributes: { 
+					contenteditable: "true",
+					class: "tab-header",
+					tabindex: "0",
+				},
+				components: [
+					{
+						type: "text",
+						content: "Hide Tabs",
+					},
+				],
 			},
 		},
 	});
@@ -70,12 +91,26 @@ export function addTabPanel(editor) {
 			defaults: {
 				tagName: "div",
 				attributes: {class: "tab-panel"},
-				components: [
-					{
-						type: "text",
-						content: "Add text",
-					},
-				],
+			},
+			init() {
+				if (!this.components().find((component) => component.get("type") === "text")) {
+					this.components().add({ type: "text", content: "test" });
+				}
+			},
+		},
+	});
+}
+
+export function addTabButton(editor) {
+  editor.DomComponents.addType("tab-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-tab-btn",
+					type: "button",
+				},
+				content: "+ Add Tab",
 			},
 		},
 	});
