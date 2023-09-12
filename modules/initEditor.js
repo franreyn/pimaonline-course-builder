@@ -18,6 +18,7 @@ export function initEditor() {
 						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link"] },
 					],
 					language: "en",
+					disableNativeSpellChecker: false,
 				},
 			},
 		}, 
