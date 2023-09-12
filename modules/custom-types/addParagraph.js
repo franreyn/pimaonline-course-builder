@@ -11,11 +11,6 @@ export function addParagraph(editor) {
         ],        
       },
     },
-    // view: {
-    //   onRender() {
-    //     this.el.setAttribute("contenteditable", "true");
-    //   },
-    // },
   });
   
 }
