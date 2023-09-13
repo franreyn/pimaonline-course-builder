@@ -56,3 +56,29 @@ export function addComponentToCanvas(editor, componentType) {
   }
 }  
 
+const checkLayersPanel = () => {
+
+  // Remove unneeded items from layers manager
+let layersPanel = document.querySelector("span.layers");
+layersPanel.addEventListener("click", removeDlBtn)
+
+let layersPanelActive = document.querySelector("span.layers.gjs-pn-active");
+
+	if(layersPanelActive) {
+
+	}
+}
+
+document.addEventListener("DOMContentLoaded", checkLayersPanel);
+
+export function removeDlBtn() {
+
+    let addDlButtons = document.querySelectorAll(".gjs-layer__t-add-dl-btn");
+	
+	    if(addDlButtons.length > 0) {
+        addDlButtons.forEach((button) => {
+          button.remove();
+        })
+	    }
+
+}

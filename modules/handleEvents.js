@@ -1,6 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas } from "./utils.js";
-
+import { addComponentToCanvas, removeDlBtn } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -270,7 +269,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 			component.view.el.addEventListener("click", () => {
 
-
 			let descriptionList = component.parent();
 
 			// Find location right after button to add the new term
@@ -280,15 +278,11 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionTerm = editor.DomComponents.addComponent({ type: "dt" });
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
-			console.log(component.parent())
-			console.log(component.parent().components().length - 1);
-
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
 
-
+			removeDlBtn();
 		})
 	}
-		
 	})
 
 	// When one part of tabs is removed, remove the rest of the tab parts
