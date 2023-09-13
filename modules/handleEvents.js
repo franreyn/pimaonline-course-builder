@@ -223,6 +223,27 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	}
 	});
+
+	editor.on("component:add", (component) => {
+
+		if (component.get("type") === "add-accordion-btn") {
+			component.view.el.addEventListener("click", () => {
+
+			let accordionParent = component.parent();
+
+			console.log(accordionParent)
+			console.log(component.parent().components().length);
+
+			let accordionIndex = accordionParent.components().length - 1; 
+
+			let accordionItem = editor.DomComponents.addComponent({ type: "accordion-item" });
+
+			accordionParent.append([accordionItem], {at: accordionIndex});
+
+		})
+	}
+
+	})
 	
 
 	// Check tab inputs and labels and add click events and attributes
