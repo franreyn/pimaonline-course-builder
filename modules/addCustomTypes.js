@@ -18,9 +18,6 @@ import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
 import { addPanoptoDisplay, addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
-// import { addOrderedList } from "./custom-types/addOrderedList.js";
-// import { addUnorderedList } from "./custom-types/addUnorderedList.js";
-// import { addListItem } from "./custom-types/addListItem.js";
 import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
@@ -35,7 +32,7 @@ import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
-import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
+import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle, addAccordionButton } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
@@ -434,6 +431,9 @@ export function addCustomTypes(editor) {
 
 	addAccordionContent(editor);
 	restrictParentComponent("accordion-content", ["accordion-item"]);
+
+	addAccordionButton(editor);
+	restrictParentComponent("add-accordion-btn", ["accordion"]);
 
 	///////////// Columns //////////////////
 

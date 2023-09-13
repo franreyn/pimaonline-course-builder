@@ -9,6 +9,9 @@ export function addAccordion(editor) {
 				if (!this.components().find((component) => component.get("type") === "accordion-item")) {
 					this.components().add({ type: "accordion-item" });
 				}
+				if (!this.components().find((component) => component.get("type") === "add-accordion-btn")) {
+					this.components().add({ type: "add-accordion-btn" });
+				}
 			},
 		},
 	});
@@ -61,6 +64,21 @@ export function addAccordionContent(editor) {
 				if (!this.components().find((component) => component.get("type") === "paragraph")) {
 					this.components().add({ type: "paragraph" });
 				}
+			},
+		},
+	});
+}
+
+export function addAccordionButton(editor) {
+  editor.DomComponents.addType("add-accordion-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-accordion-btn",
+					type: "button",
+				},
+				content: "+ Add accordion",
 			},
 		},
 	});
