@@ -8,11 +8,13 @@ export function addAssignments(editor) {
 			init() {
 				if (!this.components().find((component) => component.get("type") === "assignment")) {
 					this.components().add({ type: "assignment" });
-				}
+					this.components().add({ type: "add-assignment-btn" });
+				} 
 			},
 		},
 	});
 }
+
 export function addAssignment(editor) {
   editor.DomComponents.addType("assignment", {
 		model: {
@@ -22,10 +24,10 @@ export function addAssignment(editor) {
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "h3")) {
-					this.components().add({ type: "h3" });
+					this.components().add({ type: "h3", attributes: {class: "assignment-title"} });
 				}
-				if (!this.components().find((component) => component.get("type") === "paragraph")) {
-					this.components().add({ type: "paragraph" });
+				if (!this.components().find((component) => component.get("type") === "text")) {
+					this.components().add({ type: "text", attributes: {class: "assignment-content"}, content: "Add text"});
 				}
 				if (!this.components().find((component) => component.get("type") === "button")) {
 					this.components().add({ type: "button" });
@@ -33,4 +35,16 @@ export function addAssignment(editor) {
 			},
 		},
 	});
+}
+
+export function addAssignmentBtn(editor) {
+  editor.DomComponents.addType("add-assignment-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { class: "add-assignment-btn" },
+				content: "+ Add Assignment",
+			},
+		},
+	})
 }

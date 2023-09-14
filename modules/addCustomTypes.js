@@ -10,7 +10,7 @@ import { addContentBody } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
 import { addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
-import { addAssignments, addAssignment } from "./custom-types/addAssignments.js";
+import { addAssignments, addAssignment, addAssignmentBtn } from "./custom-types/addAssignments.js";
 import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
 import { addFigcaption, addFigure, addFigureCaption } from "./custom-types/addImage.js";
@@ -197,6 +197,10 @@ export function addCustomTypes(editor) {
 	// Assignment
   addAssignment(editor);
 	restrictParentComponent("assignment", ["assignments-widget"]);
+
+	// Add assignment button
+	addAssignmentBtn(editor);
+	// restrictParentComponent("add-assignment-btn", ["assignment"]);
 
 	// Blockquote
   addBlockquote(editor);

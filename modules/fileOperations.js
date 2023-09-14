@@ -109,10 +109,12 @@ export function exportFile(editor) {
 		overrideScript.remove();
 	}
 
+  console.log(parsedHtml)
+
   // Remove the extra div tags within headings
   const headings = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6");
   headings.forEach((heading) => {
-    const divChild = heading.querySelector("div");
+    let divChild = heading.querySelector("div");
     if (divChild) {
       // Move the content of the div to the heading and remove the div
       heading.innerHTML = divChild.innerHTML;
@@ -121,9 +123,45 @@ export function exportFile(editor) {
     const nestedPTags = heading.querySelectorAll("p");
     nestedPTags.forEach((pTag) => {
       heading.innerHTML = pTag.innerHTML;
-
+      if (divChild) {
+        // Move the content of the div to the heading and remove the div
+        heading.innerHTML = divChild.innerHTML;
+      }
     });
   });
+
+  //Remove extra div in paragraph type for assignment widget
+  const assignemntParagraphs = parsedHtml.querySelectorAll("li.assignment p");
+
+  console.log(assignemntParagraphs)
+
+  if(assignemntParagraphs.length > 0) {
+    assignemntParagraphs.forEach((paragraph) =>{
+      console.log(paragraph);
+
+      let innerDiv = paragraph.querySelector("div");
+
+      console.log("inner Div", innerDiv)
+
+
+  if (innerDiv) {
+        // Move the content of the div to the heading and remove the div
+        paragraph.innerHTML = innerDiv.innerHTML;
+
+        console.log(paragraph)
+    // // Remove any nested p tags within the heading
+    let nestedPTags = paragraph.querySelectorAll("p");
+    nestedPTags.forEach((pTag) => {
+      paragraph.innerHTML = pTag.innerHTML;
+      if (divChild) {
+        // Move the content of the div to the heading and remove the div
+        paragraph.innerHTML = innerDiv.innerHTML;
+      }
+    });
+
+      }
+    })
+  }
 
   // Remove empty <p></p> tags
   const emptyPTags = parsedHtml.querySelectorAll("p:empty");
@@ -186,6 +224,16 @@ divElements.forEach((divElement) => {
       button.remove();
     })
   }
+
+    // Remove add tabs button 
+    const addAssignmentBtns = parsedHtml.querySelectorAll(".add-assignment-btn");
+    if(addAssignmentBtns) {
+      addAssignmentBtns.forEach((button)=> {
+        button.remove();
+      })
+    }
+
+    console.log(parsedHtml)
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
