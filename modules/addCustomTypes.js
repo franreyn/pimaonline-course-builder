@@ -310,23 +310,23 @@ export function addCustomTypes(editor) {
 
 	// Heading 2
 	addH2(editor);
-	restrictParentComponent("h2", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h2", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h3", ["accordion-title", "accordion-content", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 4
 	addH4(editor);
-	restrictParentComponent("h4", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h4", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 5
 	addH5(editor);
-	restrictParentComponent("h5", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h5", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 6
 	addH6(editor);
-	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h6", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 //////////////////////////// H5P container ////////////////////////////
 
