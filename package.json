@@ -9,5 +9,8 @@
   },
   "keywords": [],
   "author": "Center for Learning Technology at Pima Community College",
-  "license": "Proprietary"
+  "license": "Proprietary",
+  "dependencies": {
+    "grapesjs": "^0.21.5"
+  }
 }
