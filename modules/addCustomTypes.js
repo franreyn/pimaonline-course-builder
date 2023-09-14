@@ -359,10 +359,6 @@ export function addCustomTypes(editor) {
 	addParagraph(editor);
 	restrictParentComponent("paragraph", allWidgets);
 
-	// Table
-	addTable(editor);
-	restrictParentComponent("table", ["content-body"]);
-
 	//////////////////////////// Tabs ////////////////////////////
 	addTabs(editor);
 	restrictParentComponent("tabs", ["content-body"]);
@@ -382,6 +378,12 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("tab-panel", ["tabs"]);
 
 		//////////////////////////// end tabs ////////////////////////////
+
+	////////////// Table ///////////////
+
+	// Table
+	addTable(editor);
+	restrictParentComponent("table", ["content-body"]);
 
 	// thead
 	addThead(editor);
