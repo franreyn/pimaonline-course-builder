@@ -18,10 +18,7 @@ import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
 import { addPanoptoDisplay, addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
-// import { addOrderedList } from "./custom-types/addOrderedList.js";
-// import { addUnorderedList } from "./custom-types/addUnorderedList.js";
-// import { addListItem } from "./custom-types/addListItem.js";
-import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
+import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm, addDescriptionButton } from "./custom-types/addDescriptionList.js";
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
@@ -306,6 +303,10 @@ export function addCustomTypes(editor) {
 	// Definition
 	addDescriptionDefinition(editor);
 	restrictParentComponent("dd", ["dl"]);
+
+	// Add Definition Button
+	addDescriptionButton(editor);
+	restrictParentComponent("add-dl-btn", ["dl"]);
 
 	// Heading 1
 	addH1(editor);

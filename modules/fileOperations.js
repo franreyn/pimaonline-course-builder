@@ -121,18 +121,20 @@ export function exportFile(editor) {
 		overrideScript.remove();
 	}
 
-  // Remove the extra div tags within headings
-  const headings = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  headings.forEach((heading) => {
-    const divChild = heading.querySelector("div");
+  // Remove the extra div tags within elements
+  const divParents = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6, dd, dt");
+  divParents.forEach((parentEl) => {
+    const divChild = parentEl.querySelector("div");
     if (divChild) {
       // Move the content of the div to the heading and remove the div
-      heading.innerHTML = divChild.innerHTML;
+      parentEl.innerHTML = divChild.innerHTML;
+      parentEl.removeAttribute("id");
+
     }
     // // Remove any nested p tags within the heading
-    const nestedPTags = heading.querySelectorAll("p");
+    const nestedPTags = parentEl.querySelectorAll("p");
     nestedPTags.forEach((pTag) => {
-      heading.innerHTML = pTag.innerHTML;
+      parentEl.innerHTML = pTag.innerHTML;
 
     });
   });
@@ -198,6 +200,14 @@ divElements.forEach((divElement) => {
       button.remove();
     })
   }
+
+    // Remove add tabs button 
+    const addDlBtns = parsedHtml.querySelectorAll(".add-dl-btn");
+    if(addDlBtns) {
+      addDlBtns.forEach((button)=> {
+        button.remove();
+      })
+    }
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);

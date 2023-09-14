@@ -1,6 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas } from "./utils.js";
-
+import { addComponentToCanvas, removeDlBtn } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -262,6 +261,29 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			)}
 
 	});
+
+	// Check tab inputs and labels and add click events and attributes
+	editor.on("component:add", (component) => {
+
+		if (component.get("type") === "add-dl-btn") {
+
+			component.view.el.addEventListener("click", () => {
+
+			let descriptionList = component.parent();
+
+			// Find location right after button to add the new term
+			let dlIndex = descriptionList.components().length - 1;
+
+			// Define other types added when button is clicked
+			let descriptionTerm = editor.DomComponents.addComponent({ type: "dt" });
+			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
+
+			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
+
+			removeDlBtn();
+		})
+	}
+	})
 
 	// When one part of tabs is removed, remove the rest of the tab parts
   editor.on("component:remove", (removedComponent) => {
