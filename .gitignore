@@ -7,3 +7,10 @@
 ehthumbs.db
 Thumbs.db
 .vscode
+
+# Project
+node_modules/*
+
+# Do not ignore grapesjs
+!node_modules/grapesjs/
+!node_modules/grapesjs/**
