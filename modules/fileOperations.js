@@ -103,6 +103,10 @@ export function exportFile(editor) {
 		secondColumn2.id = "second-column";
 	}
 
+  // –––––––––– DOM manipulations and CK Editor edits ––––––––––
+
+  console.log(parsedHtml)
+
   // Remove injected override script from exported html
   const overrideScript = parsedHtml.querySelector("#override");
 	if (overrideScript) {
@@ -139,10 +143,13 @@ const divElements = parsedHtml.querySelectorAll('div');
 divElements.forEach((divElement) => {
 
   // Check if the text content of the <div> matches "Add text"
-  if(divElement.parentElement.classList.contains("tab-panel")) {
-
+  // If the div element is a tab-panel keep everything inside
+  if(divElement.parentElement.classList.contains("tab-panel") || divElement.parentElement.classList.contains("accordion-content")) {
+    
      // Get the parent of the <div>
      const parentElement = divElement.parentElement;
+
+     console.log(parentElement)
 
     while (divElement.firstChild) {
       parentElement.insertBefore(divElement.firstChild, divElement);
@@ -151,7 +158,6 @@ divElements.forEach((divElement) => {
     // Remove the <div> element
     parentElement.removeChild(divElement);
   } else if(divElement.parentElement.classList.contains("tab-header")){
-
     // Get the parent of the <div>
     const parentElement = divElement.parentElement;
 
@@ -163,10 +169,8 @@ divElements.forEach((divElement) => {
 
     // Remove the <div> element
     parentElement.removeChild(divElement);
-  }
-
-  
-  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel")) {
+  } else if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel") && !divElement.classList.contains("accordion-content")) {
+    console.log("removing div around add text", divElement)
 
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
@@ -179,14 +183,26 @@ divElements.forEach((divElement) => {
   }
 });
 
-  // Remove add tabs button 
-  const addTabsBtns = parsedHtml.querySelectorAll(".add-tab-btn");
-  if(addTabsBtns) {
-    addTabsBtns.forEach((button)=> {
+// Array of classes for each add button to remove them on export
+let addButtons = [".add-tab-btn",".add-accordion-btn"]
+
+// Remove add buttons 
+addButtons.forEach((buttonClass) => {
+
+  console.log(buttonClass)
+
+  const buttonGroup = parsedHtml.querySelectorAll(buttonClass);
+  if(buttonGroup.length > 0) {
+    buttonGroup.forEach((button)=> {
+
+      console.log(button)
+
       button.remove();
     })
   }
 
+})
+ 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
 
