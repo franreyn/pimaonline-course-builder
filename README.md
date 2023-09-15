@@ -7,7 +7,8 @@
 ## Dependencies
 
 - Node.js
-  - pnpm
+  - npm
+  - grapesjs@0.21.5
   - local-server
 
 ## Development 
