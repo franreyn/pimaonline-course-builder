@@ -10,8 +10,7 @@ Thumbs.db
 
 # Node modules
 node_modules/*
+node_modules/grapesjs/
 
-# Do not ignore grapesjs
-!node_modules/grapesjs/
-!node_modules/grapesjs/dist/
+# Do not ignore
 !node_modules/grapesjs/dist/**
