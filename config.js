@@ -53,6 +53,7 @@ export const config = {
     "image-gallery",
     "tabs",
     "youtube-container",
+    "table",
   ],
 };
 
