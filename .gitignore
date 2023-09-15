@@ -8,9 +8,3 @@ ehthumbs.db
 Thumbs.db
 .vscode
 
-# Node modules
-node_modules/*
-node_modules/grapesjs/
-
-# Do not ignore
-!node_modules/grapesjs/dist/**
