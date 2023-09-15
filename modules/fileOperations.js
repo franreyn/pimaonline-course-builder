@@ -79,6 +79,18 @@ export function exportFile(editor) {
 	const tempDiv = document.createElement("div");
 	tempDiv.innerHTML = htmlContent;
 
+  // Remove the contenteditable attribute from all elements
+  const elements = tempDiv.querySelectorAll("[contenteditable]");
+  elements.forEach((element) => {
+    element.removeAttribute("contenteditable");
+  });
+
+  // Find and remove elements with the classes .add-column-btn and .add-row-btn
+  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn");
+  elementsToRemove.forEach((element) => {
+    element.remove();
+  });
+
 	// Find and remove the first body element
 	const firstBody = tempDiv.querySelector("body");
 	if (firstBody) {
