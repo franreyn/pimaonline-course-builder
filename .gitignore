@@ -8,7 +8,7 @@ ehthumbs.db
 Thumbs.db
 .vscode
 
-# Files
-node_modules
-logs
-obf.js
+node_modules/*
+!node_modules/grapesjs/
+node_modules/grapesjs/*
+!node_modules/grapesjs/dist/
