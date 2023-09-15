@@ -12,5 +12,8 @@
   "license": "Proprietary",
   "dependencies": {
     "grapesjs": "^0.21.5"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
   }
 }
