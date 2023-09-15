@@ -63,7 +63,7 @@ export function addStaticImage(editor) {
 			defaults: {
 				tagName: "img",
 				attributes: {
-					src: "https://d2l.pima.edu/shared/images/placeholder/400x400.jpg",
+					src: "https://d2l.pima.edu/shared/images/placeholder/900x900.jpg",
 					alt: "Add image alt text",
 				},
 				draggable: false,
