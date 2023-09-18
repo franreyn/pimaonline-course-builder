@@ -334,26 +334,19 @@ html {
   color: transparent;
 }
 
-.gjs-placeholder.horizontal,.gjs-com-placeholder.horizontal,.gjs-placeholder.horizontal {
-    border-color: rgba(0,0,0,0) #62c462;
-    border-width: 3px 5px;
-    margin: -3px 0 0;
+/* Remove green drag and drop indicator (placeholder) bar */
+.gjs-placeholder.horizontal, .gjs-com-placeholder.horizontal {
+  border: none;
+  border-width: 0;
+  margin: 0;
 }
-
-.gjs-placeholder.vertical,.gjs-com-placeholder.vertical,.gjs-placeholder.vertical {
-    border-color: #62c462 rgba(0,0,0,0);
-    border-width: 5px 3px;
-    margin: 0 0 0 -3px;
+.gjs-placeholder.vertical, .gjs-com-placeholder.vertical {
+  border: none;
+  border-width: 0;
+  margin: 0;
 }
-
-.gjs-placeholder-int,.gjs-com-placeholder-int,.gjs-placeholder-int {
-    background-color: #62c462;
-    box-shadow: 0 0 3px rgba(0,0,0,.2);
-    height: 100%;
-    width: 100%;
-    pointer-events: none;
-    padding: 1.5px;
-    outline: none;
+.gjs-placeholder-int, .gjs-com-placeholder-int {
+    display: none;
 }
 
 /* Toggled class for ck editor toolbar for headings */
