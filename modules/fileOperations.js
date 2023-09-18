@@ -86,7 +86,7 @@ export function exportFile(editor) {
   });
 
   // Find and remove elements with the classes .add-column-btn and .add-row-btn
-  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn");
+  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn, .add-items-btns");
   elementsToRemove.forEach((element) => {
     element.remove();
   });
