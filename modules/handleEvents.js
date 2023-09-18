@@ -367,20 +367,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		})
 }
 
-	// editor.on("component:add", (component) => {
-
-	// 	if (component.get("type") === "add-vocab-btn") {
-	// 		component.view.el.addEventListener("click", () => {
-
-	// 			let vocabListParent = component.parent();
-	// 			let vocabListIndex = vocabListParent.components().length - 1; 
-	// 			let vocabListItem = editor.DomComponents.addComponent({ type: "vocab-wrapper" });
-
-	// 			vocabListParent.append([vocabListItem], {at: vocabListIndex});
-	// 		})
-	// 	}
-	// })
-
 	function addButtonClickListener(componentType) {
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
