@@ -9,9 +9,12 @@ export function addVocabulary(editor) {
 				if (!this.components().find((component) => component.get("type") === "vocab-wrapper")) {
 					this.components().add({ type: "vocab-wrapper" });
 				}
-			},
+				if (!this.components().find((component) => component.get("type") === "add-vocab-btn")) {
+					this.components().add({ type: "add-vocab-btn" });
+				}
 		},
-	});
+	},
+});
 }
 
 export function addVocabularyWrapper(editor) {
@@ -59,6 +62,21 @@ export function addVocabularyDefinition(editor) {
 						content: "Add definition",
 					},
 				],
+			},
+		},
+	});
+}
+
+export function addVocabButton(editor) {
+  editor.DomComponents.addType("add-vocab-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-vocab-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add vocab",
 			},
 		},
 	});

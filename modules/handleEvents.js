@@ -367,5 +367,20 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		})
 }
 
+	function addButtonClickListener(componentType) {
+		editor.on("component:add", (component) => {
+			if (component.get("type") === componentType) {
+				component.view.el.addEventListener("click", () => {
+					let parentComponent = component.parent();
+					let index = parentComponent.components().length - 1;
+					let newItemType = componentType === "add-accordion-btn" ? "accordion-item" : "vocab-wrapper";
+					let newItem = editor.DomComponents.addComponent({ type: newItemType });
+	
+					parentComponent.append([newItem], { at: index });
+				});
+			}
+		});
+	}
 
+	addButtonClickListener("add-vocab-btn");
 }

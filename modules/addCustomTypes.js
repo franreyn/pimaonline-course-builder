@@ -9,7 +9,7 @@ import { addSecondColumn } from "./custom-types/addSecondColumn.js";
 import { addContentBody } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
-import { addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
+import { addVocabButton, addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
 import { addAssignments, addAssignment } from "./custom-types/addAssignments.js";
 import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
@@ -186,6 +186,10 @@ export function addCustomTypes(editor) {
 	// Vocabulary widget DEFINITION
   addVocabularyDefinition(editor);
 	restrictParentComponent("description-definition", ["vocab-wrapper"]);
+
+	// Add vocab btn
+	addVocabButton(editor);
+	restrictParentComponent("add-vocab-btn", ["vocab-list"]);
 
 	// Assignments Widget
   addAssignments(editor);
