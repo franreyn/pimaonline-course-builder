@@ -337,7 +337,7 @@ export function initEditor() {
 				{
 					id: "paragraph",
 					category: "Text",
-					label: "Paragraph",
+					label: "Text",
 					content: { type: "paragraph" },
 				},
 				{
