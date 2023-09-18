@@ -17,12 +17,12 @@ dl.vocab-list dd {
   word-break: break-word;
 }
 
-.add-column-btn, .add-row-btn {
+.add-column-btn, .add-row-btn, dl.vocab-list button {
   background-color: transparent;
   color: var(--color-pcc-black);
 }
 
-.add-column-btn:hover, .add-row-btn:hover {
+.add-column-btn:hover, .add-row-btn:hover, dl.vocab-list button:hover {
   color: var(--color-pcc-primary);
   background-color: transparent;
 }
