@@ -179,8 +179,9 @@ divElements.forEach((divElement) => {
     parentElement.removeChild(divElement);
   }
 
-  
-  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel") && !divElement.classList.contains("footnotes")) {
+  const doNotDelete = ["tab-panel", "footnotes"];
+
+  if (divElement.textContent.trim() === 'Add text' && !doNotDelete.some(className => divElement.classList.contains(className))) {
 
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
