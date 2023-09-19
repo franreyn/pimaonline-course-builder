@@ -31,8 +31,10 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         button.addEventListener("click", () => {
             if (button.classList.contains("blocks")) {
                 layoutsToolbar.style.display = ""; // Display the layoutsToolbar
+                footerToolbar.style.display = ""; // Display the layoutsToolbar
             } else {
                 layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
+                footerToolbar.style.display = "none"; // Hide the layoutsToolbar
             }
         });
     });
