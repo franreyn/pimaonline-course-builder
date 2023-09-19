@@ -228,7 +228,35 @@ ${serializedHtmlContent}
 </body>
 </html>
 `;
-	const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+
+  function cleanExportedHTML(html) {
+    // Parse the HTML string into a DOM structure
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Find the nested html, head, and body elements
+    const nestedHtml = doc.querySelector('body html');
+    const nestedHead = doc.querySelector('body head');
+    const nestedBody = doc.querySelector('body body');
+
+    // Remove the nested elements
+    if (nestedHtml) nestedHtml.outerHTML = nestedHtml.innerHTML;
+    if (nestedHead) nestedHead.remove();
+    if (nestedBody) nestedBody.outerHTML = nestedBody.innerHTML;
+
+    // Serialize the DOM back to a string
+    const serializer = new XMLSerializer();
+    let cleanedHTML = serializer.serializeToString(doc);
+
+    // Remove the xmlns attribute from the html tag in the string
+    cleanedHTML = cleanedHTML.replace(' xmlns="http://www.w3.org/1999/xhtml"', '');
+
+    return cleanedHTML;
+  }
+  
+  let cleanedHTML = cleanExportedHTML(content);
+  const blob = new Blob([cleanedHTML], { type: "text/html;charset=utf-8" });
+
 	const link = document.createElement("a");
 	link.href = URL.createObjectURL(blob);
 	link.download = filename;
