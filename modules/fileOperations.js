@@ -180,7 +180,7 @@ divElements.forEach((divElement) => {
   }
 
   
-  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel")) {
+  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel") && !divElement.classList.contains("footnotes")) {
 
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
