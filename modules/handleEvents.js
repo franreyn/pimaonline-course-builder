@@ -106,14 +106,18 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	});
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
-	editor.on("component:mount", (component) => {
-		if (component.get("type") === "content-body") {
-			const parentType = component.parent().get("type");
-			if (parentType !== "content-wrapper" && parentType !== "second-column" && parentType !== "third-column") {
-				component.remove();
-			}
-		}
-	});
+  editor.on("component:mount", (component) => {
+    if (component.get("type") === "content-body") {
+      const parentComponent = component.parent();
+      if (parentComponent) {
+        const parentType = parentComponent.get("type");
+        const validParentTypes = ["content-wrapper", "second-column", "third-column"];
+        if (!validParentTypes.includes(parentType)) {
+          component.remove();
+        }
+      }
+    }
+  });
 
 	// Prevent all components, except those in array, from being copyable, aka duplicated
 	function setCopyableComponents(copyableComponents) {
