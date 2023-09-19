@@ -228,7 +228,48 @@ ${serializedHtmlContent}
 </body>
 </html>
 `;
-	const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+
+  function cleanExportedHTML(html) {
+    try {
+      // Parse the HTML string into a DOM structure
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      // Find the nested html, head, and body elements
+      const extraTags = doc.querySelectorAll("body html, body head, body body");
+
+      // Remove the nested elements
+      extraTags.forEach(el => {
+          if (el.tagName === "HEAD") {
+              el.remove();
+          } else {
+              el.replaceWith(...el.childNodes);
+          }
+      });
+
+      // Serialize the DOM back to a string
+      const serializer = new XMLSerializer();
+      let cleanedHTML = serializer.serializeToString(doc);
+
+      // Remove the xmlns attribute
+      cleanedHTML = cleanedHTML.replace(/ xmlns="http:\/\/www\.w3\.org\/1999\/xhtml"/g, "");
+
+      return cleanedHTML;
+    } catch (error) {
+        console.error("Error during HTML cleaning:", error);
+        return html; // Return the original HTML if an error occurs
+    }
+  }
+  let cleanedHTML;
+  let blob;
+
+  try {
+      cleanedHTML = cleanExportedHTML(content);
+      blob = new Blob([cleanedHTML], { type: "text/html;charset=utf-8" });
+  } catch (error) {
+      console.error("Error during Blob creation:", error);
+  }
+
 	const link = document.createElement("a");
 	link.href = URL.createObjectURL(blob);
 	link.download = filename;
