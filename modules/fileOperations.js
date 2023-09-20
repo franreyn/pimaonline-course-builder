@@ -237,14 +237,19 @@ ${serializedHtmlContent}
       const doc = parser.parseFromString(html, "text/html");
 
       // Find the nested html, head, and body elements
-      const extraTags = doc.querySelectorAll("body html, body head, body body");
+      const extraTags = doc.querySelectorAll("body html, body head, body body, a.btn");
 
       // Remove the nested elements
       extraTags.forEach(el => {
+        const div = el.querySelector('div');
+        const p = el.querySelector('p');
+
           if (el.tagName === "HEAD") {
               el.remove();
-          } else {
+          } else if (el.tagName === "HTML, BODY") {
               el.replaceWith(...el.childNodes);
+          } else {
+            div.replaceWith(p.textContent);
           }
       });
 
