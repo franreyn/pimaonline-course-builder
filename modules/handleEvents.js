@@ -374,12 +374,18 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 }
 
 	function addButtonClickListener(componentType) {
+		const componentTypeToItemType = {
+			"add-accordion-btn": "accordion-item",
+			"add-img-btn": "image-box",
+			"add-vocab-btn": "vocab-wrapper"
+		};
+
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
 					let parentComponent = component.parent();
 					let index = parentComponent.components().length - 1;
-					let newItemType = componentType === "add-accordion-btn" ? "accordion-item" : "vocab-wrapper";
+					let newItemType = componentTypeToItemType[componentType];
 					let newItem = editor.DomComponents.addComponent({ type: newItemType });
 	
 					parentComponent.append([newItem], { at: index });
@@ -389,4 +395,5 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	}
 
 	addButtonClickListener("add-vocab-btn");
+	addButtonClickListener("add-img-btn");
 }
