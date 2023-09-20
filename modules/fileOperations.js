@@ -86,7 +86,7 @@ export function exportFile(editor) {
   });
 
   // Find and remove elements with the classes .add-column-btn and .add-row-btn
-  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn, .add-items-btns");
+  const elementsToRemove = tempDiv.querySelectorAll(".add-items-btns");
   elementsToRemove.forEach((element) => {
     element.remove();
   });
@@ -193,22 +193,6 @@ divElements.forEach((divElement) => {
     divElement.parentNode.replaceChild(newParagraph, divElement);
   }
 });
-
-  // Remove add tabs button 
-  const addTabsBtns = parsedHtml.querySelectorAll(".add-tab-btn");
-  if(addTabsBtns) {
-    addTabsBtns.forEach((button)=> {
-      button.remove();
-    })
-  }
-
-    // Remove add tabs button 
-    const addDlBtns = parsedHtml.querySelectorAll(".add-dl-btn");
-    if(addDlBtns) {
-      addDlBtns.forEach((button)=> {
-        button.remove();
-      })
-    }
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
