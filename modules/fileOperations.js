@@ -86,7 +86,7 @@ export function exportFile(editor) {
   });
 
   // Find and remove elements with the classes .add-column-btn and .add-row-btn
-  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn, .add-items-btns");
+  const elementsToRemove = tempDiv.querySelectorAll(".add-items-btns");
   elementsToRemove.forEach((element) => {
     element.remove();
   });
@@ -250,14 +250,19 @@ ${serializedHtmlContent}
       const doc = parser.parseFromString(html, "text/html");
 
       // Find the nested html, head, and body elements
-      const extraTags = doc.querySelectorAll("body html, body head, body body");
+      const extraTags = doc.querySelectorAll("body html, body head, body body, a.btn");
 
       // Remove the nested elements
       extraTags.forEach(el => {
+        const div = el.querySelector('div');
+        const p = el.querySelector('p');
+
           if (el.tagName === "HEAD") {
               el.remove();
-          } else {
+          } else if (el.tagName === "HTML, BODY") {
               el.replaceWith(...el.childNodes);
+          } else {
+            div.replaceWith(p.textContent);
           }
       });
 

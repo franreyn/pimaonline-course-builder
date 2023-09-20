@@ -109,7 +109,7 @@ export function addTabButton(editor) {
 			defaults: {
 				tagName: "button",
 				attributes: { 
-					class: "add-tab-btn",
+					class: "add-tab-btn add-items-btns",
 					type: "button",
 				},
 				content: "+ Add Tab",
