@@ -26,7 +26,12 @@ export function addHyperlinks(editor) {
 						valueFalse: "",
 					},
 				],
-				content: "Link Text",
+				components: [
+					{
+						type: "text",
+						content: "Link",
+					},
+				],
 			},
 			init() {
 				this.listenTo(this, "change:content", this.updateContent);
