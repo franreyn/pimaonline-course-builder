@@ -57,7 +57,7 @@ export function addDescriptionButton(editor) {
 			defaults: {
 				tagName: "button",
 				attributes: { 
-					class: "add-dl-btn",
+					class: "add-dl-btn add-items-btns",
 					type: "button",
 				},
 				content: "+ Add Term",

@@ -14,24 +14,14 @@ export function addTable(editor) {
         if (!this.components().find((component) => component.get("type") === "tbody")) {
           this.components().add({ type: "tbody" });
         }
-        
-				// Create a flag to track whether the view is available
-        this.isViewAvailable = false;
 
-        // Check if the view is available, and if not, wait for it to be ready
-        if (this.view) {
-          this.isViewAvailable = true;
-          this.addButton("+ Add Column", "add-column-btn", () => this.addColumn());
-          this.addButton("+ Add Row", "add-row-btn", () => this.addRow());
-        } else {
-          editor.on("component:update", (model) => {
-            if (!this.isViewAvailable && model.view) {
-              this.isViewAvailable = true;
-              this.addButton("+ Add Column", "add-column-btn", () => this.addColumn());
-              this.addButton("+ Add Row", "add-row-btn", () => this.addRow());
-            }
-          });
-        }
+        editor.on("component:update", (model) => {
+          if (!this.isViewAvailable && model.view) {
+            this.isViewAvailable = true;
+            this.addButton("+ Add Column", "add-column-btn add-items-btns", () => this.addColumn());
+            this.addButton("+ Add Row", "add-row-btn add-items-btns", () => this.addRow());
+          }
+        });
       },
 
       addButton(text, className, clickHandler) {
