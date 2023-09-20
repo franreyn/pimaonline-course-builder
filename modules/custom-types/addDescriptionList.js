@@ -11,6 +11,9 @@ export function addDescriptionList(editor) {
 				if (!this.components().find((component) => component.get("type") === "dd")) {
 					this.components().add({ type: "dd" });
 				}
+				if (!this.components().find((component) => component.get("type") === "add-dl-btn")) {
+					this.components().add({ type: "add-dl-btn" });
+				}
 			},
 		},
 	});
@@ -37,7 +40,27 @@ export function addDescriptionDefinition(editor) {
 		model: {
 			defaults: {
 				tagName: "dd",
-				content: "Add definition",
+				components: [
+					{
+						type: "text",
+						content: "Add definition",
+					},
+				],
+			},
+		},
+	});
+}
+
+export function addDescriptionButton(editor) {
+  editor.DomComponents.addType("add-dl-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-dl-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add Term",
 			},
 		},
 	});

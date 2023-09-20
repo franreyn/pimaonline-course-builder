@@ -79,6 +79,18 @@ export function exportFile(editor) {
 	const tempDiv = document.createElement("div");
 	tempDiv.innerHTML = htmlContent;
 
+  // Remove the contenteditable attribute from all elements
+  const elements = tempDiv.querySelectorAll("[contenteditable]");
+  elements.forEach((element) => {
+    element.removeAttribute("contenteditable");
+  });
+
+  // Find and remove elements with the classes .add-column-btn and .add-row-btn
+  const elementsToRemove = tempDiv.querySelectorAll(".add-items-btns");
+  elementsToRemove.forEach((element) => {
+    element.remove();
+  });
+
 	// Find and remove the first body element
 	const firstBody = tempDiv.querySelector("body");
 	if (firstBody) {
@@ -111,22 +123,21 @@ export function exportFile(editor) {
 
   console.log(parsedHtml)
 
-  // Remove the extra div tags within headings
-  const headings = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  headings.forEach((heading) => {
-    let divChild = heading.querySelector("div");
+  // Remove the extra div tags within elements
+  const divParents = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6, dd, dt");
+  divParents.forEach((parentEl) => {
+    const divChild = parentEl.querySelector("div");
     if (divChild) {
       // Move the content of the div to the heading and remove the div
-      heading.innerHTML = divChild.innerHTML;
+      parentEl.innerHTML = divChild.innerHTML;
+      parentEl.removeAttribute("id");
+
     }
     // // Remove any nested p tags within the heading
-    const nestedPTags = heading.querySelectorAll("p");
+    const nestedPTags = parentEl.querySelectorAll("p");
     nestedPTags.forEach((pTag) => {
-      heading.innerHTML = pTag.innerHTML;
-      if (divChild) {
-        // Move the content of the div to the heading and remove the div
-        heading.innerHTML = divChild.innerHTML;
-      }
+      parentEl.innerHTML = pTag.innerHTML;
+
     });
   });
 
@@ -203,8 +214,9 @@ divElements.forEach((divElement) => {
     parentElement.removeChild(divElement);
   }
 
-  
-  if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel")) {
+  const doNotDelete = ["tab-panel", "footnotes"];
+
+  if (divElement.textContent.trim() === 'Add text' && !doNotDelete.some(className => divElement.classList.contains(className))) {
 
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
@@ -216,24 +228,6 @@ divElements.forEach((divElement) => {
     divElement.parentNode.replaceChild(newParagraph, divElement);
   }
 });
-
-  // Remove add tabs button 
-  const addTabsBtns = parsedHtml.querySelectorAll(".add-tab-btn");
-  if(addTabsBtns) {
-    addTabsBtns.forEach((button)=> {
-      button.remove();
-    })
-  }
-
-    // Remove add tabs button 
-    const addAssignmentBtns = parsedHtml.querySelectorAll(".add-assignment-btn");
-    if(addAssignmentBtns) {
-      addAssignmentBtns.forEach((button)=> {
-        button.remove();
-      })
-    }
-
-    console.log(parsedHtml)
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
@@ -254,7 +248,53 @@ ${serializedHtmlContent}
 </body>
 </html>
 `;
-	const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+
+  function cleanExportedHTML(html) {
+    try {
+      // Parse the HTML string into a DOM structure
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      // Find the nested html, head, and body elements
+      const extraTags = doc.querySelectorAll("body html, body head, body body, a.btn");
+
+      // Remove the nested elements
+      extraTags.forEach(el => {
+        const div = el.querySelector('div');
+        const p = el.querySelector('p');
+
+          if (el.tagName === "HEAD") {
+              el.remove();
+          } else if (el.tagName === "HTML, BODY") {
+              el.replaceWith(...el.childNodes);
+          } else {
+            div.replaceWith(p.textContent);
+          }
+      });
+
+      // Serialize the DOM back to a string
+      const serializer = new XMLSerializer();
+      let cleanedHTML = serializer.serializeToString(doc);
+
+      // Remove the xmlns attribute
+      cleanedHTML = cleanedHTML.replace(/ xmlns="http:\/\/www\.w3\.org\/1999\/xhtml"/g, "");
+
+      return cleanedHTML;
+    } catch (error) {
+        console.error("Error during HTML cleaning:", error);
+        return html; // Return the original HTML if an error occurs
+    }
+  }
+  let cleanedHTML;
+  let blob;
+
+  try {
+      cleanedHTML = cleanExportedHTML(content);
+      blob = new Blob([cleanedHTML], { type: "text/html;charset=utf-8" });
+  } catch (error) {
+      console.error("Error during Blob creation:", error);
+  }
+
 	const link = document.createElement("a");
 	link.href = URL.createObjectURL(blob);
 	link.download = filename;

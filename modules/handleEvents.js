@@ -1,6 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas } from "./utils.js";
-
+import { addComponentToCanvas, removeDlBtn } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -32,8 +31,10 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         button.addEventListener("click", () => {
             if (button.classList.contains("blocks")) {
                 layoutsToolbar.style.display = ""; // Display the layoutsToolbar
+                footerToolbar.style.display = ""; // Display the layoutsToolbar
             } else {
                 layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
+                footerToolbar.style.display = "none"; // Hide the layoutsToolbar
             }
         });
     });
@@ -105,14 +106,18 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	});
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
-	editor.on("component:mount", (component) => {
-		if (component.get("type") === "content-body") {
-			const parentType = component.parent().get("type");
-			if (parentType !== "content-wrapper" && parentType !== "second-column" && parentType !== "third-column") {
-				component.remove();
-			}
-		}
-	});
+  editor.on("component:mount", (component) => {
+    if (component.get("type") === "content-body") {
+      const parentComponent = component.parent();
+      if (parentComponent) {
+        const parentType = parentComponent.get("type");
+        const validParentTypes = ["content-wrapper", "second-column", "third-column"];
+        if (!validParentTypes.includes(parentType)) {
+          component.remove();
+        }
+      }
+    }
+  });
 
 	// Prevent all components, except those in array, from being copyable, aka duplicated
 	function setCopyableComponents(copyableComponents) {
@@ -312,6 +317,29 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	});
 
+	// Check tab inputs and labels and add click events and attributes
+	editor.on("component:add", (component) => {
+
+		if (component.get("type") === "add-dl-btn") {
+
+			component.view.el.addEventListener("click", () => {
+
+			let descriptionList = component.parent();
+
+			// Find location right after button to add the new term
+			let dlIndex = descriptionList.components().length - 1;
+
+			// Define other types added when button is clicked
+			let descriptionTerm = editor.DomComponents.addComponent({ type: "dt" });
+			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
+
+			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
+
+			removeDlBtn();
+		})
+	}
+	})
+
 	// When one part of tabs is removed, remove the rest of the tab parts
   editor.on("component:remove", (removedComponent) => {
 
@@ -394,5 +422,20 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		})
 }
 
+	function addButtonClickListener(componentType) {
+		editor.on("component:add", (component) => {
+			if (component.get("type") === componentType) {
+				component.view.el.addEventListener("click", () => {
+					let parentComponent = component.parent();
+					let index = parentComponent.components().length - 1;
+					let newItemType = componentType === "add-accordion-btn" ? "accordion-item" : "vocab-wrapper";
+					let newItem = editor.DomComponents.addComponent({ type: newItemType });
+	
+					parentComponent.append([newItem], { at: index });
+				});
+			}
+		});
+	}
 
+	addButtonClickListener("add-vocab-btn");
 }

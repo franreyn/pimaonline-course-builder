@@ -1,6 +1,10 @@
 @import "../css/_typography.css";
 @import "../css/_variables.css";
 
+* {
+  box-sizing: border-box;
+}
+
 body,
 html {
   height: 100%;
@@ -89,6 +93,7 @@ html {
   align-items: stretch;
   flex-wrap: nowrap;
   flex-grow: 1; /* Added to fill the remaining space */
+  overflow-y: hidden;
 }
 
 .editor-canvas {
@@ -145,10 +150,6 @@ html {
   margin: 0;
 }
 
-.gjs-pn-panel {
-  box-sizing: unset;
-}
-
 .layouts-toolbar-title {
   text-align: left;
   font-weight: 300;
@@ -172,17 +173,14 @@ html {
 }
 
 .footer-bar {
-  position: absolute;
-  bottom: -10px;
-  z-index: 1;
+  display: flex;
   background-color: rgba(68, 68, 68, 1);
   color: rgba(255, 255, 255, 1);
-  padding-left: .5rem;
-  width: calc(100% - 1.3rem);
-  display: flex;
-  gap: 1.5rem;
   font-size: .7rem;
+  padding-left: .5rem;
+  gap: 1.5rem;
   line-height: 0;
+  z-index: 1;
 }
 
 .status {
@@ -334,26 +332,19 @@ html {
   color: transparent;
 }
 
-.gjs-placeholder.horizontal,.gjs-com-placeholder.horizontal,.gjs-placeholder.horizontal {
-    border-color: rgba(0,0,0,0) #62c462;
-    border-width: 3px 5px;
-    margin: -3px 0 0;
+/* Remove green drag and drop indicator (placeholder) bar */
+.gjs-placeholder.horizontal, .gjs-com-placeholder.horizontal {
+  border: none;
+  border-width: 0;
+  margin: 0;
 }
-
-.gjs-placeholder.vertical,.gjs-com-placeholder.vertical,.gjs-placeholder.vertical {
-    border-color: #62c462 rgba(0,0,0,0);
-    border-width: 5px 3px;
-    margin: 0 0 0 -3px;
+.gjs-placeholder.vertical, .gjs-com-placeholder.vertical {
+  border: none;
+  border-width: 0;
+  margin: 0;
 }
-
-.gjs-placeholder-int,.gjs-com-placeholder-int,.gjs-placeholder-int {
-    background-color: #62c462;
-    box-shadow: 0 0 3px rgba(0,0,0,.2);
-    height: 100%;
-    width: 100%;
-    pointer-events: none;
-    padding: 1.5px;
-    outline: none;
+.gjs-placeholder-int, .gjs-com-placeholder-int {
+    display: none;
 }
 
 /* Toggled class for ck editor toolbar for headings */
