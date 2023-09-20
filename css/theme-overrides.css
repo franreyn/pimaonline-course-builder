@@ -17,12 +17,12 @@ dl.vocab-list dd {
   word-break: break-word;
 }
 
-.add-column-btn, .add-row-btn, dl.vocab-list .add-items-btns {
+.add-items-btns, dl.vocab-list .add-items-btns {
   background-color: transparent;
   color: var(--color-pcc-black);
 }
 
-.add-column-btn:hover, .add-row-btn:hover, dl.vocab-list .add-items-btns:hover {
+.add-items-btns:hover, dl.vocab-list .add-items-btns:hover {
   color: var(--color-pcc-primary);
   background-color: transparent;
 }
@@ -116,15 +116,11 @@ label.tab-header p {
 }
 
 .add-tab-btn {
-  background-color: transparent;
-  color: darkblue;
   padding: 0 0 0 5px;
   margin: 0;
 }
 
 .add-tab-btn:hover {
-  background-color: transparent !important;
-  color: blue;
   padding: 0 0 0 5px;
   margin: 0;
 }

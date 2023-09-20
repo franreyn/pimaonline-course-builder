@@ -49,6 +49,8 @@ export const config = {
     "toggle-footnotes",
     "gallery-wrapper",
     "add-vocab-btn",
+    "add-dl-btn",
+    "tab-btn",
   ],
   requiresJsComponents: [
     "image-gallery",
