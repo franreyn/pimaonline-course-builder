@@ -70,7 +70,7 @@ export function addAccordionContent(editor) {
 }
 
 export function addAccordionButton(editor) {
-  editor.DomComponents.addType("add-accordion-btn add", {
+  editor.DomComponents.addType("add-accordion-btn", {
 		model: {
 			defaults: {
 				tagName: "button",
