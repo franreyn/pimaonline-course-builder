@@ -4,7 +4,7 @@ export function addRawImage(editor) {
 			defaults: {
 				tagName: "img",
 				attributes: {
-					src: "https://via.placeholder.com/650",
+					src: "https://d2l.pima.edu/shared/images/placeholder/400x400.jpg",
 					alt: "Add image alt text",
 				},
 				draggable: false,

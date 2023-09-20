@@ -4,7 +4,7 @@ export function addBannerImage(editor) {
 			defaults: {
 				tagName: "img",
 				attributes: {
-					src: "https://via.placeholder.com/1920x650",
+					src: "https://d2l.pima.edu/shared/images/placeholder/1920x600.jpg",
 					alt: "Banner image",
 				},
 				draggable: false,

@@ -17,6 +17,16 @@ dl.vocab-list dd {
   word-break: break-word;
 }
 
+.add-column-btn, .add-row-btn, dl.vocab-list .add-items-btns {
+  background-color: transparent;
+  color: var(--color-pcc-black);
+}
+
+.add-column-btn:hover, .add-row-btn:hover, dl.vocab-list .add-items-btns:hover {
+  color: var(--color-pcc-primary);
+  background-color: transparent;
+}
+
 @media screen and (min-width: 768px) {
   table.custom-width th {
     width: 10% !important;

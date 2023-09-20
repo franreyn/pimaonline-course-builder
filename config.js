@@ -48,11 +48,13 @@ export const config = {
     "side-by-side-item",
     "toggle-footnotes",
     "gallery-wrapper",
+    "add-vocab-btn",
   ],
   requiresJsComponents: [
     "image-gallery",
     "tabs",
     "youtube-container",
+    "table",
   ],
 };
 

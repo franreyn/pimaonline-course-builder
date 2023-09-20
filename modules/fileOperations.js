@@ -79,6 +79,18 @@ export function exportFile(editor) {
 	const tempDiv = document.createElement("div");
 	tempDiv.innerHTML = htmlContent;
 
+  // Remove the contenteditable attribute from all elements
+  const elements = tempDiv.querySelectorAll("[contenteditable]");
+  elements.forEach((element) => {
+    element.removeAttribute("contenteditable");
+  });
+
+  // Find and remove elements with the classes .add-column-btn and .add-row-btn
+  const elementsToRemove = tempDiv.querySelectorAll(".add-column-btn, .add-row-btn, .add-items-btns");
+  elementsToRemove.forEach((element) => {
+    element.remove();
+  });
+
 	// Find and remove the first body element
 	const firstBody = tempDiv.querySelector("body");
 	if (firstBody) {
@@ -113,18 +125,20 @@ export function exportFile(editor) {
 		overrideScript.remove();
 	}
 
-  // Remove the extra div tags within headings
-  const headings = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  headings.forEach((heading) => {
-    const divChild = heading.querySelector("div");
+  // Remove the extra div tags within elements
+  const divParents = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6, dd, dt");
+  divParents.forEach((parentEl) => {
+    const divChild = parentEl.querySelector("div");
     if (divChild) {
       // Move the content of the div to the heading and remove the div
-      heading.innerHTML = divChild.innerHTML;
+      parentEl.innerHTML = divChild.innerHTML;
+      parentEl.removeAttribute("id");
+
     }
     // // Remove any nested p tags within the heading
-    const nestedPTags = heading.querySelectorAll("p");
+    const nestedPTags = parentEl.querySelectorAll("p");
     nestedPTags.forEach((pTag) => {
-      heading.innerHTML = pTag.innerHTML;
+      parentEl.innerHTML = pTag.innerHTML;
 
     });
   });
@@ -144,7 +158,7 @@ divElements.forEach((divElement) => {
 
   // Check if the text content of the <div> matches "Add text"
   // If the div element is a tab-panel keep everything inside
-  if(divElement.parentElement.classList.contains("tab-panel") || divElement.parentElement.classList.contains("accordion-content")) {
+  if(divElement.parentElement.classList.contains("tab-panel")) {
     
      // Get the parent of the <div>
      const parentElement = divElement.parentElement;
@@ -169,8 +183,11 @@ divElements.forEach((divElement) => {
 
     // Remove the <div> element
     parentElement.removeChild(divElement);
-  } else if (divElement.textContent.trim() === 'Add text' && !divElement.classList.contains("tab-panel") && !divElement.classList.contains("accordion-content")) {
-    console.log("removing div around add text", divElement)
+  }
+
+  const doNotDelete = ["tab-panel", "footnotes", "accordion-content"];
+
+  if (divElement.textContent.trim() === 'Add text' && !doNotDelete.some(className => divElement.classList.contains(className))) {
 
     // Create a new <p> element
     const newParagraph = parsedHtml.createElement('p');
@@ -189,20 +206,23 @@ let addButtons = [".add-tab-btn",".add-accordion-btn"]
 // Remove add buttons 
 addButtons.forEach((buttonClass) => {
 
-  console.log(buttonClass)
-
   const buttonGroup = parsedHtml.querySelectorAll(buttonClass);
   if(buttonGroup.length > 0) {
     buttonGroup.forEach((button)=> {
 
-      console.log(button)
-
       button.remove();
     })
   }
-
 })
- 
+
+    // Remove add tabs button 
+    const addDlBtns = parsedHtml.querySelectorAll(".add-dl-btn");
+    if(addDlBtns) {
+      addDlBtns.forEach((button)=> {
+        button.remove();
+      })
+    }
+
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
 
@@ -222,7 +242,48 @@ ${serializedHtmlContent}
 </body>
 </html>
 `;
-	const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+
+  function cleanExportedHTML(html) {
+    try {
+      // Parse the HTML string into a DOM structure
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      // Find the nested html, head, and body elements
+      const extraTags = doc.querySelectorAll("body html, body head, body body");
+
+      // Remove the nested elements
+      extraTags.forEach(el => {
+          if (el.tagName === "HEAD") {
+              el.remove();
+          } else {
+              el.replaceWith(...el.childNodes);
+          }
+      });
+
+      // Serialize the DOM back to a string
+      const serializer = new XMLSerializer();
+      let cleanedHTML = serializer.serializeToString(doc);
+
+      // Remove the xmlns attribute
+      cleanedHTML = cleanedHTML.replace(/ xmlns="http:\/\/www\.w3\.org\/1999\/xhtml"/g, "");
+
+      return cleanedHTML;
+    } catch (error) {
+        console.error("Error during HTML cleaning:", error);
+        return html; // Return the original HTML if an error occurs
+    }
+  }
+  let cleanedHTML;
+  let blob;
+
+  try {
+      cleanedHTML = cleanExportedHTML(content);
+      blob = new Blob([cleanedHTML], { type: "text/html;charset=utf-8" });
+  } catch (error) {
+      console.error("Error during Blob creation:", error);
+  }
+
 	const link = document.createElement("a");
 	link.href = URL.createObjectURL(blob);
 	link.download = filename;

@@ -9,7 +9,7 @@ import { addSecondColumn } from "./custom-types/addSecondColumn.js";
 import { addContentBody } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
-import { addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
+import { addVocabButton, addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
 import { addAssignments, addAssignment } from "./custom-types/addAssignments.js";
 import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
@@ -18,7 +18,7 @@ import { addButton } from "./custom-types/addButton.js";
 import { addHyperlinks } from "./custom-types/addHyperlinks.js";
 import { addPanoptoDisplay, addPanoptoCaption, addPanoptoIframe, addPanoptoInfo, addPanoptoObject } from "./custom-types/addPanoptoContainer.js";
 import { addYoutubeCaption, addYoutubeContainer, addYoutubeIframe, addYoutubeInfo, addYoutubeObject } from "./custom-types/addYoutubeContainer.js";
-import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm } from "./custom-types/addDescriptionList.js";
+import { addDescriptionDefinition, addDescriptionList, addDescriptionTerm, addDescriptionButton } from "./custom-types/addDescriptionList.js";
 import { addH1, addH2, addH3, addH4, addH5, addH6 } from "./custom-types/addHeadings.js";
 import { addParagraph } from "./custom-types/addParagraph.js";
 import { addCallOut } from "./custom-types/addCallOut.js"
@@ -187,6 +187,10 @@ export function addCustomTypes(editor) {
   addVocabularyDefinition(editor);
 	restrictParentComponent("description-definition", ["vocab-wrapper"]);
 
+	// Add vocab btn
+	addVocabButton(editor);
+	restrictParentComponent("add-vocab-btn", ["vocab-list"]);
+
 	// Assignments Widget
   addAssignments(editor);
 	restrictParentComponent("assignments-widget", ["content-body"]);
@@ -304,6 +308,10 @@ export function addCustomTypes(editor) {
 	addDescriptionDefinition(editor);
 	restrictParentComponent("dd", ["dl"]);
 
+	// Add Definition Button
+	addDescriptionButton(editor);
+	restrictParentComponent("add-dl-btn", ["dl"]);
+
 	// Heading 1
 	addH1(editor);
 	restrictParentComponent("h1", ["text-container"]);
@@ -356,10 +364,6 @@ export function addCustomTypes(editor) {
 	addParagraph(editor);
 	restrictParentComponent("paragraph", allWidgets);
 
-	// Table
-	addTable(editor);
-	restrictParentComponent("table", ["content-body"]);
-
 	//////////////////////////// Tabs ////////////////////////////
 	addTabs(editor);
 	restrictParentComponent("tabs", ["content-body"]);
@@ -379,6 +383,12 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("tab-panel", ["tabs"]);
 
 		//////////////////////////// end tabs ////////////////////////////
+
+	////////////// Table ///////////////
+
+	// Table
+	addTable(editor);
+	restrictParentComponent("table", ["content-body"]);
 
 	// thead
 	addThead(editor);
