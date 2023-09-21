@@ -238,7 +238,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			component.view.el.addEventListener("click", () => {
 
 			let accordionParent = component.parent();
-			let accordionIndex = accordionParent.components().length - 1; 
+			let accordionIndex = accordionParent.components().length - 2; 
 			let accordionItem = editor.DomComponents.addComponent({ type: "accordion-item" });
 
 			accordionParent.append([accordionItem], {at: accordionIndex});
