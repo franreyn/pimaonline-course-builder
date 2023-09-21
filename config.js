@@ -52,6 +52,7 @@ export const config = {
     "add-dl-btn",
     "tab-btn",
     "add-img-btn",
+    "add-vocab-card-btn",
   ],
   requiresJsComponents: [
     "image-gallery",
