@@ -75,7 +75,7 @@ export function defineCommands(editor) {
 	editor.Commands.add('undo', {
     run: function(editor, sender) {
 			editor.UndoManager.undo();
-        sender.set('active', false);
+      sender.set('active', false);
     }
 	});
 
