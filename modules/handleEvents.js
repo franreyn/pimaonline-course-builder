@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas, removeDlBtn } from "./utils.js";
+import { addComponentToCanvas, removeAddedButtons } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -300,9 +300,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
 
-			removeDlBtn();
 		})
+		
 	}
+
+	removeAddedButtons();
+
 	})
 
 	// When one part of tabs is removed, remove the rest of the tab parts
