@@ -8,6 +8,8 @@ export function addAssignments(editor) {
 			init() {
 				if (!this.components().find((component) => component.get("type") === "assignment")) {
 					this.components().add({ type: "assignment" });
+					this.components().add({ type: "assignment" });
+					this.components().add({ type: "assignment" });
 					this.components().add({ type: "add-assignment-btn" });
 				} 
 			},
@@ -23,15 +25,11 @@ export function addAssignment(editor) {
 				attributes: { class: "assignment" },
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "h3")) {
-					this.components().add({ type: "h3", attributes: {class: "assignment-title"} });
-				}
-				if (!this.components().find((component) => component.get("type") === "text")) {
-					this.components().add({ type: "text", attributes: {class: "assignment-content"}, content: "Add text"});
-				}
-				if (!this.components().find((component) => component.get("type") === "button")) {
-					this.components().add({ type: "button" });
-				}
+				if (!this.components().length) {
+          this.components().add({ type: "h3", attributes: { class: "assignment-title" } });
+          this.components().add({ type: "text", attributes: { class: "assignment-content" }, content: "Add text" });
+          this.components().add({ type: "button" });
+        }
 			},
 		},
 	});
@@ -42,7 +40,7 @@ export function addAssignmentBtn(editor) {
 		model: {
 			defaults: {
 				tagName: "button",
-				attributes: { class: "add-assignment-btn" },
+				attributes: { class: "add-assignment-btn add-items-btns" },
 				content: "+ Add Assignment",
 			},
 		},

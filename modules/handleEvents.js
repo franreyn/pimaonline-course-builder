@@ -229,39 +229,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	}
 	});
 
-	//If assignment is deleted, remove all other aspects of the assignment
-	editor.on("component:remove", (component) => {
-
-		console.log(component.get("type"))
-
-		let a = editor.Canvas.getBody().querySelectorAll(".assignment-title");
-
-		console.log(a)
-
-
-		if(component.get("type") == "assignment-title" || component.get("type") == "assignment-content") {
-
-			console.log("you should remove the whole assignment")
-
-		}
-
-		//Target assignment types
-		let assignments = editor.Canvas.getBody().querySelectorAll(".assignment");
-
-		assignments.forEach((assignmentItem) => {
-		//If assignment has no children
-		let assignmentChildren = assignmentItem.children
-
-		if(assignmentChildren.length == 0) {
-			console.log("you can delete this assignment", assignmentItem)
-		}
-
-		})
-
-	})
-
-	
-
 	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
 
@@ -270,19 +237,18 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		labelTabs();
 		}
 
-		//If accordion is added add the event listener for add accordion button
+		//If assignment is added add the event listener for add assignment button
 		if(component.get("type") == "add-assignment-btn") {
 			component.view.el.addEventListener("click", () => {
 
-			let assignemntWidget = component.parent();
+			let assignmentWidget = component.parent();
 			
 			// Add the assignment type
 			let assignmentComponent = editor.DomComponents.addComponent({ type: "assignment" });
-
 			let assignmentLength = component.parent().components().length;
-			let assignmentIndex = assignmentLength - 1;
+			let assignmentIndex = assignmentLength - 2;
 
-			assignemntWidget.append([assignmentComponent], {at: assignmentIndex});
+			assignmentWidget.append([assignmentComponent], {at: assignmentIndex});
 
 			});
 		}
@@ -367,6 +333,17 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			removedComponent.parent().remove();
 		} 
 	});
+
+	editor.on("undo", () => {
+		let assignments = editor.getWrapper().find(".assignment");
+
+		assignments.forEach((assignment) => {
+			if(assignment.components().length < 1) {
+				assignment.remove();
+			}
+		})
+
+	})
 	
 	// This function runs through the editor and assigns all tab related classes and attributes
 	function labelTabs() {
