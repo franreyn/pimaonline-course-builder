@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas, removeAddedButtons } from "./utils.js";
+import { addComponentToCanvas, removeItemsBtns } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -66,6 +66,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
     }
     setCustomLayerName(component);
     editor.LayerManager.render();
+		removeItemsBtns();
   });  
 	
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -103,6 +104,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	// The layers panel is a part of the GrapesJS interface that shows a tree view of the components in the editor. By calling render(), the layers panel is updated to reflect the removal of the component.
 	editor.on("component:remove", (component) => {
 		editor.LayerManager.render(); // Force layers panel to refresh
+		removeItemsBtns();
 	});
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
@@ -195,6 +197,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			footerToolbarButtons[1].classList.add("active");
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
+			removeItemsBtns();
 	})
 
 	// Check to see if certain components are added and remove and add the script
@@ -246,7 +249,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			// Add the assignment type
 			let assignmentComponent = editor.DomComponents.addComponent({ type: "assignment" });
 			let assignmentLength = component.parent().components().length;
-			let assignmentIndex = assignmentLength - 2;
+			let assignmentIndex = assignmentLength - 1;
 
 			assignmentWidget.append([assignmentComponent], {at: assignmentIndex});
 
@@ -300,12 +303,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
-
 		})
 	}
-
-	removeAddedButtons();
-
 	})
 
 	// When one part of tabs is removed, remove the rest of the tab parts
@@ -335,7 +334,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			removedComponent.parent().remove();
 		} 
 	});
-
+	
 	editor.on("undo", () => {
 		let assignments = editor.getWrapper().find(".assignment");
 
@@ -402,19 +401,27 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 }
 
 	function addButtonClickListener(componentType) {
+		const componentTypeToItemType = {
+			"add-accordion-btn": "accordion-item",
+			"add-img-btn": "image-box",
+			"add-vocab-btn": "vocab-wrapper"
+		};
+
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
 					let parentComponent = component.parent();
 					let index = parentComponent.components().length - 1;
-					let newItemType = componentType === "add-accordion-btn" ? "accordion-item" : "vocab-wrapper";
+					let newItemType = componentTypeToItemType[componentType];
 					let newItem = editor.DomComponents.addComponent({ type: newItemType });
 	
 					parentComponent.append([newItem], { at: index });
+					removeItemsBtns();
 				});
 			}
 		});
 	}
 
 	addButtonClickListener("add-vocab-btn");
+	addButtonClickListener("add-img-btn");
 }
