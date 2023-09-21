@@ -140,3 +140,7 @@ label.tab-header p {
   }
 }
 /* ---------------------------------------------------- */
+
+.cke_editable_inline {
+  padding: 3px;
+}
