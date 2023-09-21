@@ -301,9 +301,11 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
 
-			removeAddedButtons();
 		})
 	}
+
+	removeAddedButtons();
+
 	})
 
 	// When one part of tabs is removed, remove the rest of the tab parts
