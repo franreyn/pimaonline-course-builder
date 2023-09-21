@@ -14,6 +14,9 @@ export function addVocabCards(editor) {
 					this.components().add({ type: "vocab-item" });
 					this.components().add({ type: "vocab-item" });
 				}
+				if (!this.components().find((component) => component.get("type") === "add-card-btn")) {
+					this.components().add({ type: "add-card-btn" });
+				}
 			},
 		},
 	});
@@ -69,6 +72,21 @@ export function addVocabCardDef(editor) {
 						content: "Add definition",
 					},
 				],
+			},
+		},
+	});
+}
+
+export function addVocabCardButton(editor) {
+  editor.DomComponents.addType("add-card-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-card-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add Card",
 			},
 		},
 	});
