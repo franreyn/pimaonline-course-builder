@@ -60,19 +60,20 @@ const checkLayersPanel = () => {
 
   // Remove unneeded items from layers manager
 let layersPanel = document.querySelector("span.layers");
-layersPanel.addEventListener("click", removeDlBtn)
+layersPanel.addEventListener("click", removeAddedButtons)
 }
 
 document.addEventListener("DOMContentLoaded", checkLayersPanel);
 
-export function removeDlBtn() {
+// Add classes to this array to have them removed from the layers panel
+const buttonsToRemove = ["add-dl-btn","add-img-btn", "add-assignment-btn"]
 
-    let addDlButtons = document.querySelectorAll(".gjs-layer__t-add-dl-btn");
-	
-	    if(addDlButtons.length > 0) {
-        addDlButtons.forEach((button) => {
-          button.remove();
-        })
-	    }
+export function removeAddedButtons() {
 
+  buttonsToRemove.forEach((buttonToRemove) => {
+    const buttons = document.querySelectorAll(`.gjs-layer__t-${buttonToRemove}`);
+    buttons.forEach((button) => {
+      button.remove();
+    });
+})
 }
