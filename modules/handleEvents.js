@@ -66,6 +66,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
     }
     setCustomLayerName(component);
     editor.LayerManager.render();
+		removeItemsBtns();
   });  
 	
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -103,6 +104,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	// The layers panel is a part of the GrapesJS interface that shows a tree view of the components in the editor. By calling render(), the layers panel is updated to reflect the removal of the component.
 	editor.on("component:remove", (component) => {
 		editor.LayerManager.render(); // Force layers panel to refresh
+		removeItemsBtns();
 	});
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
@@ -195,6 +197,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			footerToolbarButtons[1].classList.add("active");
 			}
 			editor.LayerManager.render(); // Force layers panel to refresh
+			removeItemsBtns();
 	})
 
 	// Check to see if certain components are added and remove and add the script
