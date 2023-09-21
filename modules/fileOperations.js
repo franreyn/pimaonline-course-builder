@@ -121,8 +121,6 @@ export function exportFile(editor) {
 		overrideScript.remove();
 	}
 
-  console.log(parsedHtml)
-
   // Remove the extra div tags within elements
   const divParents = parsedHtml.querySelectorAll("h1, h2, h3, h4, h5, h6, dd, dt");
   divParents.forEach((parentEl) => {
@@ -140,39 +138,6 @@ export function exportFile(editor) {
 
     });
   });
-
-  //Remove extra div in paragraph type for assignment widget
-  const assignemntParagraphs = parsedHtml.querySelectorAll("li.assignment p");
-
-  console.log(assignemntParagraphs)
-
-  if(assignemntParagraphs.length > 0) {
-    assignemntParagraphs.forEach((paragraph) =>{
-      console.log(paragraph);
-
-      let innerDiv = paragraph.querySelector("div");
-
-      console.log("inner Div", innerDiv)
-
-
-  if (innerDiv) {
-        // Move the content of the div to the heading and remove the div
-        paragraph.innerHTML = innerDiv.innerHTML;
-
-        console.log(paragraph)
-    // // Remove any nested p tags within the heading
-    let nestedPTags = paragraph.querySelectorAll("p");
-    nestedPTags.forEach((pTag) => {
-      paragraph.innerHTML = pTag.innerHTML;
-      if (divChild) {
-        // Move the content of the div to the heading and remove the div
-        paragraph.innerHTML = innerDiv.innerHTML;
-      }
-    });
-
-      }
-    })
-  }
 
   // Remove empty <p></p> tags
   const emptyPTags = parsedHtml.querySelectorAll("p:empty");
@@ -268,7 +233,17 @@ ${serializedHtmlContent}
           } else if (el.tagName === "HTML, BODY") {
               el.replaceWith(...el.childNodes);
           } else {
-            div.replaceWith(p.textContent);
+            if (div && p) {
+              div.replaceWith(p.textContent);
+            } else if (div) {
+              // Handle the case where only <div> is found and is not placeholder Link text
+              if(div.innerText !== "Link") {
+                div.remove();
+              }
+            } else if (p) {
+              // Handle the case where only <p> is found
+              el.replaceWith(p.textContent);
+            }
           }
       });
 
