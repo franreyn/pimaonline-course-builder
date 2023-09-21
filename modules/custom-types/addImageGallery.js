@@ -34,6 +34,9 @@ export function addGalleryWrapper(editor) {
 					this.components().add({ type: "image-box" });
           this.components().add({ type: "image-box" });
 				}
+				if (!this.components().find((component) => component.get("type") === "add-img-btn")) {
+					this.components().add({ type: "add-img-btn" });
+				}
 			},
 		},
 	});
@@ -70,6 +73,21 @@ export function addStaticImage(editor) {
 				resizable: false,
 				highlightable: true,
 				selectable: true,
+			},
+		},
+	});
+}
+
+export function addImageButton(editor) {
+  editor.DomComponents.addType("add-img-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-img-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add Image",
 			},
 		},
 	});
