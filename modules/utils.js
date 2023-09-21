@@ -60,17 +60,17 @@ const checkLayersPanel = () => {
 
   // Remove unneeded items from layers manager
 let layersPanel = document.querySelector("span.layers");
-layersPanel.addEventListener("click", removeDlBtn)
+layersPanel.addEventListener("click", removeItemsBtns)
 }
 
 document.addEventListener("DOMContentLoaded", checkLayersPanel);
 
-export function removeDlBtn() {
+export function removeItemsBtns() {
 
-    let addDlButtons = document.querySelectorAll(".gjs-layer__t-add-dl-btn");
+    let addItemsButtons = document.querySelectorAll(".gjs-layer__t-add-dl-btn, .gjs-layer__t-add-img-btn, .gjs-layer__t-add-vocab-btn, .gjs-layer__t-tab-btn");
 	
-	    if(addDlButtons.length > 0) {
-        addDlButtons.forEach((button) => {
+	    if(addItemsButtons.length > 0) {
+        addItemsButtons.forEach((button) => {
           button.remove();
         })
 	    }

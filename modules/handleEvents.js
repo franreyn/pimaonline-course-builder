@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { addComponentToCanvas, removeDlBtn } from "./utils.js";
+import { addComponentToCanvas, removeItemsBtns } from "./utils.js";
 
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 
@@ -285,8 +285,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
-
-			removeDlBtn();
 		})
 	}
 	})
@@ -389,6 +387,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 					let newItem = editor.DomComponents.addComponent({ type: newItemType });
 	
 					parentComponent.append([newItem], { at: index });
+					removeItemsBtns();
 				});
 			}
 		});
