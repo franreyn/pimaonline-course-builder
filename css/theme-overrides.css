@@ -124,3 +124,7 @@ label.tab-header p {
   padding: 0 0 0 5px;
   margin: 0;
 }
+
+.cke_editable_inline {
+  padding: 3px;
+}

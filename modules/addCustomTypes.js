@@ -31,7 +31,7 @@ import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject 
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
-import { addGalleryWrapper, addImageBox, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
+import { addGalleryWrapper, addImageBox, addImageButton, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle, addAccordionButton } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
@@ -427,6 +427,9 @@ export function addCustomTypes(editor) {
 
 	addStaticImage(editor);
 	restrictParentComponent("static-image", ["image-box"]);
+
+	addImageButton(editor);
+	restrictParentComponent("add-img-btn", ["gallery-wrapper"]);
 
 	////////////// Accordion ///////////////
 
