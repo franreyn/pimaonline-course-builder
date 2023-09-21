@@ -124,3 +124,19 @@ label.tab-header p {
   padding: 0 0 0 5px;
   margin: 0;
 }
+
+.add-assignment-btn {
+  width: 100%;
+}
+
+/* Adjust spacing for assignments on one-column layout */
+#content-wrapper ul.assignments-widget, #content-wrapper ol.assignments-widget {
+  justify-content: flex-start;
+}
+
+@media screen and (min-width: 768px) {
+  #content-wrapper li.assignment {
+    margin: 0.6rem;
+  }
+}
+/* ---------------------------------------------------- */
