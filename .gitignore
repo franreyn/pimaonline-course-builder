@@ -12,6 +12,8 @@ Thumbs.db
 node_modules/
 node_modules/*
 grapesjs/*
-ckeditor4/*
-grapesjs-plugin-ckeditor/*
 !grapesjs/dist
+ckeditor4/*
+!ckeditor4/ckeditor.js
+grapesjs-plugin-ckeditor/*
+!grapesjs-plugin-ckeditor/dist
