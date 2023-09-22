@@ -378,7 +378,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
 			"add-img-btn": "image-box",
-			"add-vocab-btn": "vocab-wrapper"
+			"add-vocab-btn": "vocab-wrapper",
+			"add-vocab-card-btn": "vocab-item"
 		};
 
 		editor.on("component:add", (component) => {
@@ -396,6 +397,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	addButtonClickListener("add-vocab-btn");
-	addButtonClickListener("add-img-btn");
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-vocab-card-btn"];
+	btnTypes.forEach(btnType => {
+		addButtonClickListener(btnType);
+	})
 }
