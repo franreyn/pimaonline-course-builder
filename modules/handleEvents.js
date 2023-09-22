@@ -240,22 +240,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		labelTabs();
 		}
 
-		//If assignment is added add the event listener for add assignment button
-		if(component.get("type") == "add-assignment-btn") {
-			component.view.el.addEventListener("click", () => {
-
-			let assignmentWidget = component.parent();
-			
-			// Add the assignment type
-			let assignmentComponent = editor.DomComponents.addComponent({ type: "assignment" });
-			let assignmentLength = component.parent().components().length;
-			let assignmentIndex = assignmentLength - 1;
-
-			assignmentWidget.append([assignmentComponent], {at: assignmentIndex});
-
-			});
-		}
-
 		// If add tab button is clicked
 		if (component.get("type") === "tab-btn") {
 			component.view.el.addEventListener("click", () => {
@@ -335,16 +319,35 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		} 
 	});
 	
-	editor.on("undo", () => {
-		let assignments = editor.getWrapper().find(".assignment");
+	// editor.on("undo", () => {
+	// 	editor.UndoManager.skip(() => {
+	// 		let assignments = editor.getWrapper().find(".assignment");
 
-		assignments.forEach((assignment) => {
-			if(assignment.components().length < 1) {
-				assignment.remove();
-			}
-		})
+	// 		assignments.forEach((assignment) => {
+	// 			if(assignment.components().length < 1) {
+	// 				assignment.remove();
+	// 				assignments = editor.getWrapper().find(".assignment");
+	// 				console.log(assignments);
+	// 			}
+	// 		})
+	// 	})
+	// })
 
+// When redo is triggered, check all assignments and make sure they are added back correctly
+editor.on("redo", () => {
+
+	let assignmentBtns = editor.getWrapper().find(".add-assignment-btn")
+	console.log(assignmentBtns)
+
+	assignmentBtns.forEach((button) => {
+		let buttonParent = button.parent();
+		let parentLength = buttonParent.components().length
+
+		console.log(parentLength)
 	})
+
+
+})
 	
 	// This function runs through the editor and assigns all tab related classes and attributes
 	function labelTabs() {
@@ -403,10 +406,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	function addButtonClickListener(componentType) {
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
+			"add-assignment-btn": "assignment",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper"
 		};
 
+		let clickCount = 0;
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
@@ -414,7 +419,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 					let index = parentComponent.components().length - 1;
 					let newItemType = componentTypeToItemType[componentType];
 					let newItem = editor.DomComponents.addComponent({ type: newItemType });
-	
+
 					parentComponent.append([newItem], { at: index });
 					removeItemsBtns();
 				});
@@ -422,6 +427,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
+	addButtonClickListener("add-assignment-btn");
 	addButtonClickListener("add-vocab-btn");
 	addButtonClickListener("add-img-btn");
 }

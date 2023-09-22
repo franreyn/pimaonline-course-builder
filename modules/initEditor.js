@@ -7,7 +7,7 @@ export function initEditor() {
 		height: "100%",
 		width: "auto",
 		storageManager: false,
-		undoManager: { trackSelection: false },
+		undoManager: false,
 		panels: { defaults: [] },
 		plugins: ["grapesjs-plugin-ckeditor"],
 		pluginsOpts: {
@@ -83,19 +83,6 @@ export function initEditor() {
 							label: '<i class="bi bi-phone"></i>',
 							command: "set-device-mobile",
 							togglable: false,
-						},
-						// Add undo/redo buttons
-						{
-							id: 'undo',
-							className: 'fa fa-undo',
-							command: 'undo',
-							attributes: { title: 'Undo' }
-						},
-						{
-							id: 'redo',
-							className: 'fa fa-rotate-right',
-							command: 'redo',
-							attributes: { title: 'Redo' }
 						},
 					],
 				},
