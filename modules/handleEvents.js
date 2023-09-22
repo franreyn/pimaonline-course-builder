@@ -319,36 +319,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		} 
 	});
 	
-	// editor.on("undo", () => {
-	// 	editor.UndoManager.skip(() => {
-	// 		let assignments = editor.getWrapper().find(".assignment");
-
-	// 		assignments.forEach((assignment) => {
-	// 			if(assignment.components().length < 1) {
-	// 				assignment.remove();
-	// 				assignments = editor.getWrapper().find(".assignment");
-	// 				console.log(assignments);
-	// 			}
-	// 		})
-	// 	})
-	// })
-
-// When redo is triggered, check all assignments and make sure they are added back correctly
-editor.on("redo", () => {
-
-	let assignmentBtns = editor.getWrapper().find(".add-assignment-btn")
-	console.log(assignmentBtns)
-
-	assignmentBtns.forEach((button) => {
-		let buttonParent = button.parent();
-		let parentLength = buttonParent.components().length
-
-		console.log(parentLength)
-	})
-
-
-})
-	
 	// This function runs through the editor and assigns all tab related classes and attributes
 	function labelTabs() {
 
