@@ -17,7 +17,7 @@ ckeditor4/*
 !ckeditor4/ckeditor.js
 !ckeditor4/config.js
 !ckeditor4/skins/moono-lisa/editor.css
-!ckeditor4/skins/lang/en.js
+!ckeditor4/lang/en.js
 grapesjs-plugin-ckeditor/*
 grapesjs-plugin-ckeditor/*
 !grapesjs-plugin-ckeditor/dist
