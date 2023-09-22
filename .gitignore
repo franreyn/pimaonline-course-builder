@@ -16,5 +16,6 @@ grapesjs/*
 ckeditor4/*
 !ckeditor4/ckeditor.js
 grapesjs-plugin-ckeditor/*
-grapesjs-plugin-ckeditor/dist/*
-!grapesjs-plugin-ckeditor/dist/index.js
+grapesjs-plugin-ckeditor/*
+!grapesjs-plugin-ckeditor/dist
+grapesjs-plugin-ckeditor/dist/index.d.ts
