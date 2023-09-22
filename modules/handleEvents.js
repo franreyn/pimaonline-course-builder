@@ -232,21 +232,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	}
 	});
 
-	// editor.on("component:add", (component) => {
-
-	// 	if (component.get("type") === "add-accordion-btn") {
-	// 		component.view.el.addEventListener("click", () => {
-
-	// 		let accordionParent = component.parent();
-	// 		let accordionIndex = accordionParent.components().length - 2; 
-	// 		let accordionItem = editor.DomComponents.addComponent({ type: "accordion-item" });
-
-	// 		accordionParent.append([accordionItem], {at: accordionIndex});
-	// 	})
-	// }
-	// })
-	
-
 	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
 
@@ -392,7 +377,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
 			"add-img-btn": "image-box",
-			"add-vocab-btn": "vocab-wrapper"
+			"add-vocab-btn": "vocab-wrapper",
+			"add-vocab-card-btn": "vocab-item"
 		};
 
 		editor.on("component:add", (component) => {
@@ -410,7 +396,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	addButtonClickListener("add-accordion-btn");
-	addButtonClickListener("add-vocab-btn");
-	addButtonClickListener("add-img-btn");
+	const btnTypes = ["add-vocab-btn", "add-img-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn"];
+	btnTypes.forEach(btnType => {
+		addButtonClickListener(btnType);
+	})
 }
