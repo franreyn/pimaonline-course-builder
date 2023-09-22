@@ -232,19 +232,19 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	}
 	});
 
-	editor.on("component:add", (component) => {
+	// editor.on("component:add", (component) => {
 
-		if (component.get("type") === "add-accordion-btn") {
-			component.view.el.addEventListener("click", () => {
+	// 	if (component.get("type") === "add-accordion-btn") {
+	// 		component.view.el.addEventListener("click", () => {
 
-			let accordionParent = component.parent();
-			let accordionIndex = accordionParent.components().length - 2; 
-			let accordionItem = editor.DomComponents.addComponent({ type: "accordion-item" });
+	// 		let accordionParent = component.parent();
+	// 		let accordionIndex = accordionParent.components().length - 2; 
+	// 		let accordionItem = editor.DomComponents.addComponent({ type: "accordion-item" });
 
-			accordionParent.append([accordionItem], {at: accordionIndex});
-		})
-	}
-	})
+	// 		accordionParent.append([accordionItem], {at: accordionIndex});
+	// 	})
+	// }
+	// })
 	
 
 	// Check tab inputs and labels and add click events and attributes
@@ -410,6 +410,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
+	addButtonClickListener("add-accordion-btn");
 	addButtonClickListener("add-vocab-btn");
 	addButtonClickListener("add-img-btn");
 }
