@@ -15,9 +15,9 @@
 
 Use `npm` to update grapesjs, then drag the `grapesjs` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
 
-Use `npm` to update grapesjs, then drag the `ckeditor4` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
+Use `npm` to update CKEditor 4, then drag the `ckeditor4` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
 
-Use `npm` to update grapesjs, then drag the `grapesjs-plugin-ckeditor` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
+Use `npm` to update grapesjs-plugin-ckeditor, then drag the `grapesjs-plugin-ckeditor` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
 
 ## Development 
 
