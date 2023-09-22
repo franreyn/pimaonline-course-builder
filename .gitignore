@@ -15,6 +15,7 @@ grapesjs/*
 !grapesjs/dist
 !ckeditor4/ckeditor.js
 !ckeditor4/styles.js
+!ckeditor4/plugins/sharedspace/plugin.js
 !ckeditor4/config.js
 !ckeditor4/skins/moono-lisa/editor.css
 !ckeditor4/lang/en.js
