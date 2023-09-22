@@ -70,14 +70,6 @@ const buttonsToRemove = ["add-dl-btn","add-img-btn", "add-assignment-btn", "add-
 
 export function removeItemsBtns() {
 
-    // let addItemsButtons = document.querySelectorAll(buttonsToRemove.map(className => `.gjs-layer__t-${className}`).join(', '));
-	
-	  //   if(addItemsButtons.length > 0) {
-    //     addItemsButtons.forEach((button) => {
-    //       button.remove();
-    //     })
-	  //   }
-
     buttonsToRemove.forEach((buttonToRemove) => {
       const buttons = document.querySelectorAll(`.gjs-layer__t-${buttonToRemove}`);
       buttons.forEach((button) => {
