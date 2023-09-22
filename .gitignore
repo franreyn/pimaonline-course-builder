@@ -13,3 +13,8 @@ node_modules/
 node_modules/*
 grapesjs/*
 !grapesjs/dist
+ckeditor4/*
+!ckeditor4/ckeditor.js
+grapesjs-plugin-ckeditor/*
+grapesjs-plugin-ckeditor/dist/*
+!grapesjs-plugin-ckeditor/dist/index.js
