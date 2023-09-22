@@ -268,7 +268,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
             }
         }
 			)}
-
 	});
 
 	// Check tab inputs and labels and add click events and attributes
@@ -377,6 +376,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	function addButtonClickListener(componentType) {
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
+			"add-content-body-btn": "content-body",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper"
 		};
@@ -396,6 +396,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
+	addButtonClickListener("add-content-body-btn");
 	addButtonClickListener("add-vocab-btn");
 	addButtonClickListener("add-img-btn");
 }
