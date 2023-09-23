@@ -33,7 +33,7 @@ import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageButton, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
-import { addColItem, addColumns } from "./custom-types/addColumns.js";
+import { addColItem, addColumns, addColumnsButton } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
 export function addCustomTypes(editor) {
@@ -456,6 +456,9 @@ export function addCustomTypes(editor) {
 
 	addColItem(editor);
 	restrictParentComponent("col-item", ["columns"]);
+
+	addColumnsButton(editor);
+	restrictParentComponent("add-col-item-btn", ["columns"]);
 
 	// ======= END COMPONENTS ======
 	// ...

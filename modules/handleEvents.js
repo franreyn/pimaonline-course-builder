@@ -379,7 +379,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-accordion-btn": "accordion-item",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper",
-			"add-vocab-card-btn": "vocab-item"
+			"add-vocab-card-btn": "vocab-item",
+			"add-col-item-btn": "col-item"
 		};
 
 		editor.on("component:add", (component) => {
@@ -397,7 +398,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-vocab-card-btn"];
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-vocab-card-btn", "add-col-item-btn"];
 	btnTypes.forEach(btnType => {
 		addButtonClickListener(btnType);
 	})

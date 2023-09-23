@@ -53,6 +53,7 @@ export const config = {
     "tab-btn",
     "add-img-btn",
     "add-vocab-card-btn",
+    "add-col-item-btn",
   ],
   requiresJsComponents: [
     "image-gallery",
