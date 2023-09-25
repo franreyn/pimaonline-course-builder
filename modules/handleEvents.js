@@ -232,6 +232,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	}
 	});
 
+
 	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
 
@@ -287,7 +288,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
-		})
+		})	
 	}
 	})
 
@@ -378,7 +379,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-accordion-btn": "accordion-item",
 			"add-assignment-btn": "assignment",
 			"add-img-btn": "image-box",
-			"add-vocab-btn": "vocab-wrapper"
+			"add-vocab-btn": "vocab-wrapper",
+			"add-vocab-card-btn": "vocab-item"
 		};
 
 		let clickCount = 0;
@@ -397,7 +399,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	addButtonClickListener("add-assignment-btn");
-	addButtonClickListener("add-vocab-btn");
-	addButtonClickListener("add-img-btn");
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn"];
+	btnTypes.forEach(btnType => {
+		addButtonClickListener(btnType);
+	})
 }

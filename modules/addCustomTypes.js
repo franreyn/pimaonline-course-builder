@@ -26,13 +26,13 @@ import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
-import { addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
+import { addVocabCardButton, addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageButton, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
-import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle } from "./custom-types/addAccordion.js";
+import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle, addAccordionButton } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
@@ -170,6 +170,10 @@ export function addCustomTypes(editor) {
 	// Vocab card definition
 	addVocabCardDef(editor);
 	restrictParentComponent("vocab-card-def", ["vocab-item"]);
+
+	// add vocab btn
+	addVocabCardButton(editor);
+	restrictParentComponent("add-vocab-card-btn", ["vocab-cards"]);
 
 	// Vocabulary widget
   addVocabulary(editor);
@@ -322,23 +326,23 @@ export function addCustomTypes(editor) {
 
 	// Heading 2
 	addH2(editor);
-	restrictParentComponent("h2", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h2", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["accordion-title", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h3", ["accordion-title", "accordion-content", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 4
 	addH4(editor);
-	restrictParentComponent("h4", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h4", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 5
 	addH5(editor);
-	restrictParentComponent("h5", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h5", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 	// Heading 6
 	addH6(editor);
-	restrictParentComponent("h6", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h6", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
 
 //////////////////////////// H5P container ////////////////////////////
 
@@ -448,6 +452,9 @@ export function addCustomTypes(editor) {
 
 	addAccordionContent(editor);
 	restrictParentComponent("accordion-content", ["accordion-item"]);
+
+	addAccordionButton(editor);
+	restrictParentComponent("add-accordion-btn", ["accordion"]);
 
 	///////////// Columns //////////////////
 
