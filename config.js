@@ -55,6 +55,7 @@ export const config = {
     "toggle-footnotes",
     "gallery-wrapper",
     "tab-btn",
+    "add-col-item-btn",
   ],
   requiresJsComponents: [
     "image-gallery",

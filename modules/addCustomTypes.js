@@ -33,7 +33,7 @@ import { addScript } from "./custom-types/addScript.js";
 import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageButton, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle, addAccordionButton } from "./custom-types/addAccordion.js";
-import { addColItem, addColumns } from "./custom-types/addColumns.js";
+import { addColItem, addColumns, addColumnsButton } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
 
 export function addCustomTypes(editor) {
@@ -59,22 +59,35 @@ export function addCustomTypes(editor) {
   ]
 
 	// Prevent addition of component if it's not being added to parent component.
-	function restrictParentComponent(type, validParents) {
-		editor.on("component:mount", (component) => {
-			if (component.get("type") === type) {
-				let currentParentType = component.parent().get("type");
+	function restrictParentComponent(type, validParents, validGrandParents) {
+    editor.on("component:mount", (component) => {
+        if (component.get("type") === type) {
+            let currentParentType = component.parent().get("type");
+            let currentGrandParentType = component.parent().parent() ? component.parent().parent().get("type") : null;
 
-				if (!validParents.includes(currentParentType)) {
-					if (component.previousParent) {
-						component.previousParent.append(component);
-					} else {
-						component.remove();
-					}
-				} else {
-					component.previousParent = component.parent();
-				}
-			}
-		});
+            if (type === "columns") {
+                if (!validParents.includes(currentParentType) || (currentGrandParentType && !validGrandParents.includes(currentGrandParentType))) {
+                    if (component.previousParent) {
+                        component.previousParent.append(component);
+                    } else {
+                        component.remove();
+                    }
+                } else {
+                    component.previousParent = component.parent();
+                }
+            } else {
+                if (!validParents.includes(currentParentType)) {
+                    if (component.previousParent) {
+                        component.previousParent.append(component);
+                    } else {
+                        component.remove();
+                    }
+                } else {
+                    component.previousParent = component.parent();
+                }
+            }
+        }
+    });
 	}
 
 	// Add Scripts2.js
@@ -459,10 +472,13 @@ export function addCustomTypes(editor) {
 	///////////// Columns //////////////////
 
 	addColumns(editor);
-	restrictParentComponent("columns", ["content-body"]);
+	restrictParentComponent("columns", ["content-body"], ["content-wrapper", "third-column"]);
 
 	addColItem(editor);
 	restrictParentComponent("col-item", ["columns"]);
+
+	addColumnsButton(editor);
+	restrictParentComponent("add-col-item-btn", ["columns"]);
 
 	// ======= END COMPONENTS ======
 	// ...
