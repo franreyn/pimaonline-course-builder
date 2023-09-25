@@ -231,7 +231,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	}
 	});
-	
 
 	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
@@ -288,7 +287,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
-		})
+		})	
 	}
 	})
 
@@ -397,7 +396,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-vocab-card-btn"];
+	const btnTypes = ["add-vocab-btn", "add-img-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn"];
 	btnTypes.forEach(btnType => {
 		addButtonClickListener(btnType);
 	})
