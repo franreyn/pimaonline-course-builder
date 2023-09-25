@@ -242,7 +242,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 		// If add tab button is clicked
-		if (component.get("type") === "tab-btn") {
+		if (component.get("type") === "add-tab-btn") {
 			component.view.el.addEventListener("click", () => {
 
 				let tabSelector = component.view.el.attributes.id.value;
@@ -268,7 +268,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
             }
         }
 			)}
-
 	});
 
 	// Check tab inputs and labels and add click events and attributes
@@ -377,6 +376,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	function addButtonClickListener(componentType) {
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
+			"add-content-body-btn": "content-body",
 			"add-assignment-btn": "assignment",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper",

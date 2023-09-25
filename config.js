@@ -37,6 +37,7 @@ export const config = {
   unselectableComponents: [
     "add-accordion-btn",
     "add-assignment-btn",
+    "add-content-body-btn",
     "add-dl-btn",
     "add-img-btn",
     "add-vocab-btn",
@@ -54,7 +55,7 @@ export const config = {
     "side-by-side-item",
     "toggle-footnotes",
     "gallery-wrapper",
-    "tab-btn",
+    "add-tab-btn",
     "add-col-item-btn",
   ],
   requiresJsComponents: [

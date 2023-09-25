@@ -16,3 +16,18 @@ export function addContentBody(editor) {
 		},
 	});
 }
+
+export function addContentBodyButton(editor) {
+  editor.DomComponents.addType("add-content-body-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-content-body-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add Content Body",
+			},
+		},
+	});
+}

@@ -160,3 +160,7 @@ label.tab-header p {
 .cke_editable_inline {
   padding: 3px;
 }
+
+.add-content-body-btn {
+  margin-top: -15px;
+}

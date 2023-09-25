@@ -23,7 +23,7 @@ export function addTabs(editor) {
 				this.components().add({ type: "tab-hide" });
 				this.components().add({ type: "tab-panel" });
 
-				this.components().add({ type: "tab-btn" });
+				this.components().add({ type: "add-tab-btn" });
 			},
 		},
 	});
@@ -96,7 +96,7 @@ export function addTabPanel(editor) {
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "text")) {
-					this.components().add({ type: "text", content: "test" });
+					this.components().add({ type: "text", content: "Add text"});
 				}
 			},
 		},
@@ -104,7 +104,7 @@ export function addTabPanel(editor) {
 }
 
 export function addTabButton(editor) {
-  editor.DomComponents.addType("tab-btn", {
+  editor.DomComponents.addType("add-tab-btn", {
 		model: {
 			defaults: {
 				tagName: "button",

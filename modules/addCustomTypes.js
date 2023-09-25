@@ -6,7 +6,7 @@ import { addBannerImage } from "./custom-types/addBannerImage.js";
 import { addTextContainer } from "./custom-types/addTextContainer.js";
 import { addContentWrapper } from "./custom-types/addContentWrapper.js";
 import { addSecondColumn } from "./custom-types/addSecondColumn.js";
-import { addContentBody } from "./custom-types/addContentBody.js";
+import { addContentBody, addContentBodyButton } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
 import { addVocabButton, addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
@@ -128,6 +128,10 @@ export function addCustomTypes(editor) {
 	// Content-body
   addContentBody(editor);
 	restrictParentComponent("content-body", ["content-wrapper", "second-column", "third-column"]);
+
+	//Content Body Button
+	addContentBodyButton(editor);
+	// restrictParentComponent("add-content-body-btn", ["content-wrapper", "second-column", "third-column"])
 
 	// Border widget
   addBorder(editor);
