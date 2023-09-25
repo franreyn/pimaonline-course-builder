@@ -380,7 +380,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-assignment-btn": "assignment",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper",
-			"add-vocab-card-btn": "vocab-item"
+			"add-vocab-card-btn": "vocab-item",
+			"add-col-item-btn": "col-item"
 		};
 
 		let clickCount = 0;
@@ -399,7 +400,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn"];
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn", "add-col-item-btn"];
 	btnTypes.forEach(btnType => {
 		addButtonClickListener(btnType);
 	})

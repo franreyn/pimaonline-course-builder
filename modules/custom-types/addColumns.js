@@ -11,6 +11,9 @@ export function addColumns(editor) {
 					this.components().add({ type: "col-item" });
 					this.components().add({ type: "col-item" });
 				}
+				if (!this.components().find((component) => component.get("type") === "add-col-item-btn")) {
+					this.components().add({ type: "add-col-item-btn" });
+				}
 			},
 		},
 	});
@@ -30,6 +33,21 @@ export function addColItem(editor) {
 				if (!this.components().find((component) => component.get("type") === "paragraph")) {
 					this.components().add({ type: "paragraph" });
 				}
+			},
+		},
+	});
+}
+
+export function addColumnsButton(editor) {
+  editor.DomComponents.addType("add-col-item-btn", {
+		model: {
+			defaults: {
+				tagName: "button",
+				attributes: { 
+					class: "add-col-item-btn add-items-btns",
+					type: "button",
+				},
+				content: "+ Add Column",
 			},
 		},
 	});
