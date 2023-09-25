@@ -40,6 +40,14 @@ dl.vocab-list dd {
   align-self: center;
 }
 
+.columns {
+  grid-template-columns: auto;
+}
+
+.add-col-item-btn {
+  grid-column: span 2; /* Adjust the number of columns as needed */
+}
+
 /* Vocabulary Cards Widget */
 .vocab-cards {
   display: grid;
