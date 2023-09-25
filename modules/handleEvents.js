@@ -242,7 +242,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 		// If add tab button is clicked
-		if (component.get("type") === "tab-btn") {
+		if (component.get("type") === "add-tab-btn") {
 			component.view.el.addEventListener("click", () => {
 
 				let tabSelector = component.view.el.attributes.id.value;
