@@ -258,7 +258,17 @@ ${serializedHtmlContent}
           } else if (el.tagName === "HTML, BODY") {
               el.replaceWith(...el.childNodes);
           } else {
-            div.replaceWith(p.textContent);
+            if (div && p) {
+              div.replaceWith(p.textContent);
+            } else if (div) {
+              // Handle the case where only <div> is found and is not placeholder Link text
+              if(div.innerText !== "Link") {
+                div.remove();
+              }
+            } else if (p) {
+              // Handle the case where only <p> is found
+              el.replaceWith(p.textContent);
+            }
           }
       });
 
