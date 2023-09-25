@@ -35,6 +35,12 @@ export const config = {
     "col-item",
   ],
   unselectableComponents: [
+    "add-accordion-btn",
+    "add-assignment-btn",
+    "add-dl-btn",
+    "add-img-btn",
+    "add-vocab-btn",
+    "add-vocab-card-btn",
     "one-column-layout", 
     "two-column-layout", 
     "content-wrapper", 
@@ -48,10 +54,7 @@ export const config = {
     "side-by-side-item",
     "toggle-footnotes",
     "gallery-wrapper",
-    "add-vocab-btn",
-    "add-dl-btn",
     "tab-btn",
-    "add-img-btn",
   ],
   requiresJsComponents: [
     "image-gallery",

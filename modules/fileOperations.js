@@ -115,6 +115,8 @@ export function exportFile(editor) {
 		secondColumn2.id = "second-column";
 	}
 
+  // –––––––––– DOM manipulations and CK Editor edits ––––––––––
+
   // Remove injected override script from exported html
   const overrideScript = parsedHtml.querySelector("#override");
 	if (overrideScript) {
@@ -153,11 +155,12 @@ const divElements = parsedHtml.querySelectorAll('div');
 divElements.forEach((divElement) => {
 
   // Check if the text content of the <div> matches "Add text"
+  // If the div element is a tab-panel keep everything inside
   if(divElement.parentElement.classList.contains("tab-panel")) {
-
+    
      // Get the parent of the <div>
      const parentElement = divElement.parentElement;
-
+     
     while (divElement.firstChild) {
       parentElement.insertBefore(divElement.firstChild, divElement);
     }
@@ -165,7 +168,6 @@ divElements.forEach((divElement) => {
     // Remove the <div> element
     parentElement.removeChild(divElement);
   } else if(divElement.parentElement.classList.contains("tab-header")){
-
     // Get the parent of the <div>
     const parentElement = divElement.parentElement;
 
@@ -179,7 +181,7 @@ divElements.forEach((divElement) => {
     parentElement.removeChild(divElement);
   }
 
-  const doNotDelete = ["tab-panel", "footnotes"];
+  const doNotDelete = ["tab-panel", "footnotes", "accordion-content"];
 
   if (divElement.textContent.trim() === 'Add text' && !doNotDelete.some(className => divElement.classList.contains(className))) {
 
@@ -193,6 +195,29 @@ divElements.forEach((divElement) => {
     divElement.parentNode.replaceChild(newParagraph, divElement);
   }
 });
+
+// Array of classes for each add button to remove them on export
+let addButtons = [".add-tab-btn",".add-accordion-btn"]
+
+// Remove add buttons 
+addButtons.forEach((buttonClass) => {
+
+  const buttonGroup = parsedHtml.querySelectorAll(buttonClass);
+  if(buttonGroup.length > 0) {
+    buttonGroup.forEach((button)=> {
+
+      button.remove();
+    })
+  }
+})
+
+    // Remove add tabs button 
+    const addDlBtns = parsedHtml.querySelectorAll(".add-dl-btn");
+    if(addDlBtns) {
+      addDlBtns.forEach((button)=> {
+        button.remove();
+      })
+    }
 
 	// Serialize the DOM back to HTML
 	const serializedHtmlContent = new XMLSerializer().serializeToString(parsedHtml);
@@ -233,7 +258,17 @@ ${serializedHtmlContent}
           } else if (el.tagName === "HTML, BODY") {
               el.replaceWith(...el.childNodes);
           } else {
-            div.replaceWith(p.textContent);
+            if (div && p) {
+              div.replaceWith(p.textContent);
+            } else if (div) {
+              // Handle the case where only <div> is found and is not placeholder Link text
+              if(div.innerText !== "Link") {
+                div.remove();
+              }
+            } else if (p) {
+              // Handle the case where only <p> is found
+              el.replaceWith(p.textContent);
+            }
           }
       });
 

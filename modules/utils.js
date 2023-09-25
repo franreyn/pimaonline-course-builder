@@ -66,10 +66,9 @@ layersPanel.addEventListener("click", removeItemsBtns)
 document.addEventListener("DOMContentLoaded", checkLayersPanel);
 
 // Add classes to this array to have them removed from the layers panel
-const buttonsToRemove = ["add-dl-btn","add-img-btn", "add-assignment-btn", "add-vocab-btn", "add-content-body-btn"];
+const buttonsToRemove = ["add-dl-btn","add-img-btn", "add-accordion-btn", "add-assignment-btn", "add-vocab-btn", "add-content-body-btn", "add-vocab-card-btn"];
 
 export function removeItemsBtns() {
-
     buttonsToRemove.forEach((buttonToRemove) => {
       const buttons = document.querySelectorAll(`.gjs-layer__t-${buttonToRemove}`);
       buttons.forEach((button) => {

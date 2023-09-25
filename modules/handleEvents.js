@@ -231,7 +231,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	}
 	});
-	
+
 
 	// Check tab inputs and labels and add click events and attributes
 	editor.on("component:add", (component) => {
@@ -287,7 +287,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
 
 			descriptionList.append([descriptionTerm, descriptionDef], {at: dlIndex});
-		})
+		})	
 	}
 	})
 
@@ -377,10 +377,13 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		const componentTypeToItemType = {
 			"add-accordion-btn": "accordion-item",
 			"add-content-body-btn": "content-body",
+			"add-assignment-btn": "assignment",
 			"add-img-btn": "image-box",
-			"add-vocab-btn": "vocab-wrapper"
+			"add-vocab-btn": "vocab-wrapper",
+			"add-vocab-card-btn": "vocab-item"
 		};
 
+		let clickCount = 0;
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
@@ -388,7 +391,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 					let index = parentComponent.components().length - 1;
 					let newItemType = componentTypeToItemType[componentType];
 					let newItem = editor.DomComponents.addComponent({ type: newItemType });
-	
+
 					parentComponent.append([newItem], { at: index });
 					removeItemsBtns();
 				});
@@ -396,7 +399,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	addButtonClickListener("add-content-body-btn");
-	addButtonClickListener("add-vocab-btn");
-	addButtonClickListener("add-img-btn");
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn","add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn"];
+	btnTypes.forEach(btnType => {
+		addButtonClickListener(btnType);
+	})
 }
