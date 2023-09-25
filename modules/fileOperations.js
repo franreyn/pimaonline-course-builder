@@ -117,8 +117,6 @@ export function exportFile(editor) {
 
   // –––––––––– DOM manipulations and CK Editor edits ––––––––––
 
-  console.log(parsedHtml)
-
   // Remove injected override script from exported html
   const overrideScript = parsedHtml.querySelector("#override");
 	if (overrideScript) {
@@ -162,9 +160,7 @@ divElements.forEach((divElement) => {
     
      // Get the parent of the <div>
      const parentElement = divElement.parentElement;
-
-     console.log(parentElement)
-
+     
     while (divElement.firstChild) {
       parentElement.insertBefore(divElement.firstChild, divElement);
     }
