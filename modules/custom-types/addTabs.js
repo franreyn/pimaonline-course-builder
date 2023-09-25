@@ -96,7 +96,7 @@ export function addTabPanel(editor) {
 			},
 			init() {
 				if (!this.components().find((component) => component.get("type") === "text")) {
-					this.components().add({ type: "text"});
+					this.components().add({ type: "text", content: "Add text"});
 				}
 			},
 		},
