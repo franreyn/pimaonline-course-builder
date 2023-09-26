@@ -192,7 +192,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	});
 
-	// Check to see if certain components are added and remove and add the script
+	// Check to see if components that require themepack's JS are added onto the canvas, if so remove and re-add the override.js file
 	editor.on("component:add", (component) => {
 		for (let jsCopmonentIndex = 0; jsCopmonentIndex < config.requiresJsComponents.length; jsCopmonentIndex++) {
 			if (component.get("type") == config.requiresJsComponents[jsCopmonentIndex]) {
