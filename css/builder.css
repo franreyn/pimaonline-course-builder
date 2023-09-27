@@ -30,6 +30,7 @@ html {
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
 #gjs {
@@ -169,7 +170,8 @@ html {
 
 .layouts-toolbar-title {
   text-align: left;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .btn-container {
@@ -189,6 +191,7 @@ html {
   margin: 0.8rem 0;
   border-radius: 6px;
   width: 30%;
+  font-size: 1rem;
 }
 
 .footer-bar {
@@ -236,10 +239,12 @@ html {
   width: 50%;
   color: var(--black);
   transition: .25s ease;
+  font-size: 1rem;
 }
 
 .layout-btn {
   width: 33%;
+  font-size: 1rem;
 }
 
 .footer-btn:hover {
