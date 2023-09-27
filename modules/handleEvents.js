@@ -32,7 +32,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		let generalOptionsTitle = document.querySelector(".general-options-title");
 		let generalOptionsCaret = document.querySelector(".general-options-title > *");
 		let isOpen = true;
-		console.log(generalOptionsCaret) 
+		
 		generalOptionsTitle.addEventListener("click", () => {
 			
 			generalOptions.classList.toggle("gjs-open")
