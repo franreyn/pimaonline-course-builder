@@ -1,6 +1,23 @@
 @import "../css/_typography.css";
 @import "../css/_variables.css";
 
+:root {
+  --blue900:rgba(18, 42, 67, 1);
+  --blue800: rgba(36, 59, 83, 1);
+  --blue700:rgba(52, 79, 104, 1);
+  --blue600: rgba(72, 101, 130, 1);
+  --blue500: rgba(98, 125, 152, 1);
+  --blue400: rgba(130, 153, 176, 1);
+  --blue300: rgba(160, 179, 199, 1);
+  --blue200: rgba(189, 204, 222, 1);
+  --blue100: rgba(217, 227, 235, 1);
+  --black: rgba(15, 15, 15, 1);
+  --grey: rgba(227, 227, 227, 1);
+  --light-blue: rgba(10, 125, 133, 1);
+  --white: rgba(255, 255, 255, 1);
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -13,6 +30,7 @@ html {
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
 #gjs {
@@ -152,24 +170,28 @@ html {
 
 .layouts-toolbar-title {
   text-align: left;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .btn-container {
   display: flex;
   justify-content: space-between;
-  background: #6b6b6b;
+  background: var(--grey);
+  color: var(--black);
   margin: 0.8rem 0;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .btn-container-sm {
   display: flex;
   justify-content: space-between;
-  background: #6b6b6b;
+  background: var(--grey);
+  color: var(--black);
   margin: 0.8rem 0;
-  border-radius: 5px;
+  border-radius: 6px;
   width: 30%;
+  font-size: 1rem;
 }
 
 .footer-bar {
@@ -214,15 +236,26 @@ html {
   box-shadow: none;
   border: none;
   margin: 0.3rem 0;
+  width: 50%;
+  color: var(--black);
+  transition: .25s ease;
+  font-size: 1rem;
+}
+
+.layout-btn {
+  width: 33%;
+  font-size: 1rem;
 }
 
 .footer-btn:hover {
   cursor: pointer;
-  color: #d278c9;
+  background-color: var(--blue100);
+  transition: .25s ease;
 }
 
 .footer-btn.active {
-  background-color: rgba(210, 120, 201, .5);
+  background-color: var(--light-blue);
+  color: var(--white);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
@@ -231,7 +264,6 @@ html {
 
 .footer-btn.active:hover {
   cursor: default;
-  color: rgba(255, 255, 255, 1);
 }
 
 .layout-btn {
@@ -240,15 +272,20 @@ html {
   box-shadow: none;
   border: none;
   margin: 0.3rem 0;
+  color: var(--black);
+  transition: .25s ease;
 }
 
 .layout-btn:hover {
   cursor: pointer;
-  color: #d278c9;
+  background-color: var(--blue100);
+  color: var(--black);
+  transition: .25s ease;
 }
 
 .layout-btn.active {
-  background-color: rgba(210, 120, 201, .5);
+  background-color: var(--light-blue);
+  color: var(--white);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
@@ -257,7 +294,6 @@ html {
 
 .layout-btn.active:hover {
   cursor: default;
-  color: rgba(255, 255, 255, 1);
 }
 
 .gjs-resizer-c {
@@ -350,4 +386,128 @@ html {
 /* Toggled class for ck editor toolbar for headings */
 .remove-ck-toolbar {
   display: none !important;
+}
+
+/* Blue Theme styles for Grapes JS UI */
+
+.gjs-one-bg {
+  background-color: var(--blue900);
+}
+
+/* bar with save, open, and export */
+.menu-bar {
+  background-color: var(--blue900);
+}
+
+/* bar with devices, and panels */
+.panel__top {
+  background-color: var(--blue800);
+}
+
+.panel__devices {
+  background-color: var(--blue800);
+}
+
+.panel__switcher {
+  background-color: var(--blue800);
+}
+
+/* right side panel */
+.panel__right {
+  background-color: var(--blue700);
+  min-width: 300px;
+}
+
+.blocks-container {
+  background-color: var(--blue700);
+}
+
+.gjs-block-categories {
+  background-color: var(--blue700);
+}
+
+.gjs-block-category {
+  background-color: var(--blue600);
+  margin: 5px 0;
+}
+
+/* targets containers within the blocks panel  */
+.gjs-blocks-c {
+  padding: 10px 5px;
+}
+
+.gjs-block {
+  background-color: var(--grey);
+  color: var(--black);
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin: 4px;
+}
+
+.gjs-block-category .gjs-title {
+  padding: 15px 10px;
+}
+
+.gjs-block-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.gjs-block-label::after {
+  content: "";
+  width: 9px; /* Set your desired width */
+  height: 17px; /* Set your desired height */
+  background-image: url("../images/move-dots.png");
+  background-size: cover; /* Adjust to your needs, 'cover' scales the image to cover the entire container */
+  display: inline-block; /* Make the pseudo-element inline-block to respect width and height */
+  background-repeat: no-repeat;
+}
+
+.gjs-block:hover {
+  color: var(--black);
+  background-color: var(--blue100);
+
+}
+
+#layouts-toolbar, #footer-toolbar {
+  padding:5px 15px;
+}
+
+.gjs-block-category.gjs-open .gjs-blocks-c {
+  display: block;
+}
+
+.gjs-block-category .gjs-blocks-c {
+  display: none;
+}
+
+.general-options-content {
+  padding: 0;
+}
+
+.general-options-title {
+  margin-bottom: 15px;
+}
+
+.footer-bar {
+  background-color: var(--blue800)
+}
+
+.gjs-pn-btn.gjs-pn-active {
+  background-color: var(--light-blue)
+}
+
+.gjs-four-color {
+  color: #ffffff;
+}
+
+.bi-grid::before,.bi-node-plus::before,.bi-layers::before,.bi-palette::before  {
+  margin: 0;
+}
+
+.panel__switcher .gjs-pn-buttons span {
+  padding: .5rem .75rem;
+  transition: .25s ease;
 }

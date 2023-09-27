@@ -23,18 +23,39 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			});
 		}
 	});
-	const panelButtons = panelSwitcher.querySelectorAll(".gjs-pn-btn");
-	panelButtons.forEach((button) => {
-		button.addEventListener("click", () => {
-			if (button.classList.contains("blocks")) {
-				layoutsToolbar.style.display = ""; // Display the layoutsToolbar
-				footerToolbar.style.display = ""; // Display the layoutsToolbar
+
+		// Copy functionality of accordions in layers panel for blocks
+		let generalOptions = document.querySelector("#general-options");
+		let generalOptionsTitle = document.querySelector(".general-options-title");
+		let generalOptionsCaret = document.querySelector(".general-options-title > *");
+		let isOpen = true;
+		
+		generalOptionsTitle.addEventListener("click", () => {
+			
+			generalOptions.classList.toggle("gjs-open")
+	
+			if(isOpen) {
+				generalOptionsCaret.classList.remove("fa-caret-down")
+				generalOptionsCaret.classList.add("fa-caret-right")
+				isOpen = false;
 			} else {
-				layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
-				footerToolbar.style.display = "none"; // Hide the layoutsToolbar
+				generalOptionsCaret.classList.remove("fa-caret-right")
+				generalOptionsCaret.classList.add("fa-caret-down")
+				isOpen = true;
 			}
-		});
-	});
+		})
+
+	// Change visibility of footer, layout, and general options depending on which panel is selected
+	const panelButtons = panelSwitcher.querySelectorAll(".gjs-pn-btn");
+    panelButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.classList.contains("blocks")) {
+								generalOptions.style.display = ""; //Display general options container
+            } else {
+								generalOptions.style.display = "none"; //Hide general options container
+            }
+        });
+    });
 
 	// Get config data
 	let allowedCopyableComponents = config.copyableComponents;
