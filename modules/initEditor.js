@@ -139,13 +139,6 @@ export function initEditor() {
 		blockManager: {
 			appendTo: ".blocks-container",
 			blocks: [
-				// === Containers
-				{
-					id: "content-body",
-					category: "Containers",
-					label: "Content Body",
-					content: { type: "content-body" },
-				},
 				//=== Widgets
 				{
 					id: "accordion",
