@@ -26,15 +26,36 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			})		
 		}
 	})
+
+		// Copy functionality of accordions in layers panel for blocks
+		let generalOptions = document.querySelector("#general-options");
+		let generalOptionsTitle = document.querySelector(".general-options-title");
+		let generalOptionsCaret = document.querySelector(".general-options-title > *");
+		let isOpen = true;
+		console.log(generalOptionsCaret) 
+		generalOptionsTitle.addEventListener("click", () => {
+			
+			generalOptions.classList.toggle("gjs-open")
+	
+			if(isOpen) {
+				generalOptionsCaret.classList.remove("fa-caret-down")
+				generalOptionsCaret.classList.add("fa-caret-right")
+				isOpen = false;
+			} else {
+				generalOptionsCaret.classList.remove("fa-caret-right")
+				generalOptionsCaret.classList.add("fa-caret-down")
+				isOpen = true;
+			}
+		})
+
+	// Change visibility of footer, layout, and general options depending on which panel is selected
 	const panelButtons = panelSwitcher.querySelectorAll(".gjs-pn-btn");
     panelButtons.forEach(button => {
         button.addEventListener("click", () => {
             if (button.classList.contains("blocks")) {
-                layoutsToolbar.style.display = ""; // Display the layoutsToolbar
-                footerToolbar.style.display = ""; // Display the layoutsToolbar
+								generalOptions.style.display = ""; //Display general options container
             } else {
-                layoutsToolbar.style.display = "none"; // Hide the layoutsToolbar
-                footerToolbar.style.display = "none"; // Hide the layoutsToolbar
+								generalOptions.style.display = "none"; //Hide general options container
             }
         });
     });
@@ -404,4 +425,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	btnTypes.forEach(btnType => {
 		addButtonClickListener(btnType);
 	})
+
+
+
+	// Hide or show the general options panel in the sidebar 
+
+	// if gjs-pn-buttons -> blocks is active -> then set display for general options to block
+	// if 
+	
 }
