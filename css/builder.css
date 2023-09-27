@@ -14,6 +14,8 @@
   --black: rgba(15, 15, 15, 1);
   --grey: rgba(227, 227, 227, 1);
   --light-blue: rgba(41, 166, 176, 1);
+  --dark-blue: rgba(32, 139, 147, 1);
+
 }
 
 
@@ -239,11 +241,11 @@ html {
 
 .footer-btn:hover {
   cursor: pointer;
-  color: #d278c9;
+  color: var(--blue200);
 }
 
 .footer-btn.active {
-  background-color: rgba(210, 120, 201, .5);
+  background-color: var(--light-blue);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
@@ -265,11 +267,11 @@ html {
 
 .layout-btn:hover {
   cursor: pointer;
-  color: #d278c9;
+  color: var(--blue200);
 }
 
 .layout-btn.active {
-  background-color: rgba(210, 120, 201, .5);
+  background-color: var(--light-blue);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
