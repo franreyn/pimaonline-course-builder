@@ -13,9 +13,8 @@
   --blue100: rgba(217, 227, 235, 1);
   --black: rgba(15, 15, 15, 1);
   --grey: rgba(227, 227, 227, 1);
-  --light-blue: rgba(41, 166, 176, 1);
-  --dark-blue: rgba(32, 139, 147, 1);
-
+  --light-blue: rgba(10, 125, 133, 1);
+  --white: rgba(255, 255, 255, 1);
 }
 
 
@@ -176,17 +175,19 @@ html {
 .btn-container {
   display: flex;
   justify-content: space-between;
-  background: #6b6b6b;
+  background: var(--grey);
+  color: var(--black);
   margin: 0.8rem 0;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .btn-container-sm {
   display: flex;
   justify-content: space-between;
-  background: #6b6b6b;
+  background: var(--grey);
+  color: var(--black);
   margin: 0.8rem 0;
-  border-radius: 5px;
+  border-radius: 6px;
   width: 30%;
 }
 
@@ -233,6 +234,8 @@ html {
   border: none;
   margin: 0.3rem 0;
   width: 50%;
+  color: var(--black);
+  transition: .25s ease;
 }
 
 .layout-btn {
@@ -241,11 +244,13 @@ html {
 
 .footer-btn:hover {
   cursor: pointer;
-  color: var(--blue200);
+  background-color: var(--blue100);
+  transition: .25s ease;
 }
 
 .footer-btn.active {
   background-color: var(--light-blue);
+  color: var(--white);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
@@ -254,7 +259,6 @@ html {
 
 .footer-btn.active:hover {
   cursor: default;
-  color: rgba(255, 255, 255, 1);
 }
 
 .layout-btn {
@@ -263,15 +267,20 @@ html {
   box-shadow: none;
   border: none;
   margin: 0.3rem 0;
+  color: var(--black);
+  transition: .25s ease;
 }
 
 .layout-btn:hover {
   cursor: pointer;
-  color: var(--blue200);
+  background-color: var(--blue100);
+  color: var(--black);
+  transition: .25s ease;
 }
 
 .layout-btn.active {
   background-color: var(--light-blue);
+  color: var(--white);
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   border-radius: 5px;
@@ -280,7 +289,6 @@ html {
 
 .layout-btn.active:hover {
   cursor: default;
-  color: rgba(255, 255, 255, 1);
 }
 
 .gjs-resizer-c {
