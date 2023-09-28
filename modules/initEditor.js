@@ -192,7 +192,7 @@ export function initEditor() {
 				},
         {
 					id: "dl",
-					category: "Text",
+					category: "Widgets",
 					label: "Description List",
 					content: { type: "dl" },
 				},
