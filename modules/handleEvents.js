@@ -425,14 +425,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	// Toggles the display property for buttons
 		if(isBtnVisible) {
 			addBtns.forEach((btn) => {
-				console.log(btn.style.display)
 				btn.style.display = "none"
 			})
 			isBtnVisible = false;
 		} else {
 			addBtns.forEach((btn) => {
 				btn.style.display = ""
-				isBtnVisible = true;
 			})
 			isBtnVisible = true;
 		}
