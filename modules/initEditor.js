@@ -179,12 +179,6 @@ export function initEditor() {
 					content: { type: "call-out"},
 				},
 				{
-					id: "card-horizontal",
-					category: "Widgets",
-					label: "Card Horizontal",
-					content: { type: "card-horizontal" },
-				},
-				{
 					id: "columns",
 					category: "Widgets",
 					label: "Columns",
@@ -225,12 +219,6 @@ export function initEditor() {
 					content: { type: "image-box" },
 				},
 				{
-					id: "side-by-side",
-					category: "Widgets",
-					label: "Side by Side",
-					content: { type: "side-by-side" },
-				},
-				{
 					id: "table",
 					category: "Widgets",
 					label: "Table",
@@ -249,6 +237,12 @@ export function initEditor() {
 					category: "Widgets",
 					label: "Tabs",
 					content: { type: "tabs" },
+				},
+        {
+					id: "card-horizontal",
+					category: "Widgets",
+					label: "Text with Image",
+					content: { type: "card-horizontal" },
 				},
 				{
 					id: "vocab-cards",
