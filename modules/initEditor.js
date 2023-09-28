@@ -79,6 +79,12 @@ export function initEditor() {
 							togglable: false,
 						},
 						{
+							id: "device-tablet",
+							label: '<i class="bi bi-tablet"></i>',
+							command: "set-device-tablet",
+							togglable: false,
+						},
+						{
 							id: "device-mobile",
 							label: '<i class="bi bi-phone"></i>',
 							command: "set-device-mobile",
@@ -359,9 +365,14 @@ export function initEditor() {
 					width: "", // default size
 				},
 				{
+					name: "Tablet",
+					width: "768px", // this value will be used on canvas width
+					widthMedia: "992px", // this value will be used in CSS @media
+				},
+				{
 					name: "Mobile",
-					width: "320px", // this value will be used on canvas width
-					widthMedia: "480px", // this value will be used in CSS @media
+					width: "420px", // this value will be used on canvas width
+					widthMedia: "768px", // this value will be used in CSS @media
 				},
 			],
 		},

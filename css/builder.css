@@ -343,6 +343,10 @@ html {
   margin-bottom: 8px;
 }
 
+[class*="bi-"]:hover {
+  color: var(--color-accent);
+}
+
 .gjs-caret-icon {
   background-color: transparent;
 }
@@ -503,6 +507,10 @@ html {
 
 .gjs-pn-btn.gjs-pn-active {
   background-color: var(--light-blue)
+}
+
+.gjs-pn-btn.gjs-pn-active > i:hover {
+  color: var(--white);
 }
 
 .gjs-four-color {
