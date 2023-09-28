@@ -191,3 +191,20 @@ margin-top: 30px;
   align-self: end;
   margin-top: 30px;
 }
+
+.add-col-item-btn {
+  grid-column: span 3;
+  grid-row: span 1;
+  align-self: end;
+  margin-top: 30px;
+  width: fit-content;
+}
+
+.add-column-btn {
+  display: inline;
+}
+
+.add-row-btn {
+  display: inline;
+  margin-left: 1rem;
+}
