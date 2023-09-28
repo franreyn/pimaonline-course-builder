@@ -277,6 +277,12 @@ export function initEditor() {
 					label: "Button",
 					content: { type: "button" },
 				},
+        {
+					id: "h5p",
+					category: "Content",
+					label: "H5P Player",
+					content: { type: "h5p-container" },
+				},
 				{
 					id: "hyperlink",
 					category: "Content",
@@ -300,12 +306,6 @@ export function initEditor() {
 					category: "Content",
 					label: "Youtube Video",
 					content: { type: "youtube-container" },
-				},
-				{
-					id: "h5p",
-					category: "Content",
-					label: "H5P Player",
-					content: { type: "h5p-container" },
 				},
 				{
 					id: "figure",
