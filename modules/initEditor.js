@@ -190,11 +190,29 @@ export function initEditor() {
 					label: "Columns",
 					content: { type: "columns" },
 				},
+        {
+					id: "dl",
+					category: "Widgets",
+					label: "Description List",
+					content: { type: "dl" },
+				},
 				{
 					id: "horizontal-display",
 					category: "Widgets",
 					label: "Horizontal Display",
 					content: { type: "horizontal-display" },
+				},
+        {
+					id: "figure",
+					category: "Widgets",
+					label: "Image",
+					content: { type: "figure" },
+				},
+				{
+					id: "figure-caption",
+					category: "Widgets",
+					label: "Image with Caption",
+					content: { type: "figure-caption" },
 				},
 				{
 					id: "image-gallery",
@@ -252,24 +270,18 @@ export function initEditor() {
 					id: "vocab-wrapper",
 					content: { type: "vocab-wrapper" },
 				},
-				{
-					id: "figure",
-					category: "Widgets",
-					label: "Image",
-					content: { type: "figure" },
-				},
-				{
-					id: "figure-caption",
-					category: "Widgets",
-					label: "Image with Caption",
-					content: { type: "figure-caption" },
-				},
 				// content
 				{
 					id: "button",
 					category: "Content",
 					label: "Button",
 					content: { type: "button" },
+				},
+        {
+					id: "h5p",
+					category: "Content",
+					label: "H5P Player",
+					content: { type: "h5p-container" },
 				},
 				{
 					id: "hyperlink",
@@ -296,23 +308,10 @@ export function initEditor() {
 					content: { type: "youtube-container" },
 				},
 				{
-					id: "h5p",
-					category: "Content",
-					label: "H5P Player",
-					content: { type: "h5p-container" },
-				},
-				// text
-				{
 					id: "figure",
 					category: "Text",
 					label: "Image",
 					content: { type: "figure" },
-				},
-				{
-					id: "dl",
-					category: "Text",
-					label: "Description List",
-					content: { type: "dl" },
 				},
 				{
 					id: "paragraph",
