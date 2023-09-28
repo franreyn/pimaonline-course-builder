@@ -404,4 +404,40 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	btnTypes.forEach(btnType => {
 		addButtonClickListener(btnType);
 	})
+
+ //Custom toggle for hide/show add-item-btns
+ let isBtnVisible = true;
+ let toggleIcon = document.querySelector(".add-btn-toggle");
+ 
+ toggleIcon.addEventListener("click", () => {
+	let addBtns = editor.getWrapper().find(".add-items-btns");
+
+
+		// Toggles the icon for button visibility
+	if(isBtnVisible) {
+		toggleIcon.classList.remove("bi-eye")
+		toggleIcon.classList.add("bi-eye-slash")
+
+	} else {
+		toggleIcon.classList.remove("bi-eye-slash")
+		toggleIcon.classList.add("bi-eye")
+
+	}
+
+	// Toggles the display property for buttons
+		if(isBtnVisible) {
+			addBtns.forEach((btn) => {
+				btn.view.el.style.display = "none"
+				console.log(btn.view.el)
+			})
+			isBtnVisible = false;
+		} else {
+			addBtns.forEach((btn) => {
+				btn.view.el.style.display = "block"
+				isBtnVisible = true;
+			})
+			isBtnVisible = true;
+		}
+
+	})
 }

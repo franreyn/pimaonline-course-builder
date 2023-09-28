@@ -351,3 +351,9 @@ html {
 .remove-ck-toolbar {
   display: none !important;
 }
+
+/* Styles for button visibility */
+
+.add-btn-toggle {
+  cursor: pointer;
+}
