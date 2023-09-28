@@ -129,11 +129,6 @@ export function defineCommands(editor) {
 		},
 	});
 
-	// Sets a component to non-draggable upon being placed in the editor
-	editor.on("component:add", function (component) {
-		component.set("draggable", false);
-	});
-
 	// Toggle draggable property of component (used in function directly below)
 	editor.Commands.add("toggle-drag", {
 		run: function (editor, sender) {
@@ -143,28 +138,5 @@ export function defineCommands(editor) {
 				selectedComponent.set("draggable", !draggable);
 			}
 		},
-	});
-
-	// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
-	editor.on("component:selected", function (component) {
-		const toolbar = component.get("toolbar");
-		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
-		if (!toggleDragButtonExists) {
-			toolbar.push({
-				attributes: { id:"toolbar-drag", class: "fa fa-lock" },
-				command: "toggle-drag",
-				events: {
-					click: function (event) {
-						editor.runCommand("toggle-drag");
-						let element = document.getElementById("toolbar-drag");
-						if (element) {
-							element.classList.toggle("fa-lock");
-							element.classList.toggle("fa-lock-open");
-						}
-					},
-				},
-			});
-			component.set("toolbar", toolbar);
-		}
 	});
 }

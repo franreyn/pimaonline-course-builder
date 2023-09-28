@@ -85,6 +85,70 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		setCustomLayerName(component);
 		editor.LayerManager.render();
 		removeItemsBtns();
+
+		// Check to see if components that require themepack's JS are added onto the canvas, if so remove and re-add the override.js file
+		for (let jsCopmonentIndex = 0; jsCopmonentIndex < config.requiresJsComponents.length; jsCopmonentIndex++) {
+			if (component.get("type") == config.requiresJsComponents[jsCopmonentIndex]) {
+				const existingScript = editor.DomComponents.getComponents().find((comp) => comp.get("type") === "script");
+				if (existingScript) {
+					existingScript.remove();
+				}
+				// Adds JS back to the DOM to refire the JS
+				editor.DomComponents.addComponent({ type: "script" });
+			}
+		}
+
+		// Check tab inputs and labels and add click events and attributes
+		// Keep track of the number of tabs widgets
+		if (component.get("type") === "tabs") {
+			labelTabs();
+		}
+
+		// If add tab button is clicked
+		if (component.get("type") === "add-tab-btn") {
+			component.view.el.addEventListener("click", () => {
+				let tabSelector = component.view.el.attributes.id.value;
+
+				tabSelector = tabSelector.replace(/^addBtn/, "tabWidget");
+
+				const addTabLocation = editor.getWrapper().find(`#${tabSelector}`);
+
+				if (addTabLocation) {
+					// Attempt to add the component
+					let tabInputComponent = editor.DomComponents.addComponent({ type: "tab-input" });
+					let tabHeaderComponent = editor.DomComponents.addComponent({ type: "tab-header" });
+					let tabPanelComponent = editor.DomComponents.addComponent({ type: "tab-panel" });
+
+					// Get the number of existing components in the container
+					const tabLength = addTabLocation[0].components().length;
+
+					// Accounting for the add tab button and hide tab
+					const addTabIndex = tabLength - 4;
+
+					addTabLocation[0].append([tabInputComponent, tabHeaderComponent, tabPanelComponent], { at: addTabIndex });
+					labelTabs();
+				}
+			});
+		}
+
+		// Check tab inputs and labels and add click events and attributes
+		if (component.get("type") === "add-dl-btn") {
+			component.view.el.addEventListener("click", () => {
+				let descriptionList = component.parent();
+
+				// Find location right after button to add the new term
+				let dlIndex = descriptionList.components().length - 1;
+
+				// Define other types added when button is clicked
+				let descriptionTerm = editor.DomComponents.addComponent({ type: "dt" });
+				let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
+
+				descriptionList.append([descriptionTerm, descriptionDef], { at: dlIndex });
+			});
+		}
+
+		// Sets a component to non-draggable upon being placed in the editor
+		component.set("draggable", false);
 	});
 
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -120,10 +184,44 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	// When a component is removed force the layers panel to refresh.
 	// The layers panel is a part of the GrapesJS interface that shows a tree view of the components in the editor. By calling render(), the layers panel is updated to reflect the removal of the component.
-	editor.on("component:remove", (component) => {
-		editor.LayerManager.render(); // Force layers panel to refresh
-		removeItemsBtns();
+	editor.on("component:remove", (removedComponent) => {
+    editor.LayerManager.render(); // Force layers panel to refresh
+    removeItemsBtns();
+
+		// Check if footer is deleted or not and change the footer button active status
+    if (removedComponent.get("type") === "footer") {
+        isFooterActive = false;
+
+        const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+
+        footerToolbarButtons[0].classList.remove("active");
+        footerToolbarButtons[1].classList.add("active");
+    }
+
+    // When one part of tabs is removed, remove the rest of the tab parts
+		if (removedComponent.parent().attributes.type == "tab-header") {
+        let idInput = removedComponent.parent().view.el.attributes.for.value;
+
+        //Edit the returned value to target panel
+        let idPanel = idInput.replace(/^tab/, "tabContent");
+
+        // Remove input
+        let input = editor.getWrapper().find(`#${idInput}`);
+        if (input.length > 0) {
+            input[0].remove();
+        }
+
+        // Remove panel
+        let panel = editor.getWrapper().find(`#${idPanel}`);
+        if (panel.length > 0) {
+            panel[0].remove();
+        }
+
+        // Remove label
+        removedComponent.parent().remove();
+    }
 	});
+
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
 	editor.on("component:mount", (component) => {
@@ -201,32 +299,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	});
 
-	// Check if footer is deleted or not and change the footer button active status
-	editor.on("component:remove", (component) => {
-		if (component.get("type") === "footer") {
-			isFooterActive = false;
-
-			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
-
-			footerToolbarButtons[0].classList.remove("active");
-			footerToolbarButtons[1].classList.add("active");
-		}
-	});
-
-	// Check to see if components that require themepack's JS are added onto the canvas, if so remove and re-add the override.js file
-	editor.on("component:add", (component) => {
-		for (let jsCopmonentIndex = 0; jsCopmonentIndex < config.requiresJsComponents.length; jsCopmonentIndex++) {
-			if (component.get("type") == config.requiresJsComponents[jsCopmonentIndex]) {
-				const existingScript = editor.DomComponents.getComponents().find((comp) => comp.get("type") === "script");
-				if (existingScript) {
-					existingScript.remove();
-				}
-				// Adds JS back to the DOM to refire the JS
-				editor.DomComponents.addComponent({ type: "script" });
-			}
-		}
-	});
-
 	// Check if component is a heading and if it is, remove the CK Editor toolbar
 	editor.on("component:selected", function (component) {
 		let parentComponent = component.parent();
@@ -241,84 +313,26 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				ckToolbar.classList.remove("remove-ck-toolbar");
 			}
 		}
-	});
 
-	// Check tab inputs and labels and add click events and attributes
-	editor.on("component:add", (component) => {
-		// Keep track of the number of tabs widgets
-		if (component.get("type") === "tabs") {
-			labelTabs();
-		}
-
-		// If add tab button is clicked
-		if (component.get("type") === "add-tab-btn") {
-			component.view.el.addEventListener("click", () => {
-				let tabSelector = component.view.el.attributes.id.value;
-
-				tabSelector = tabSelector.replace(/^addBtn/, "tabWidget");
-
-				const addTabLocation = editor.getWrapper().find(`#${tabSelector}`);
-
-				if (addTabLocation) {
-					// Attempt to add the component
-					let tabInputComponent = editor.DomComponents.addComponent({ type: "tab-input" });
-					let tabHeaderComponent = editor.DomComponents.addComponent({ type: "tab-header" });
-					let tabPanelComponent = editor.DomComponents.addComponent({ type: "tab-panel" });
-
-					// Get the number of existing components in the container
-					const tabLength = addTabLocation[0].components().length;
-
-					// Accounting for the add tab button and hide tab
-					const addTabIndex = tabLength - 4;
-
-					addTabLocation[0].append([tabInputComponent, tabHeaderComponent, tabPanelComponent], { at: addTabIndex });
-					labelTabs();
-				}
+		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+		const toolbar = component.get("toolbar");
+		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
+		if (!toggleDragButtonExists) {
+			toolbar.push({
+				attributes: { id:"toolbar-drag", class: "fa fa-lock" },
+				command: "toggle-drag",
+				events: {
+					click: function (event) {
+						editor.runCommand("toggle-drag");
+						let element = document.getElementById("toolbar-drag");
+						if (element) {
+							element.classList.toggle("fa-lock");
+							element.classList.toggle("fa-lock-open");
+						}
+					},
+				},
 			});
-		}
-	});
-
-	// Check tab inputs and labels and add click events and attributes
-	editor.on("component:add", (component) => {
-		if (component.get("type") === "add-dl-btn") {
-			component.view.el.addEventListener("click", () => {
-				let descriptionList = component.parent();
-
-				// Find location right after button to add the new term
-				let dlIndex = descriptionList.components().length - 1;
-
-				// Define other types added when button is clicked
-				let descriptionTerm = editor.DomComponents.addComponent({ type: "dt" });
-				let descriptionDef = editor.DomComponents.addComponent({ type: "dd" });
-
-				descriptionList.append([descriptionTerm, descriptionDef], { at: dlIndex });
-			});
-		}
-	});
-
-	// When one part of tabs is removed, remove the rest of the tab parts
-	editor.on("component:remove", (removedComponent) => {
-		if (removedComponent.parent().attributes.type == "tab-header") {
-			let idInput = removedComponent.parent().view.el.attributes.for.value;
-
-			//Edit the returned value to target panel
-			let idPanel = idInput;
-			idPanel = idPanel.replace(/^tab/, "tabContent");
-
-			// Remove input
-			let input = editor.getWrapper().find(`#${idInput}`);
-			if (input.length > 0) {
-				input[0].remove();
-			}
-
-			// Remove panel
-			let panel = editor.getWrapper().find(`#${idPanel}`);
-			if (panel.length > 0) {
-				panel[0].remove();
-			}
-
-			// Remove label
-			removedComponent.parent().remove();
+			component.set("toolbar", toolbar);
 		}
 	});
 
