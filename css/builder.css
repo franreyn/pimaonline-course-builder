@@ -553,3 +553,7 @@ img#brand {
 .layer-btn.duplication-btn {
   display: none;
 }
+
+.gjs-pn-btn.traits {
+  display: none;
+}
