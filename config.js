@@ -59,9 +59,6 @@ export const config = {
     "add-col-item-btn",
   ],
   requiresJsComponents: [
-    "image-gallery",
-    "tabs",
-    "youtube-container",
     "table",
   ],
 };
