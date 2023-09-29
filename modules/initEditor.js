@@ -277,23 +277,11 @@ export function initEditor() {
 					content: { type: "vocab-wrapper" },
 				},
 				// content
-				{
-					id: "button",
-					category: "Content",
-					label: "Button",
-					content: { type: "button" },
-				},
         {
 					id: "h5p",
 					category: "Content",
 					label: "H5P Player",
 					content: { type: "h5p-container" },
-				},
-				{
-					id: "hyperlink",
-					category: "Content",
-					label: "Hyperlink",
-					content: { type: "hyperlink" },
 				},
 				{
 					id: "panopto",

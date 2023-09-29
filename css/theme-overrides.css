@@ -219,3 +219,8 @@ margin-top: 30px;
   display: inline;
   margin-left: 1rem;
 }
+
+.btn > p > a {
+  color: var(--color-pcc-white);
+  text-decoration: none;
+}
