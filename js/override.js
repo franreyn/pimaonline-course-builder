@@ -2,8 +2,6 @@
 
 // To ensure this only runs when specific components are added to the editor, add the type to the requires JS array in config.js
 
-const imageGallery = document.querySelector(".image-gallery");
-
 const initResponsiveTables = () => {
   const tables = document.querySelectorAll(".display-lg")
   for (let table = 0; table < tables.length; table++) {
