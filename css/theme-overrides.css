@@ -67,6 +67,17 @@ dl.vocab-list dd {
   }
 }
 
+.add-img-btn {
+  height: 100%;
+  align-self: center;
+  box-shadow: none;
+  border: 1px dashed var(--color-pcc-dkgrey);
+  color: var(--color-pcc-dkgrey);
+  background: var(--color-pcc-ltgrey);
+  width: 100%;
+  font-size: 2rem;
+}
+
 /* Vocabulary Cards Widget */
 .vocab-cards {
   display: grid;
