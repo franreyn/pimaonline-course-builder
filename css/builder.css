@@ -307,12 +307,17 @@ html {
 /* Menu Bar  */
 .menu-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   background-color: #333;
   padding: 10px;
   color: white;
   font-family: sans-serif;
+}
+
+img#brand {
+  width: 245px;
+  height: auto;
 }
 
 .menu-bar button {
@@ -543,4 +548,8 @@ html {
 
 .bi-eye-slash::before, .bi-eye::before {
   margin-bottom: auto;
+}
+
+.layer-btn.duplication-btn {
+  display: none;
 }
