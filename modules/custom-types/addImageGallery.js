@@ -87,7 +87,7 @@ export function addImageButton(editor) {
 					class: "add-img-btn add-items-btns",
 					type: "button",
 				},
-				content: "+ Add Image",
+				content: "+",
 			},
 		},
 	});
