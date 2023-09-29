@@ -104,6 +104,22 @@ export function exportFile(editor) {
 	const parser = new DOMParser();
 	const parsedHtml = parser.parseFromString(updatedHtmlContent, "text/html");
 
+  // Select all anchor tags whose grandparents have the .btn class
+  const anchorTags = parsedHtml.querySelectorAll('div.btn > p > a');
+
+  // Loop through each anchor tag
+  anchorTags.forEach((anchorTag) => {
+    // Add the .btn class to the anchor tag
+    anchorTag.classList.add('btn');
+
+    // Get the parent p tag and grandparent div.btn tag
+    const parentPTag = anchorTag.parentElement;
+    const grandparentDivTag = parentPTag.parentElement;
+
+    // Replace the grandparent div.btn tag with the anchor tag
+    grandparentDivTag.parentNode.replaceChild(anchorTag, grandparentDivTag);
+  });
+
 	// Change #content-wrapper-2 to #content-wrapper and #second-column-2 to #second-column
 	const contentWrapper2 = parsedHtml.querySelector("#content-wrapper-2");
 	if (contentWrapper2) {
