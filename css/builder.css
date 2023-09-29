@@ -544,3 +544,7 @@ html {
 .bi-eye-slash::before, .bi-eye::before {
   margin-bottom: auto;
 }
+
+.layer-btn.duplication-btn {
+  display: none;
+}
