@@ -199,7 +199,7 @@ html {
   background-color: rgba(68, 68, 68, 1);
   color: rgba(255, 255, 255, 1);
   font-size: .7rem;
-  padding-left: .5rem;
+  padding: 0.3rem;
   gap: 1.5rem;
   line-height: 0;
   z-index: 1;
@@ -524,4 +524,23 @@ html {
 .panel__switcher .gjs-pn-buttons span {
   padding: .5rem .75rem;
   transition: .25s ease;
+}
+
+.add-btn-toggle {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  gap: 1rem;
+  justify-content: start;
+  padding: 5px 15px;
+  align-items: center;
+  width: fit-content;
+}
+
+.add-btn-toggle:hover {
+  color: unset;
+}
+
+.bi-eye-slash::before, .bi-eye::before {
+  margin-bottom: auto;
 }
