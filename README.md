@@ -9,15 +9,14 @@
 - Node.js
   - npm
   - grapesjs
+  - ckeditor4@4.21.0
+  - grapesjs-plugin-ckeditor
   - local-server
+  - shx
 
-### Updating Grapes.js
+## Updating the App
 
-Use `npm` to update grapesjs, then drag the `grapesjs` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
-
-Don't update ckeditor 4 due to possible breaking of the app.
-
-Use `npm` to update grapesjs-plugin-ckeditor, then drag the `grapesjs-plugin-ckeditor` folder from inside of `node_modules` onto the app's `:root`. `.gitignore` is set up to ignore the appropriate files.
+Use `npm run update-modules` to update the app.
 
 ## Development 
 
@@ -43,10 +42,14 @@ The app will run at `http://127.0.0.1:3000/`
 
 `npm run start` - Used to run app locally in a browser.  
 
+`npm run update-modules` - Used to update the app.
+
 ## Authors
 
 Center for Learning Technology at Pima Community College
 
 ## License
+
+[License](https://github.com/franreyn/pimaonline-course-builder/blob/main/LICENSE.md)
 
 Proprietary. Copyright Pima Community College.

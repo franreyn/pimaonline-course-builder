@@ -1,21 +1,24 @@
 {
   "name": "pimaonline-course-builder",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "live-server --port=3000",
-    "start": "live-server --port=3000"
+    "start": "live-server --port=3000",
+    "move-modules": "shx mv node_modules/grapesjs . && shx mv node_modules/grapesjs-plugin-ckeditor .",
+    "update-modules": "npm install && npm run move-modules"
   },
   "keywords": [],
   "author": "Center for Learning Technology at Pima Community College",
   "license": "Proprietary",
   "dependencies": {
-    "ckeditor4": "^4.21.0",
+    "ckeditor4": "4.21.0",
     "grapesjs": "^0.21.5",
     "grapesjs-plugin-ckeditor": "^1.0.1"
   },
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "shx": "^0.3.4"
   }
 }
