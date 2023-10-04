@@ -198,6 +198,14 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         footerToolbarButtons[1].classList.add("active");
     }
 
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td"];
+		const parentType = removedComponent.parent().attributes.type;
+		
+		if (validTypes.includes(parentType)) {
+			removedComponent.parent().remove();
+		}
+		
+
     // When one part of tabs is removed, remove the rest of the tab parts
 		if (removedComponent.parent().attributes.type == "tab-header") {
         let idInput = removedComponent.parent().view.el.attributes.for.value;
