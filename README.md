@@ -1,9 +1,5 @@
 # PimaOnline Coure Builder
 
-## Version
-
-0.0.1
-
 ## Dependencies
 
 - Node.js
