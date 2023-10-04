@@ -198,7 +198,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         footerToolbarButtons[1].classList.add("active");
     }
 
-		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td"];
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
 		const parentType = removedComponent.parent().attributes.type;
 		
 		if (validTypes.includes(parentType)) {
