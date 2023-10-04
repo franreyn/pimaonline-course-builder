@@ -15,7 +15,7 @@ export function initEditor() {
 				options: {
 					toolbar: [
 						{ name: "basicstyles",
-						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link"] },
+						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link", "Format"] },
 					],
 					language: "en",
 					disableNativeSpellChecker: false,
