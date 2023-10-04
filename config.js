@@ -35,6 +35,8 @@ export const config = {
     "col-item",
   ],
   unselectableComponents: [
+    "accordion-title",
+    "accordion-content",
     "add-accordion-btn",
     "add-assignment-btn",
     "add-content-body-btn",
@@ -54,6 +56,8 @@ export const config = {
     "footnotes",
     "side-by-side-item",
     "toggle-footnotes",
+    "vocab-card-term",
+    "vocab-card-def",
     "gallery-wrapper",
     "add-tab-btn",
     "add-col-item-btn",
