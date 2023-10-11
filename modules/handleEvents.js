@@ -315,7 +315,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	editor.on("component:selected", function (component) {
 
 		// if selected component's parent is one of these types, then add an attribute
-		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote", "accordion-item", "vocab-wrapper"];
 
 		const parentType = component.parent().attributes.type;
 		const parentComp = component.parent();
