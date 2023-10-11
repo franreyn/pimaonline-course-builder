@@ -324,6 +324,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		if (validTypes.includes(parentType)) {
 			parentComp.set("attributes", { textComp: true });
       editor.trigger("component:update", parentComp);
+
 			editor.on("component:deselected", function (deselectedComponent) {
 				if (deselectedComponent === component) {
 					// Remove the "testing" attribute when the component is deselected
@@ -430,7 +431,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-col-item-btn": "col-item",
 		};
 
-		let clickCount = 0;
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
