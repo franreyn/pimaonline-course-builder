@@ -51,7 +51,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         button.addEventListener("click", () => {
             if (button.classList.contains("blocks")) {
 								generalOptions.style.display = ""; //Display general options container
-            } if(button.classList.contains("styles")) {
+            } else if(button.classList.contains("styles")) {
 								let statusInput = document.querySelector(".gjs-clm-header-status");
 								statusInput.style.display = "none";
 						} else {
