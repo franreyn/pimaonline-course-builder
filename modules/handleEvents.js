@@ -188,6 +188,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	// When a component is removed force the layers panel to refresh.
 	// The layers panel is a part of the GrapesJS interface that shows a tree view of the components in the editor. By calling render(), the layers panel is updated to reflect the removal of the component.
 	editor.on("component:remove", (removedComponent) => {
+		console.log("removed component", removedComponent)
     editor.LayerManager.render(); // Force layers panel to refresh
     removeItemsBtns();
 
@@ -201,13 +202,16 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         footerToolbarButtons[1].classList.add("active");
     }
 
-		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
-		const parentType = removedComponent.parent().attributes.type;
-		
-		if (validTypes.includes(parentType)) {
+		// If text comp attribute is added, remove parent component
+		if(removedComponent.parent().view.el.attributes.textComp) {
+		let isText = removedComponent.parent().view.el.attributes.textComp.value
+
+		console.log("isText", isText)
+
+		if(isText) {
 			removedComponent.parent().remove();
 		}
-		
+	}
 
     // When one part of tabs is removed, remove the rest of the tab parts
 		if (removedComponent.parent().attributes.type == "tab-header") {
@@ -312,6 +316,31 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	// Check if component is a heading and if it is, remove the CK Editor toolbar
 	editor.on("component:selected", function (component) {
+
+		console.log("selected copmonent", component)
+
+		// if selected component's parent is one of these types, then add an attribute
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
+
+		const parentType = component.parent().attributes.type;
+		const parentComp = component.parent();
+
+		// Add an attribute to the DOM 
+		if (validTypes.includes(parentType)) {
+			parentComp.set("attributes", { textComp: true });
+      editor.trigger("component:update", parentComp);
+
+			console.log("selected", parentComp.view.el.attributes.textComp)
+
+			editor.on("component:deselected", function (deselectedComponent) {
+				if (deselectedComponent === component) {
+					// Remove the "testing" attribute when the component is deselected
+					parentComp.set("attributes", { textComp: false });
+					editor.trigger("component:update", parentComp);
+				}
+			});
+		}
+
 		let parentComponent = component.parent();
 		let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
 
