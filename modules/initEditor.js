@@ -343,6 +343,18 @@ export function initEditor() {
 					label: "H6",
 					content: { type: "h6" },
 				},
+				{
+					id: "dt",
+					category: "Text",
+					label: "Dt",
+					content: { type: "dt" },
+				},
+				{
+					id: "dd",
+					category: "Text",
+					label: "Dd",
+					content: { type: "dd" },
+				},
 			],
 		},
 		// Device manager
