@@ -201,13 +201,14 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
         footerToolbarButtons[1].classList.add("active");
     }
 
-		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
-		const parentType = removedComponent.parent().attributes.type;
-		
-		if (validTypes.includes(parentType)) {
+		// If text comp attribute is added, remove parent component
+		if(removedComponent.parent().view.el.attributes.textComp) {
+		let isText = removedComponent.parent().view.el.attributes.textComp.value
+
+		if(isText) {
 			removedComponent.parent().remove();
 		}
-		
+	}
 
     // When one part of tabs is removed, remove the rest of the tab parts
 		if (removedComponent.parent().attributes.type == "tab-header") {
@@ -312,6 +313,27 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	// Check if component is a heading and if it is, remove the CK Editor toolbar
 	editor.on("component:selected", function (component) {
+
+		// if selected component's parent is one of these types, then add an attribute
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
+
+		const parentType = component.parent().attributes.type;
+		const parentComp = component.parent();
+
+		// Add an attribute to the DOM 
+		if (validTypes.includes(parentType)) {
+			parentComp.set("attributes", { textComp: true });
+      editor.trigger("component:update", parentComp);
+
+			editor.on("component:deselected", function (deselectedComponent) {
+				if (deselectedComponent === component) {
+					// Remove the "testing" attribute when the component is deselected
+					parentComp.set("attributes", { textComp: false });
+					editor.trigger("component:update", parentComp);
+				}
+			});
+		}
+
 		let parentComponent = component.parent();
 		let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
 
@@ -409,7 +431,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-col-item-btn": "col-item",
 		};
 
-		let clickCount = 0;
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
