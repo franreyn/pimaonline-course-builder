@@ -317,6 +317,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		// if selected component's parent is one of these types, then add an attribute
 		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
 
+		if(component.parent()) {
 		const parentType = component.parent().attributes.type;
 		const parentComp = component.parent();
 
@@ -346,6 +347,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				ckToolbar.classList.remove("remove-ck-toolbar");
 			}
 		}
+	}
 
 		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
 		const toolbar = component.get("toolbar");
@@ -482,4 +484,51 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 	})
+
+	// Add preview mode
+	let editorMenu = document.querySelector(".menu-bar");
+	let editorSidebar = document.querySelector(".panel__right");
+	let previewBtn = document.getElementById("btn-preview");
+
+	let isPreview = false;
+
+	previewBtn.addEventListener("click", () => {
+		let addBtns = editor.Canvas.getBody().querySelectorAll(".add-items-btns");
+
+		//Hide editor 
+		if(!isPreview) {
+			let sideBarWidth = editorSidebar.offsetWidth;
+
+			// Remove add item buttons
+			addBtns.forEach((btn) => {
+				btn.style.display = "none"
+			})
+
+			editorMenu.classList.add("preview-menu");
+			editorSidebar.style.marginRight = `-${sideBarWidth}`;
+
+			//Show Preview button 
+			previewBtn.classList.add("preview-active");
+
+			//Change isPreview
+			isPreview = true;
+		} else {
+
+			//Show editor
+			editorMenu.classList.remove("preview-menu");
+			editorSidebar.style.marginRight = "0";
+			
+			// Add back add item buttons
+			addBtns.forEach((btn) => {
+				btn.style.display = ""
+			})
+
+			previewBtn.classList.remove("preview-active");
+
+			//Change isPreview
+			isPreview = false;
+		}
+	})
+	
+
 }
