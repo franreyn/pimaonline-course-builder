@@ -482,4 +482,13 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 	})
+
+	editor.on("component:update", function(component) {
+    const componentType = component.get("type");
+    const typesToCheck = ["vocab-wrapper", "vocab-item", "col-item"];
+
+    if (typesToCheck.includes(componentType) && component.components().length === 0) {
+        component.remove();
+    }
+	});
 }
