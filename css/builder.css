@@ -112,6 +112,7 @@ html {
   flex-wrap: nowrap;
   flex-grow: 1; /* Added to fill the remaining space */
   overflow-y: hidden;
+  overflow-x: hidden; /* Added to stop horizontal scrolling when in preview mode */
 }
 
 .editor-canvas {
