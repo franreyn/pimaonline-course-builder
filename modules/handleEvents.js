@@ -337,6 +337,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			editorMenu.classList.add("preview-menu");
 			editorSidebar.style.marginRight = `-${sideBarWidth}`;
 
+			// Remove blue outline for selected item when switching to preview mode
+			let selectedItem = editor.Canvas.getBody().querySelector(".gjs-selected");
+			if (selectedItem) {
+				selectedItem.style.outlineColor = "transparent";
+			}
+
 			//Show Preview button 
 			previewBtn.classList.add("preview-active");
 
@@ -353,6 +359,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			//Show editor
 			editorMenu.classList.remove("preview-menu");
 			editorSidebar.style.marginRight = "0";
+
+			// Add blue outline for selected item when switching to preview mode
+			let selectedItem = editor.Canvas.getBody().querySelector(".gjs-selected");
+			if (selectedItem) {
+				selectedItem.style.outlineColor = "#3b97e3";
+			}
 
 			//Edit text for preview button
 			previewBtn.textContent = "Preview"
@@ -371,6 +383,12 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	// Check if component is a heading and if it is, remove the CK Editor toolbar
 	editor.on("component:selected", function (component) {
+
+		if (isPreview) {
+			component.view.el.style.outlineColor = "transparent";
+		} else {
+			component.view.el.style.outlineColor = "#3b97e3";
+		}
 
 		// if selected component's parent is one of these types, then add an attribute
 		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
