@@ -485,9 +485,9 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 	editor.on("component:update", function(component) {
     const componentType = component.get("type");
-    const typesToCheck = ["vocab-wrapper", "vocab-item", "col-item"];
+    const typesToCheck = ["vocab-wrapper", "vocab-item", "col-item", "accordion", "assignments", "columns", "description list", "image gallery", "tabs", "vocab cards", "vocab list"];
 
-    if (typesToCheck.includes(componentType) && component.components().length === 0) {
+    if (typesToCheck.includes(componentType) && (component.components().length === 0 || (component.components().length === 1 && component.components().models[0].get("tagName") === "button"))) {
         component.remove();
     }
 	});
