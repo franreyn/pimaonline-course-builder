@@ -385,7 +385,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	editor.on("component:selected", function (component) {
 
 		if (isPreview) {
-			component.view.el.style.outlineColor = "transparent";
+			component.view.el.style.setProperty("outline-color", "transparent", "important")
 		} else {
 			component.view.el.style.outlineColor = "#3b97e3";
 		}
