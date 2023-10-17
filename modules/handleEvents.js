@@ -351,64 +351,142 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 	});
 
+	// Add preview mode
+	let editorMenu = document.querySelector(".menu-bar");
+	let editorSidebar = document.querySelector(".panel__right");
+	let previewBtn = document.getElementById("btn-preview");
+
+	let isPreview = false;
+	let grapesToolbar = document.querySelector(".gjs-toolbar");
+
+	previewBtn.addEventListener("click", () => {
+		let addBtns = editor.Canvas.getBody().querySelectorAll(".add-items-btns");
+
+		//Hide editor 
+		if (!isPreview) {
+			let sideBarWidth = editorSidebar.offsetWidth;
+
+			// Edit toolbar visibility
+			grapesToolbar.style.visibility = "hidden";
+
+			// Remove add item buttons
+			addBtns.forEach((btn) => {
+				btn.style.display = "none"
+			})
+
+			editorMenu.classList.add("preview-menu");
+			editorSidebar.style.marginRight = `-${sideBarWidth}`;
+
+			// Remove blue outline for selected item when switching to preview mode
+			let selectedItem = editor.Canvas.getBody().querySelector(".gjs-selected");
+			if (selectedItem) {
+				selectedItem.style.outlineColor = "transparent";
+			}
+
+			//Show Preview button 
+			previewBtn.classList.add("preview-active");
+
+			//Edit text for preview button
+			previewBtn.textContent = "Close"
+
+			//Change isPreview
+			isPreview = true;
+		} else {
+
+			// Edit toolbar visibility
+			grapesToolbar.style.visibility = "visible";
+
+			//Show editor
+			editorMenu.classList.remove("preview-menu");
+			editorSidebar.style.marginRight = "0";
+
+			// Add blue outline for selected item when switching to preview mode
+			let selectedItem = editor.Canvas.getBody().querySelector(".gjs-selected");
+			if (selectedItem) {
+				selectedItem.style.outlineColor = "#3b97e3";
+			}
+
+			//Edit text for preview button
+			previewBtn.textContent = "Preview"
+
+			// Add back add item buttons
+			addBtns.forEach((btn) => {
+				btn.style.display = ""
+			})
+
+			previewBtn.classList.remove("preview-active");
+
+			//Change isPreview
+			isPreview = false;
+		}
+	})
+
 	// Check if component is a heading and if it is, remove the CK Editor toolbar
 	editor.on("component:selected", function (component) {
+
+		if (isPreview) {
+			component.view.el.style.setProperty("outline-color", "transparent", "important")
+		} else {
+			component.view.el.style.outlineColor = "#3b97e3";
+		}
 
 		// if selected component's parent is one of these types, then add an attribute
 		const validTypes = ["paragraph", "image-box", "dd", "dt", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote", "accordion-item", "vocab-wrapper"];
 
-		const parentComp = component.parent();
-
 		if (component.parent()) {
-			const parentType = component.parent().attributes.type;
+			const parentComp = component.parent();
 
-			// Add an attribute to the DOM 
-			if (validTypes.includes(parentType)) {
-				parentComp.set("attributes", { textComp: true });
-				editor.trigger("component:update", parentComp);
+			if (component.parent()) {
+				const parentType = component.parent().attributes.type;
 
-				editor.on("component:deselected", function (deselectedComponent) {
-					if (deselectedComponent === component) {
-						// Remove the "testing" attribute when the component is deselected
-						parentComp.set("attributes", { textComp: false });
-						editor.trigger("component:update", parentComp);
+				// Add an attribute to the DOM 
+				if (validTypes.includes(parentType)) {
+					parentComp.set("attributes", { textComp: true });
+					editor.trigger("component:update", parentComp);
+
+					editor.on("component:deselected", function (deselectedComponent) {
+						if (deselectedComponent === component) {
+							// Remove the "testing" attribute when the component is deselected
+							parentComp.set("attributes", { textComp: false });
+							editor.trigger("component:update", parentComp);
+						}
+					});
+				}
+
+				let parentComponent = component.parent();
+				let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
+
+				if (parentComponent) {
+					let parentType = parentComponent.get("type");
+
+					if (parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6" || parentType == "tab-header") {
+						ckToolbar.classList.add("remove-ck-toolbar");
+					} else {
+						ckToolbar.classList.remove("remove-ck-toolbar");
 					}
-				});
-			}
-
-			let parentComponent = component.parent();
-			let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
-
-			if (parentComponent) {
-				let parentType = parentComponent.get("type");
-
-				if (parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6" || parentType == "tab-header") {
-					ckToolbar.classList.add("remove-ck-toolbar");
-				} else {
-					ckToolbar.classList.remove("remove-ck-toolbar");
 				}
 			}
-		}
 
-		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
-		const toolbar = component.get("toolbar");
-		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
-		if (!toggleDragButtonExists) {
-			toolbar.push({
-				attributes: { id: "toolbar-drag", class: "fa fa-lock" },
-				command: "toggle-drag",
-				events: {
-					click: function (event) {
-						editor.runCommand("toggle-drag");
-						let element = document.getElementById("toolbar-drag");
-						if (element) {
-							element.classList.toggle("fa-lock");
-							element.classList.toggle("fa-lock-open");
-						}
+			// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+			const toolbar = component.get("toolbar");
+			const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
+			if (!toggleDragButtonExists) {
+				toolbar.push({
+					attributes: { id: "toolbar-drag", class: "fa fa-lock" },
+					command: "toggle-drag",
+					events: {
+						click: function (event) {
+							editor.runCommand("toggle-drag");
+							let element = document.getElementById("toolbar-drag");
+							if (element) {
+								element.classList.toggle("fa-lock");
+								element.classList.toggle("fa-lock-open");
+							}
+						},
 					},
-				},
-			});
-			component.set("toolbar", toolbar);
+				});
+				component.set("toolbar", toolbar);
+			}
 		}
 	});
 
@@ -525,4 +603,5 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 	})
+
 }
