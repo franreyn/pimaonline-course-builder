@@ -192,74 +192,87 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		removeItemsBtns();
 
 		//If component removed has an "add item" button, and is the last child element, then remove the button
-		const typesToCheck = ["vocab-wrapper", "vocab-item", "col-item", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
+		const typesToCheck = ["vocab-item", "col-item", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
+
+
 		let componentParent = removedComponent.parent();
-		let parentType = removedComponent.parent().get("type");
 
-		//If parent component is gallery-wrapper, delete two levels
-		if (componentParent && parentType == "gallery-wrapper") {
-			let parentClasses = componentParent.components().models[0].attributes.attributes.class;
-			if (parentClasses && parentClasses.includes("add-items-btns")) {
-				componentParent.parent().remove()
+		if (componentParent) {
+			let parentType = componentParent.get("type");
+
+			// If parent component is vocab-wrapper, delete vocab wrapper
+			if (componentParent && parentType == "vocab-wrapper") {
+				componentParent.remove();
 			}
-		} else if (componentParent && typesToCheck.includes(parentType)) {
-			if (componentParent.components().length > 0) {
-				let parentClasses = componentParent.components().models[0].attributes.attributes.class;
 
-				//If the first component is an "add items" button delete parent component
+			//If parent component is gallery-wrapper, delete two levels
+			if (componentParent && parentType == "gallery-wrapper") {
+				let parentClasses = componentParent.components().models[0].attributes.attributes.class;
 				if (parentClasses && parentClasses.includes("add-items-btns")) {
-					componentParent.remove()
+					componentParent.parent().remove()
+				}
+			} else if (componentParent && typesToCheck.includes(parentType)) {
+				if (componentParent.components().length > 0) {
+					let parentClasses = componentParent.components().models[0].attributes.attributes.class;
+
+					//If the first component is an "add items" button delete parent component
+					if (parentClasses && parentClasses.includes("add-items-btns")) {
+						componentParent.remove()
+					}
 				}
 			}
-		}
 
-		// Check if footer is deleted or not and change the footer button active status
-		if (removedComponent.get("type") === "footer") {
-			isFooterActive = false;
+			// Check if footer is deleted or not and change the footer button active status
+			if (removedComponent.get("type") === "footer") {
+				isFooterActive = false;
 
-			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+				const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
 
-			footerToolbarButtons[0].classList.remove("active");
-			footerToolbarButtons[1].classList.add("active");
-		}
+				footerToolbarButtons[0].classList.remove("active");
+				footerToolbarButtons[1].classList.add("active");
+			}
 
-		// If text comp attribute is added, remove parent component
+			// If text comp attribute is added, remove parent component
 
-		// If text belongs to table elements, don't delete
-		const tableElements = ["tbody", "tbody-tr", "td"];
+			// If text belongs to table elements, don't delete
+			const tableElements = ["tbody", "tbody-tr", "td"];
 
-		if (tableElements.includes(parentType)) {
-		} else if (removedComponent.parent().view.el.attributes.textComp) {
-			let isText = removedComponent.parent().view.el.attributes.textComp.value
+			if (tableElements.includes(parentType)) {
+			} else if (removedComponent.parent() && removedComponent.parent().view.el.attributes.textComp) {
+				let isText = removedComponent.parent().view.el.attributes.textComp.value
 
-			if (isText) {
+				if (isText) {
+					removedComponent.parent().remove();
+				}
+			}
+
+			// When one part of tabs is removed, remove the rest of the tab parts
+			if (removedComponent.parent() && removedComponent.parent().attributes.type == "tab-header" || removedComponent.parent() && removedComponent.parent().attributes.type == "tab-hide") {
+				let idInput = removedComponent.parent().view.el.attributes.for.value;
+
+				//Edit the returned value to target panel
+				let idPanel = idInput.replace(/^tab/, "tabContent");
+
+				// Remove input
+				let input = editor.getWrapper().find(`#${idInput}`);
+				if (input.length > 0) {
+					input[0].remove();
+				}
+
+				// Remove panel
+				let panel = editor.getWrapper().find(`#${idPanel}`);
+				if (panel.length > 0) {
+					panel[0].remove();
+				}
+
+				// Remove label
 				removedComponent.parent().remove();
 			}
-		}
 
-		// When one part of tabs is removed, remove the rest of the tab parts
-		if (removedComponent.parent().attributes.type == "tab-header" || removedComponent.parent().attributes.type == "tab-hide") {
-			let idInput = removedComponent.parent().view.el.attributes.for.value;
-
-			//Edit the returned value to target panel
-			let idPanel = idInput.replace(/^tab/, "tabContent");
-
-			// Remove input
-			let input = editor.getWrapper().find(`#${idInput}`);
-			if (input.length > 0) {
-				input[0].remove();
-			}
-
-			// Remove panel
-			let panel = editor.getWrapper().find(`#${idPanel}`);
-			if (panel.length > 0) {
-				panel[0].remove();
-			}
-
-			// Remove label
-			removedComponent.parent().remove();
 		}
 	});
+
+
 
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
