@@ -112,6 +112,7 @@ html {
   flex-wrap: nowrap;
   flex-grow: 1; /* Added to fill the remaining space */
   overflow-y: hidden;
+  overflow-x: hidden; /* Added to stop horizontal scrolling when in preview mode */
 }
 
 .editor-canvas {
@@ -556,4 +557,50 @@ img#brand {
 
 .gjs-pn-btn.traits {
   display: none;
+}
+
+.upper-toolbar-btns {
+  position:relative;
+}
+
+#btn-preview {
+  display: block;
+  position: absolute;
+  margin-top: 0px;
+  left: -90px;
+  z-index: 999;
+  transition: 1s ease;
+  min-width:fit-content;
+}
+
+#btn-preview.preview-active {
+  display: block;
+  position: absolute;
+  margin-top: 125px ;
+  z-index: 999;
+  background-color: var(--light-blue) !important;
+  transition: 1s ease;
+  right: 23vw;
+}
+
+.menu-bar {
+  margin-top: 0px;
+  transition: 1s ease;
+}
+
+.preview-menu {
+  margin-top: -115px;
+  transition: 1s ease;
+}
+
+
+
+
+
+.panel__top {
+  transition: 1s ease;
+}
+
+.panel__right {
+  transition: 1s ease;
 }
