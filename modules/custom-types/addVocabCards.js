@@ -32,46 +32,12 @@ export function addVocabItem(editor) {
 				},
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "vocab-card-term")) {
-					this.components().add({ type: "vocab-card-term" });
+				if (!this.components().find((component) => component.get("type") === "dt")) {
+					this.components().add({ type: "dt" });
 				}
-				if (!this.components().find((component) => component.get("type") === "vocab-card-def")) {
-					this.components().add({ type: "vocab-card-def" });
+				if (!this.components().find((component) => component.get("type") === "dd")) {
+					this.components().add({ type: "dd" });
 				}
-			},
-		},
-	});
-}
-
-export function addVocabCardTerm(editor) {
-  editor.DomComponents.addType("vocab-card-term", {
-		model: {
-			defaults: {
-				tagName: "dt",
-        attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add term",
-					},
-				],
-			},
-		},
-	});
-}
-
-export function addVocabCardDef(editor) {
-  editor.DomComponents.addType("vocab-card-def", {
-		model: {
-			defaults: {
-				tagName: "dd",
-        attributes: { contenteditable: "true" },
-				components: [
-					{
-						type: "text",
-						content: "Add definition",
-					},
-				],
 			},
 		},
 	});

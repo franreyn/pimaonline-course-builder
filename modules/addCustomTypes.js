@@ -9,7 +9,7 @@ import { addSecondColumn } from "./custom-types/addSecondColumn.js";
 import { addContentBody, addContentBodyButton } from "./custom-types/addContentBody.js";
 import { addCardBody, addCardHorizontal, addCardImg } from "./custom-types/addCardHorizontal.js";
 import { addSideBySide, addSideBySideItem } from "./custom-types/addSideBySide.js";
-import { addVocabButton, addVocabulary, addVocabularyDefinition, addVocabularyTerm, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
+import { addVocabButton, addVocabulary, addVocabularyWrapper } from "./custom-types/addVocabulary.js";
 import { addAssignments, addAssignment, addAssignmentBtn } from "./custom-types/addAssignments.js";
 import { addBlockquote } from "./custom-types/addBlockquote.js";
 import { addRawImage } from "./custom-types/addRawImage.js";
@@ -26,7 +26,7 @@ import { addHorizontalDisplay } from "./custom-types/addHorziontalDisplay.js";
 import { addFooter, addFooterInfo, addFootnotes, addToggleFootnotes } from "./custom-types/addFooter.js";
 import { addThirdColumn } from "./custom-types/addThirdColumn.js";
 import { addTable, addThead, addTheadTr, addTh, addTbody, addTd, addTbodyTr } from "./custom-types/addTable.js";
-import { addVocabCardButton, addVocabCardDef, addVocabCardTerm, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
+import { addVocabCardButton, addVocabCards, addVocabItem } from "./custom-types/addVocabCards.js";
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
@@ -46,9 +46,7 @@ export function addCustomTypes(editor) {
 		"call-out",
     "card-body", 
 		"col-item",
-    "content-body", 
-    "description-definition", 
-    "description-term",
+    "content-body",
 		"footer",
 		"footnotes",
 		"toggle-footnotes",
@@ -180,14 +178,6 @@ export function addCustomTypes(editor) {
 	addVocabItem(editor);
 	restrictParentComponent("vocab-item", ["vocab-cards"]);
 
-	// Vocab card term
-	addVocabCardTerm(editor);
-	restrictParentComponent("vocab-card-term", ["vocab-item"]);
-
-	// Vocab card definition
-	addVocabCardDef(editor);
-	restrictParentComponent("vocab-card-def", ["vocab-item"]);
-
 	// add vocab btn
 	addVocabCardButton(editor);
 	restrictParentComponent("add-vocab-card-btn", ["vocab-cards"]);
@@ -199,14 +189,6 @@ export function addCustomTypes(editor) {
 	// Vocab item
 	addVocabularyWrapper(editor);
 	restrictParentComponent("vocab-wrapper", ["vocab-list"]);
-
-	// Vocabulary widget TERM
-  addVocabularyTerm(editor);
-	restrictParentComponent("description-term", ["vocab-wrapper"]);
-
-	// Vocabulary widget DEFINITION
-  addVocabularyDefinition(editor);
-	restrictParentComponent("description-definition", ["vocab-wrapper"]);
 
 	// Add vocab btn
 	addVocabButton(editor);
@@ -249,11 +231,11 @@ export function addCustomTypes(editor) {
 
 	// Buttons
   addButton(editor);
-	restrictParentComponent("button", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("button", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item"]);
 
 	// Hyperlinks
   addHyperlinks(editor);
-	restrictParentComponent("hyperlink", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("hyperlink", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item"]);
 
 	//////////////////////////// Panopto container ////////////////////////////
 	//Media object
@@ -327,11 +309,11 @@ export function addCustomTypes(editor) {
 
 	// Term
 	addDescriptionTerm(editor);
-	restrictParentComponent("dt", ["dl"]);
+	restrictParentComponent("dt", ["dl", "vocab-item", "vocab-wrapper"]);
 
 	// Definition
 	addDescriptionDefinition(editor);
-	restrictParentComponent("dd", ["dl"]);
+	restrictParentComponent("dd", ["dl", "vocab-item", "vocab-wrapper"]);
 
 	// Add Definition Button
 	addDescriptionButton(editor);
@@ -343,23 +325,23 @@ export function addCustomTypes(editor) {
 
 	// Heading 2
 	addH2(editor);
-	restrictParentComponent("h2", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term"]);
+	restrictParentComponent("h2", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item"]);
 
 	// Heading 3
 	addH3(editor);
-	restrictParentComponent("h3", ["accordion-title", "accordion-content", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h3", ["accordion-title", "accordion-content", "assignment", "blockquote", "border", "card-body", "col-item", "content-body", "side-by-side-item", "tab-panel"]);
 
 	// Heading 4
 	addH4(editor);
-	restrictParentComponent("h4", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h4", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "tab-panel"]);
 
 	// Heading 5
 	addH5(editor);
-	restrictParentComponent("h5", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h5", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "tab-panel"]);
 
 	// Heading 6
 	addH6(editor);
-	restrictParentComponent("h6", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "description-definition", "description-term","tab-panel"]);
+	restrictParentComponent("h6", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "tab-panel"]);
 
 //////////////////////////// H5P container ////////////////////////////
 

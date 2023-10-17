@@ -14,14 +14,16 @@ export function initEditor() {
 			"grapesjs-plugin-ckeditor": {
 				options: {
 					toolbar: [
-						{ name: "basicstyles",
-						  items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link", "Format"] },
+						{
+							name: "basicstyles",
+							items: ["Bold", "Italic", "-", "NumberedList", "BulletedList", "Link", "Format"]
+						},
 					],
 					language: "en",
 					disableNativeSpellChecker: false,
 				},
 			},
-		}, 
+		},
 		layerManager: {
 			appendTo: ".layers-container",
 		},
@@ -56,13 +58,13 @@ export function initEditor() {
 						{
 							id: "duplicate",
 							className: "fa fa-clone",
-							attributes: { title: "Duplicate",class: "layer-btn duplication-btn" },
+							attributes: { title: "Duplicate", class: "layer-btn duplication-btn" },
 							command: "duplicate-layer",
 						},
 						{
 							id: "delete",
 							className: "fa fa-trash",
-							attributes: { title: "Delete",class: "layer-btn delete-btn" },
+							attributes: { title: "Delete", class: "layer-btn delete-btn" },
 							command: "delete-layer",
 						},
 					],
@@ -182,7 +184,7 @@ export function initEditor() {
 					id: "call-out",
 					category: "Widgets",
 					label: "Call Out",
-					content: { type: "call-out"},
+					content: { type: "call-out" },
 				},
 				{
 					id: "card-horizontal",
@@ -196,7 +198,7 @@ export function initEditor() {
 					label: "Columns",
 					content: { type: "columns" },
 				},
-        {
+				{
 					id: "dl",
 					category: "Widgets",
 					label: "Description List",
@@ -208,7 +210,7 @@ export function initEditor() {
 					label: "Horizontal Display",
 					content: { type: "horizontal-display" },
 				},
-        {
+				{
 					id: "figure",
 					category: "Widgets",
 					label: "Image",
@@ -277,7 +279,7 @@ export function initEditor() {
 					content: { type: "vocab-wrapper" },
 				},
 				// content
-        {
+				{
 					id: "h5p",
 					category: "Content",
 					label: "H5P Player",
@@ -342,6 +344,18 @@ export function initEditor() {
 					category: "Text",
 					label: "H6",
 					content: { type: "h6" },
+				},
+				{
+					id: "dt",
+					category: "Text",
+					label: "Description Term",
+					content: { type: "dt" },
+				},
+				{
+					id: "dd",
+					category: "Text",
+					label: "Description Definition",
+					content: { type: "dd" },
 				},
 			],
 		},

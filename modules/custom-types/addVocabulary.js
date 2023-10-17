@@ -25,43 +25,12 @@ export function addVocabularyWrapper(editor) {
 				attributes: { class: "vocab-wrapper" },
 			},
 			init() {
-				if (!this.components().find((component) => component.get("type") === "description-term")) {
-					this.components().add({ type: "description-term" });
+				if (!this.components().find((component) => component.get("type") === "dt")) {
+					this.components().add({ type: "dt" });
 				}
-				if (!this.components().find((component) => component.get("type") === "description-definition")) {
-					this.components().add({ type: "description-definition" });
+				if (!this.components().find((component) => component.get("type") === "dd")) {
+					this.components().add({ type: "dd" });
 				}
-			},
-		},
-	});
-}
-
-export function addVocabularyTerm(editor) {
-  editor.DomComponents.addType("description-term", {
-		model: {
-			defaults: {
-				tagName: "dt",
-				components: [
-					{
-						type: "text",
-						content: "Add term",
-					},
-				],
-			},
-		},
-	});
-}
-export function addVocabularyDefinition(editor) {
-  editor.DomComponents.addType("description-definition", {
-		model: {
-			defaults: {
-				tagName: "dd",
-				components: [
-					{
-						type: "text",
-						content: "Add definition",
-					},
-				],
 			},
 		},
 	});

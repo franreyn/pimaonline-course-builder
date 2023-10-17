@@ -191,48 +191,88 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		editor.LayerManager.render(); // Force layers panel to refresh
 		removeItemsBtns();
 
-		// Check if footer is deleted or not and change the footer button active status
-		if (removedComponent.get("type") === "footer") {
-			isFooterActive = false;
+		//If component removed has an "add item" button, and is the last child element, then remove the button
+		const typesToCheck = ["vocab-item", "col-item", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
 
-			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
 
-			footerToolbarButtons[0].classList.remove("active");
-			footerToolbarButtons[1].classList.add("active");
-		}
+		let componentParent = removedComponent.parent();
 
-		// If text comp attribute is added, remove parent component
-		if (removedComponent.parent().view.el.attributes.textComp) {
-			let isText = removedComponent.parent().view.el.attributes.textComp.value
+		if (componentParent) {
+			let parentType = componentParent.get("type");
 
-			if (isText) {
+			// If parent component is vocab-wrapper, delete vocab wrapper
+			if (componentParent && parentType == "vocab-wrapper") {
+				componentParent.remove();
+			}
+
+			//If parent component is gallery-wrapper, delete two levels
+			if (componentParent && parentType == "gallery-wrapper") {
+				let parentClasses = componentParent.components().models[0].attributes.attributes.class;
+				if (parentClasses && parentClasses.includes("add-items-btns")) {
+					componentParent.parent().remove()
+				}
+			} else if (componentParent && typesToCheck.includes(parentType)) {
+				if (componentParent.components().length > 0) {
+					let parentClasses = componentParent.components().models[0].attributes.attributes.class;
+
+					//If the first component is an "add items" button delete parent component
+					if (parentClasses && parentClasses.includes("add-items-btns")) {
+						componentParent.remove()
+					}
+				}
+			}
+
+			// Check if footer is deleted or not and change the footer button active status
+			if (removedComponent.get("type") === "footer") {
+				isFooterActive = false;
+
+				const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
+
+				footerToolbarButtons[0].classList.remove("active");
+				footerToolbarButtons[1].classList.add("active");
+			}
+
+			// If text comp attribute is added, remove parent component
+
+			// If text belongs to table elements, don't delete
+			const tableElements = ["tbody", "tbody-tr", "td"];
+
+			if (tableElements.includes(parentType)) {
+			} else if (removedComponent.parent() && removedComponent.parent().view.el.attributes.textComp) {
+				let isText = removedComponent.parent().view.el.attributes.textComp.value
+
+				if (isText) {
+					removedComponent.parent().remove();
+				}
+			}
+
+			// When one part of tabs is removed, remove the rest of the tab parts
+			if (removedComponent.parent() && removedComponent.parent().attributes.type == "tab-header" || removedComponent.parent() && removedComponent.parent().attributes.type == "tab-hide") {
+				let idInput = removedComponent.parent().view.el.attributes.for.value;
+
+				//Edit the returned value to target panel
+				let idPanel = idInput.replace(/^tab/, "tabContent");
+
+				// Remove input
+				let input = editor.getWrapper().find(`#${idInput}`);
+				if (input.length > 0) {
+					input[0].remove();
+				}
+
+				// Remove panel
+				let panel = editor.getWrapper().find(`#${idPanel}`);
+				if (panel.length > 0) {
+					panel[0].remove();
+				}
+
+				// Remove label
 				removedComponent.parent().remove();
 			}
-		}
 
-		// When one part of tabs is removed, remove the rest of the tab parts
-		if (removedComponent.parent().attributes.type == "tab-header") {
-			let idInput = removedComponent.parent().view.el.attributes.for.value;
-
-			//Edit the returned value to target panel
-			let idPanel = idInput.replace(/^tab/, "tabContent");
-
-			// Remove input
-			let input = editor.getWrapper().find(`#${idInput}`);
-			if (input.length > 0) {
-				input[0].remove();
-			}
-
-			// Remove panel
-			let panel = editor.getWrapper().find(`#${idPanel}`);
-			if (panel.length > 0) {
-				panel[0].remove();
-			}
-
-			// Remove label
-			removedComponent.parent().remove();
 		}
 	});
+
+
 
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
@@ -391,36 +431,39 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 		// if selected component's parent is one of these types, then add an attribute
-		const validTypes = ["paragraph", "image-box", "dd", "dt", "description-term", "description-definition", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote"];
+		const validTypes = ["paragraph", "image-box", "dd", "dt", "h1", "h2", "h3", "h4", "h5", "h6", "th", "td", "blockquote", "accordion-item", "vocab-wrapper"];
 
 		if (component.parent()) {
-			const parentType = component.parent().attributes.type;
 			const parentComp = component.parent();
 
-			// Add an attribute to the DOM 
-			if (validTypes.includes(parentType)) {
-				parentComp.set("attributes", { textComp: true });
-				editor.trigger("component:update", parentComp);
+			if (component.parent()) {
+				const parentType = component.parent().attributes.type;
 
-				editor.on("component:deselected", function (deselectedComponent) {
-					if (deselectedComponent === component) {
-						// Remove the "testing" attribute when the component is deselected
-						parentComp.set("attributes", { textComp: false });
-						editor.trigger("component:update", parentComp);
+				// Add an attribute to the DOM 
+				if (validTypes.includes(parentType)) {
+					parentComp.set("attributes", { textComp: true });
+					editor.trigger("component:update", parentComp);
+
+					editor.on("component:deselected", function (deselectedComponent) {
+						if (deselectedComponent === component) {
+							// Remove the "testing" attribute when the component is deselected
+							parentComp.set("attributes", { textComp: false });
+							editor.trigger("component:update", parentComp);
+						}
+					});
+				}
+
+				let parentComponent = component.parent();
+				let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
+
+				if (parentComponent) {
+					let parentType = parentComponent.get("type");
+
+					if (parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6" || parentType == "tab-header") {
+						ckToolbar.classList.add("remove-ck-toolbar");
+					} else {
+						ckToolbar.classList.remove("remove-ck-toolbar");
 					}
-				});
-			}
-
-			let parentComponent = component.parent();
-			let ckToolbar = document.querySelector("div.gjs-rte-toolbar");
-
-			if (parentComponent) {
-				let parentType = parentComponent.get("type");
-
-				if (parentType == "h1" || parentType == "h2" || parentType == "h3" || parentType == "h4" || parentType == "h5" || parentType == "h6" || parentType == "tab-header") {
-					ckToolbar.classList.add("remove-ck-toolbar");
-				} else {
-					ckToolbar.classList.remove("remove-ck-toolbar");
 				}
 			}
 		}
@@ -445,6 +488,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			});
 			component.set("toolbar", toolbar);
 		}
+
 	});
 
 	// This function runs through the editor and assigns all tab related classes and attributes
