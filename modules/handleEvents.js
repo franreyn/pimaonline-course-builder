@@ -466,28 +466,29 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 					}
 				}
 			}
-
-			// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
-			const toolbar = component.get("toolbar");
-			const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
-			if (!toggleDragButtonExists) {
-				toolbar.push({
-					attributes: { id: "toolbar-drag", class: "fa fa-lock" },
-					command: "toggle-drag",
-					events: {
-						click: function (event) {
-							editor.runCommand("toggle-drag");
-							let element = document.getElementById("toolbar-drag");
-							if (element) {
-								element.classList.toggle("fa-lock");
-								element.classList.toggle("fa-lock-open");
-							}
-						},
-					},
-				});
-				component.set("toolbar", toolbar);
-			}
 		}
+
+		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+		const toolbar = component.get("toolbar");
+		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
+		if (!toggleDragButtonExists) {
+			toolbar.push({
+				attributes: { id: "toolbar-drag", class: "fa fa-lock" },
+				command: "toggle-drag",
+				events: {
+					click: function (event) {
+						editor.runCommand("toggle-drag");
+						let element = document.getElementById("toolbar-drag");
+						if (element) {
+							element.classList.toggle("fa-lock");
+							element.classList.toggle("fa-lock-open");
+						}
+					},
+				},
+			});
+			component.set("toolbar", toolbar);
+		}
+
 	});
 
 	// This function runs through the editor and assigns all tab related classes and attributes
