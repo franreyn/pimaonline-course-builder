@@ -489,6 +489,36 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			component.set("toolbar", toolbar);
 		}
 
+		let visible = true;
+
+		// Accordion Widget - Click Functionality
+		if (component.attributes.type === "accordion-title") {
+
+			component.view.el.addEventListener("click", () => {
+				let parentElement = component.parent().view.el;
+
+				// Get all child elements of the parent
+				let children = parentElement.children;
+
+				// Loop through the child elements
+				for (let i = 0; i < children.length; i++) {
+					let childElement = children[i];
+					// Check if the child element matches the desired type
+					if (childElement.getAttribute('data-gjs-type') === 'accordion-content') {
+						console.log('Found accordion title child:', childElement);
+
+						if (visible) {
+							childElement.style.display = "none";
+							visible = false;
+
+						} else {
+							childElement.style.display = "block";
+							visible = true;
+						}
+					}
+				}
+			})
+		}
 	});
 
 	// This function runs through the editor and assigns all tab related classes and attributes
