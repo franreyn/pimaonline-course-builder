@@ -30,62 +30,68 @@ import { addVocabCardButton, addVocabCards, addVocabItem } from "./custom-types/
 import { addH5pCaption, addH5pContainer, addH5pIframe, addH5pInfo, addH5pObject } from "./custom-types/addh5p.js";
 import { addBorder } from "./custom-types/addBorder.js";
 import { addScript } from "./custom-types/addScript.js";
-import { addPlaypositIframe , addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
+import { addPlaypositIframe, addPlaypositCaption, addPlaypositContainer, addPlaypositInfo, addPlaypositObject } from "./custom-types/addPlayPosit.js";
 import { addGalleryWrapper, addImageBox, addImageButton, addImageGallery, addStaticImage } from "./custom-types/addImageGallery.js";
 import { addAccordion, addAccordionItem, addAccordionContent, addAccordionTitle, addAccordionButton } from "./custom-types/addAccordion.js";
 import { addColItem, addColumns, addColumnsButton } from "./custom-types/addColumns.js";
 import { addTabHide, addTabButton, addTabHeader, addTabs, addTabInput, addTabPanel } from "./custom-types/addTabs.js";
+import { addFlipCardGroup, addFlipCard, addInnerFlipCard, addBackFlipCard, addFrontFlipCard, addFlipCardBtn } from "./custom-types/addFlipCard.js";
 
 export function addCustomTypes(editor) {
-  const allWidgets = [
+	const allWidgets = [
 		"accordion-title",
 		"accordion-content",
-    "assignment", 
-    "blockquote",
-    "border", 
+		"assignment",
+		"blockquote",
+		"border",
 		"call-out",
-    "card-body", 
+		"card-body",
 		"col-item",
-    "content-body",
+		"content-body",
+		"flip-card-group",
+		"flip-card",
+		"inner-flip-card",
+		"flip-card-front",
+		"flip-card-back",
 		"footer",
 		"footnotes",
 		"toggle-footnotes",
 		"footer-info",
-    "side-by-side-item", 
+		"side-by-side-item",
 		"tab-panel",
 		"text-container",
-  ]
+	]
 
 	// Prevent addition of component if it's not being added to parent component.
 	function restrictParentComponent(type, validParents, validGrandParents) {
-    editor.on("component:mount", (component) => {
-        if (component.get("type") === type) {
-            let currentParentType = component.parent().get("type");
-            let currentGrandParentType = component.parent().parent() ? component.parent().parent().get("type") : null;
+		editor.on("component:mount", (component) => {
+			if (component.get("type") === type) {
+				let currentParentType = component.parent().get("type");
+				let currentGrandParentType = component.parent().parent() ? component.parent().parent().get("type") : null;
 
-            if (type === "columns") {
-                if (!validParents.includes(currentParentType) || (currentGrandParentType && !validGrandParents.includes(currentGrandParentType))) {
-                    if (component.previousParent) {
-                        component.previousParent.append(component);
-                    } else {
-                        component.remove();
-                    }
-                } else {
-                    component.previousParent = component.parent();
-                }
-            } else {
-                if (!validParents.includes(currentParentType)) {
-                    if (component.previousParent) {
-                        component.previousParent.append(component);
-                    } else {
-                        component.remove();
-                    }
-                } else {
-                    component.previousParent = component.parent();
-                }
-            }
-        }
-    });
+				if (type === "columns") {
+					if (!validParents.includes(currentParentType) || (currentGrandParentType && !validGrandParents.includes(currentGrandParentType))) {
+						if (component.previousParent) {
+							component.previousParent.append(component);
+						} else {
+							component.remove();
+						}
+					} else {
+						component.previousParent = component.parent();
+					}
+				} else {
+					if (!validParents.includes(currentParentType)) {
+						if (component.previousParent) {
+							component.previousParent.append(component);
+						} else {
+							component.remove();
+						}
+					} else {
+						component.previousParent = component.parent();
+					}
+				}
+			}
+		});
 	}
 
 	// Add Scripts2.js
@@ -93,38 +99,38 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("script", ["wrapper"]);
 
 	// One column component
-  addOneColumnLayout(editor);
+	addOneColumnLayout(editor);
 	restrictParentComponent("one-column-layout", ["wrapper"]);
 
 	// Two column components
-  addTwoColumnLayout(editor);
+	addTwoColumnLayout(editor);
 	restrictParentComponent("two-column-layout", ["wrapper"]);
 
 	// Three section component
-  addThreeSectionLayout(editor);
+	addThreeSectionLayout(editor);
 	restrictParentComponent("three-section-layout", ["wrapper"]);
 
 	// Header
-  addHeader(editor);
+	addHeader(editor);
 
 	// Banner image
-  addBannerImage(editor);
-  restrictParentComponent("banner-image", ["header"]);
+	addBannerImage(editor);
+	restrictParentComponent("banner-image", ["header"]);
 
 	// Text container
-  addTextContainer(editor);
+	addTextContainer(editor);
 
 	// Content wrapper
-  addContentWrapper(editor);
+	addContentWrapper(editor);
 
 	// Second column
-  addSecondColumn(editor);
+	addSecondColumn(editor);
 
 	// Third column
 	addThirdColumn(editor);
 
 	// Content-body
-  addContentBody(editor);
+	addContentBody(editor);
 	restrictParentComponent("content-body", ["content-wrapper", "second-column", "third-column"]);
 
 	//Content Body Button
@@ -132,7 +138,7 @@ export function addCustomTypes(editor) {
 	// restrictParentComponent("add-content-body-btn", ["content-wrapper", "second-column", "third-column"])
 
 	// Border widget
-  addBorder(editor);
+	addBorder(editor);
 	restrictParentComponent("border", ["content-body"]);
 
 	//Call Out
@@ -140,14 +146,14 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("call-out", ["content-body"]);
 
 	// Card Horizontal
-  addCardHorizontal(editor);  
+	addCardHorizontal(editor);
 	restrictParentComponent("card-horizontal", ["content-body"]);
 
 	// card body
-  addCardBody(editor);
+	addCardBody(editor);
 	restrictParentComponent("card-body", ["card-horizontal"]);
 
-  addCardImg(editor);
+	addCardImg(editor);
 	restrictParentComponent("card-img", ["card-horizontal"]);
 
 	// Footnotes
@@ -163,11 +169,11 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("toggle-footnotes", ["footer-info"]);
 
 	// Side-by-side Widget
-  addSideBySide(editor);
+	addSideBySide(editor);
 	restrictParentComponent("side-by-side", ["content-body"]);
 
 	// Side-by-side Item
-  addSideBySideItem(editor);
+	addSideBySideItem(editor);
 	restrictParentComponent("side-by-side-item", ["side-by-side"]);
 
 	// Vocab cards
@@ -183,7 +189,7 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("add-vocab-card-btn", ["vocab-cards"]);
 
 	// Vocabulary widget
-  addVocabulary(editor);
+	addVocabulary(editor);
 	restrictParentComponent("vocab-list", ["content-body"]);
 
 	// Vocab item
@@ -195,11 +201,11 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("add-vocab-btn", ["vocab-list"]);
 
 	// Assignments Widget
-  addAssignments(editor);
+	addAssignments(editor);
 	restrictParentComponent("assignments-widget", ["content-body"]);
-  
+
 	// Assignment
-  addAssignment(editor);
+	addAssignment(editor);
 	restrictParentComponent("assignment", ["assignments-widget"]);
 
 	// Add assignment button
@@ -207,77 +213,77 @@ export function addCustomTypes(editor) {
 	// restrictParentComponent("add-assignment-btn", ["assignment"]);
 
 	// Blockquote
-  addBlockquote(editor);
+	addBlockquote(editor);
 	restrictParentComponent("blockquote", ["content-body"]);
 
 	// Raw image - Not a sole component, only used to build other components
-  addRawImage(editor);
+	addRawImage(editor);
 
 	// Horizontal Display
 	addHorizontalDisplay(editor);
 	restrictParentComponent("horizontal-display", ["content-body"]);
 
 	// Image no caption
-  addFigure(editor);
+	addFigure(editor);
 	restrictParentComponent("figure", allWidgets);
 
 	// Image with caption
-  addFigureCaption(editor);
+	addFigureCaption(editor);
 	restrictParentComponent("figure-caption", ["content-body"]);
 
 	// Figcaption
-  addFigcaption(editor);
+	addFigcaption(editor);
 	// restrictParentComponent('figcaption', ['figure-caption']);
 
 	// Buttons
-  addButton(editor);
+	addButton(editor);
 	restrictParentComponent("button", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item"]);
 
 	// Hyperlinks
-  addHyperlinks(editor);
+	addHyperlinks(editor);
 	restrictParentComponent("hyperlink", ["assignment", "blockquote", "border", "card-body", "content-body", "side-by-side-item"]);
 
 	//////////////////////////// Panopto container ////////////////////////////
 	//Media object
-  addPanoptoDisplay(editor);
+	addPanoptoDisplay(editor);
 	restrictParentComponent("panopto-container", ["content-body"]);
 
 	// Media object
-  addPanoptoObject(editor);
+	addPanoptoObject(editor);
 	restrictParentComponent("panopto-object", ["panopto-container"]);
 
 	// Media info
-  addPanoptoInfo(editor);
+	addPanoptoInfo(editor);
 	restrictParentComponent("panopto-info", ["panopto-container"]);
 
 	// media caption
-  addPanoptoCaption(editor);
+	addPanoptoCaption(editor);
 	restrictParentComponent("panopto-caption", ["panopto-info"]);
 
 	// Panopto Iframe
-  addPanoptoIframe(editor);
+	addPanoptoIframe(editor);
 	restrictParentComponent("panopto-iframe", ["panopto-object"]);
 	//////////////////////////// end panopto container ////////////////////////////
 
-		//////////////////////////// Playposit container ////////////////////////////
+	//////////////////////////// Playposit container ////////////////////////////
 	//Media object
-  addPlaypositContainer(editor);
+	addPlaypositContainer(editor);
 	restrictParentComponent("playposit-container", ["content-body"]);
 
 	// Media object
-  addPlaypositObject(editor);
+	addPlaypositObject(editor);
 	restrictParentComponent("playposit-object", ["playposit-container"]);
 
 	// Media info
-  addPlaypositInfo(editor);
+	addPlaypositInfo(editor);
 	restrictParentComponent("playposit-info", ["playposit-container"]);
 
 	// media caption
-  addPlaypositCaption(editor);
+	addPlaypositCaption(editor);
 	restrictParentComponent("playposit-caption", ["playposit-info"]);
 
 	// Playposit Iframe
-  addPlaypositIframe(editor);
+	addPlaypositIframe(editor);
 	restrictParentComponent("playposit-iframe", ["playposit-object"]);
 	//////////////////////////// end playposit container ////////////////////////////
 
@@ -343,7 +349,7 @@ export function addCustomTypes(editor) {
 	addH6(editor);
 	restrictParentComponent("h6", ["assignment", "accordion-content", "blockquote", "border", "card-body", "content-body", "side-by-side-item", "tab-panel"]);
 
-//////////////////////////// H5P container ////////////////////////////
+	//////////////////////////// H5P container ////////////////////////////
 
 	// H5P 
 	addH5pContainer(editor);
@@ -389,7 +395,7 @@ export function addCustomTypes(editor) {
 	addTabPanel(editor);
 	restrictParentComponent("tab-panel", ["tabs"]);
 
-		//////////////////////////// end tabs ////////////////////////////
+	//////////////////////////// end tabs ////////////////////////////
 
 	////////////// Table ///////////////
 
@@ -465,6 +471,15 @@ export function addCustomTypes(editor) {
 
 	addColumnsButton(editor);
 	restrictParentComponent("add-col-item-btn", ["columns"]);
+
+	// Flip Card
+
+	addFlipCardGroup(editor);
+	addFlipCard(editor);
+	addInnerFlipCard(editor);
+	addFrontFlipCard(editor);
+	addBackFlipCard(editor);
+	addFlipCardBtn(editor);
 
 	// ======= END COMPONENTS ======
 	// ...

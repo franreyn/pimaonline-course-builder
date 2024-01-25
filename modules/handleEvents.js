@@ -152,6 +152,40 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 		// Sets a component to non-draggable upon being placed in the editor
 		component.set("draggable", false);
+
+		// If component added is 
+		if (component.get("type") == "flip-card-front") {
+			handleFlipCardTextChange("front");
+		}
+		if (component.get("type") == "flip-card-back") {
+			handleFlipCardTextChange("back");
+		}
+
+		// Function for changing the text from "add text" to front and back
+		function handleFlipCardTextChange(side) {
+			if (side == "front") {
+				let fronts = editor.getWrapper().find('[data-gjs-type="flip-card-front"]');
+				fronts.forEach((frontTextComponent) => {
+					let frontArea = frontTextComponent.view.el;
+					let text = frontArea.querySelector('[data-gjs-type="text"]')
+					if (text.textContent == "Add text") {
+						text.textContent = "Front Side";
+					}
+				})
+			}
+
+			if (side == "back") {
+				let backs = editor.getWrapper().find('[data-gjs-type="flip-card-back"]');
+				backs.forEach((frontTextComponent) => {
+					let backArea = frontTextComponent.view.el;
+					let text = backArea.querySelector('[data-gjs-type="text"]')
+					if (text.textContent == "Add text") {
+						text.textContent = "Back Side";
+					}
+				})
+
+			}
+		}
 	});
 
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -192,7 +226,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		removeItemsBtns();
 
 		//If component removed has an "add item" button, and is the last child element, then remove the button
-		const typesToCheck = ["vocab-item", "col-item", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
+		const typesToCheck = ["vocab-item", "col-item", "flip-card", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
 
 
 		let componentParent = removedComponent.parent();
@@ -244,6 +278,15 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				if (isText) {
 					removedComponent.parent().remove();
 				}
+			}
+
+			// When the inner-card for the flip card is removed, remove the rest of the flip card
+			if (removedComponent.parent() && removedComponent.parent().attributes.type == "flip-card" || removedComponent.parent() && removedComponent.parent().attributes.type == "inner-flip-card") {
+				console.log("deleted inner flip card");
+
+				// Remove the parent container
+				removedComponent.parent().remove();
+
 			}
 
 			// When one part of tabs is removed, remove the rest of the tab parts
@@ -519,6 +562,18 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				}
 			})
 		}
+
+		// Flip Card Widget 
+
+		// Function to handle click event
+		const flipCardClickHandler = (component) => {
+			const parentElement = component.parent().view.el;
+			parentElement.classList.toggle("flip");
+		};
+
+		if (component.attributes.type === "flip-card-front" || component.attributes.type === "flip-card-back") {
+			component.view.el.addEventListener("click", () => flipCardClickHandler(component));
+		}
 	});
 
 	// This function runs through the editor and assigns all tab related classes and attributes
@@ -577,6 +632,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-accordion-btn": "accordion-item",
 			"add-content-body-btn": "content-body",
 			"add-assignment-btn": "assignment",
+			"add-flip-card-btn": "flip-card",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper",
 			"add-vocab-card-btn": "vocab-item",
@@ -586,6 +642,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
+					console.log("clicked")
 					let parentComponent = component.parent();
 					let index = parentComponent.components().length - 1;
 					let newItemType = componentTypeToItemType[componentType];
@@ -597,7 +654,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn", "add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn", "add-col-item-btn"];
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn", "add-accordion-btn", "add-content-body-btn", "add-flip-card-btn", "add-vocab-card-btn", "add-col-item-btn"];
 	btnTypes.forEach((btnType) => {
 		addButtonClickListener(btnType);
 	});

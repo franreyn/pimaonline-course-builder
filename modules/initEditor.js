@@ -211,6 +211,12 @@ export function initEditor() {
 					content: { type: "horizontal-display" },
 				},
 				{
+					id: "flip-cards",
+					category: "Widgets",
+					label: "Flip Cards",
+					content: { type: "flip-card-group" },
+				},
+				{
 					id: "figure",
 					category: "Widgets",
 					label: "Image",
