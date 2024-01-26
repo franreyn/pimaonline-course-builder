@@ -241,16 +241,22 @@ margin-top: 30px;
   position: relative;
   display: grid;
   gap: 5px;
-  grid-template-columns: repeat(auto-fit, minmax(16.7rem, 1fr));
+  grid-auto-columns: auto;
+  grid-template-columns: none;
+  overflow: hidden; /* Prevent horizontal overflow */
 }
 
 .flip-card-group .flip-card {
   background-color: transparent;
-  min-width: 300px;  /* 998px is content wrapper size, so adjusting for margins and 3 cards per row, this is a good width*/
+  min-width: 100px;  /* 998px is content wrapper size for one column layout, so adjusting for margins and 3 cards per row, this is a good width*/
   min-height: 300px;
   perspective: 1000px;
   display: grid;
   margin: 10px;
+}
+
+#second-column .flip-card-group {
+  display: block;
 }
 
 .flip-card:hover {
@@ -268,6 +274,10 @@ margin-top: 30px;
 .side-by-side .flip-card {
   width: -webkit-fill-available;
   max-width: 500px; 
+}
+
+.flip-card.text-heavy .front, .flip-card.text-heavy .front {
+  display:block;
 }
 
 /* –––––––––––––––– */
