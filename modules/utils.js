@@ -5,7 +5,7 @@ import { config } from "../config.js";
 export function makeComponentsUnselectable(editor) {
   const types = config.unselectableComponents;
 
-  editor.on('component:selected', function(component) {
+  editor.on('component:selected', function (component) {
     if (types.includes(component.get('type'))) {
       editor.select(); // Deselect the component
     }
@@ -49,30 +49,30 @@ export function addComponentToCanvas(editor, componentType) {
     // Remove current layout and replace with new one
     removeExistingComponent(editor, componentType);
     let newComponent =
-    editor.UndoManager.skip( () => {
-    editor.DomComponents.addComponent({ type: componentType });
-    })
+      editor.UndoManager.skip(() => {
+        editor.DomComponents.addComponent({ type: componentType });
+      })
     editor.select(newComponent);
   }
-}  
+}
 
 const checkLayersPanel = () => {
 
   // Remove unneeded items from layers manager
-let layersPanel = document.querySelector("span.layers");
-layersPanel.addEventListener("click", removeItemsBtns)
+  let layersPanel = document.querySelector("span.layers");
+  layersPanel.addEventListener("click", removeItemsBtns)
 }
 
 document.addEventListener("DOMContentLoaded", checkLayersPanel);
 
 // Add classes to this array to have them removed from the layers panel
-const buttonsToRemove = ["add-dl-btn","add-img-btn", "add-accordion-btn", "add-assignment-btn", "add-vocab-btn", "add-content-body-btn", "add-vocab-card-btn", "add-tab-btn", "add-col-item-btn"];
+const buttonsToRemove = ["add-dl-btn", "add-img-btn", "add-accordion-btn", "add-flip-card-btn", "add-assignment-btn", "add-vocab-btn", "add-content-body-btn", "add-vocab-card-btn", "add-tab-btn", "add-col-item-btn"];
 
 export function removeItemsBtns() {
-    buttonsToRemove.forEach((buttonToRemove) => {
-      const buttons = document.querySelectorAll(`.gjs-layer__t-${buttonToRemove}`);
-      buttons.forEach((button) => {
-        button.remove();
-      });
+  buttonsToRemove.forEach((buttonToRemove) => {
+    const buttons = document.querySelectorAll(`.gjs-layer__t-${buttonToRemove}`);
+    buttons.forEach((button) => {
+      button.remove();
+    });
   })
 }

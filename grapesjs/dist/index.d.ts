@@ -260,7 +260,7 @@ declare class ModuleModel<TModule extends IBaseModule<any> = Module, T extends O
 }
 export type ModuleExt<TModel extends ModuleModel> = TModel extends ModuleModel<infer M> ? M : unknown;
 export type ModelConstructor<TModel extends ModuleModel> = {
-	new (mod: ModuleExt<TModel>, attr: any): TModel;
+	new(mod: ModuleExt<TModel>, attr: any): TModel;
 };
 declare class ModuleCollection<TModel extends ModuleModel = ModuleModel> extends Collection<TModel> {
 	module: ModuleExt<TModel>;
@@ -1641,9 +1641,9 @@ export type ClbObj = ReturnType<ComponentView["_clbObj"]>;
 export interface IComponentView extends ExtractMethods<ComponentView> {
 }
 export declare class ComponentView extends View</**
- * Keep this format to avoid errors in TS bundler */ 
-/** @ts-ignore */
-Component> {
+ * Keep this format to avoid errors in TS bundler */
+	/** @ts-ignore */
+	Component> {
 	/** @ts-ignore */
 	model: Component;
 	/** @ts-ignore */
@@ -4708,9 +4708,9 @@ export interface ComponentsOptions {
 	domc?: ComponentManager;
 }
 export declare class Components extends Collection</**
- * Keep this format to avoid errors in TS bundler */ 
-/** @ts-ignore */
-Component> {
+ * Keep this format to avoid errors in TS bundler */
+	/** @ts-ignore */
+	Component> {
 	opt: ComponentsOptions;
 	config?: DomComponentsConfig;
 	em: EditorModel;
@@ -7811,7 +7811,7 @@ export interface EditorConfig {
 	listenToEl?: HTMLElement[];
 	/**
 	 * Import asynchronously CSS to use as icons.
-	 * @default 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+	 * @default 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/font-awesome.min.css'
 	 * */
 	cssIcons?: string;
 	/**
@@ -8826,9 +8826,9 @@ declare const stylesEvents: {
 	target: string;
 	custom: string;
 };
-declare class StyleManager extends ItemManagerModule<StyleManagerConfig, 
-/** @ts-ignore */
-Sectors> {
+declare class StyleManager extends ItemManagerModule<StyleManagerConfig,
+	/** @ts-ignore */
+	Sectors> {
 	builtIn: PropertyFactory;
 	upAll: Debounced;
 	properties: typeof Properties;
@@ -9640,7 +9640,7 @@ declare class TraitManager extends Module<TraitManagerConfig & {
 	view?: TraitsView;
 	types: {
 		[id: string]: {
-			new (o: any): TraitView;
+			new(o: any): TraitView;
 		};
 	};
 	model: Model;
@@ -12580,4 +12580,4 @@ export {
 	grapesjs as default,
 };
 
-export {};
+export { };

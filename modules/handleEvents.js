@@ -152,6 +152,40 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 		// Sets a component to non-draggable upon being placed in the editor
 		component.set("draggable", false);
+
+		// If component added is 
+		if (component.get("type") == "flip-card-front") {
+			handleFlipCardTextChange("front");
+		}
+		if (component.get("type") == "flip-card-back") {
+			handleFlipCardTextChange("back");
+		}
+
+		// Function for changing the text from "add text" to front and back
+		function handleFlipCardTextChange(side) {
+			if (side == "front") {
+				let fronts = editor.getWrapper().find('[data-gjs-type="flip-card-front"]');
+				fronts.forEach((frontTextComponent) => {
+					let frontArea = frontTextComponent.view.el;
+					let text = frontArea.querySelector('[data-gjs-type="text"]')
+					if (text.textContent == "Add text") {
+						text.textContent = "Front Side";
+					}
+				})
+			}
+
+			if (side == "back") {
+				let backs = editor.getWrapper().find('[data-gjs-type="flip-card-back"]');
+				backs.forEach((frontTextComponent) => {
+					let backArea = frontTextComponent.view.el;
+					let text = backArea.querySelector('[data-gjs-type="text"]')
+					if (text.textContent == "Add text") {
+						text.textContent = "Back Side";
+					}
+				})
+
+			}
+		}
 	});
 
 	layoutsToolbar.addEventListener("click", (event) => {
@@ -192,7 +226,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		removeItemsBtns();
 
 		//If component removed has an "add item" button, and is the last child element, then remove the button
-		const typesToCheck = ["vocab-item", "col-item", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
+		const typesToCheck = ["vocab-item", "col-item", "flip-card", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
 
 
 		let componentParent = removedComponent.parent();
@@ -244,6 +278,14 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				if (isText) {
 					removedComponent.parent().remove();
 				}
+			}
+
+			// When the inner-card for the flip card is removed, remove the rest of the flip card
+			if (removedComponent.parent() && removedComponent.parent().attributes.type == "flip-card" || removedComponent.parent() && removedComponent.parent().attributes.type == "inner-flip-card") {
+
+				// Remove the parent container
+				removedComponent.parent().remove();
+
 			}
 
 			// When one part of tabs is removed, remove the rest of the tab parts
@@ -468,8 +510,37 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 		}
 
-		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+
 		const toolbar = component.get("toolbar");
+
+		// Array of clickable items to know which ones to attach the click toolbar button to
+		const clickableItems = ["accordion-title", "flip-card-front", "flip-card-back"]
+
+		// Loop through array and conduct a check and apply functionality to it
+		clickableItems.forEach((clickableItem) => {
+			clickToolbarListener(clickableItem);
+		});
+
+		function clickToolbarListener(clickableItem) {
+			if (component.attributes.type === clickableItem) {
+
+				// When a component is selected and involves an interacation, create a interact button int he component tollbar. This allows for click actions like flipping the flip card or opening an accordion.
+				const interactButtonExists = toolbar.some((button) => button.command === "interact-click");
+				if (!interactButtonExists) {
+					toolbar.push({
+						attributes: { id: "interact-click", class: "fa fa-wand-magic-sparkles" },
+						command: "interact-click",
+						events: {
+							click: function (event) {
+								editor.runCommand("interact-click");
+							},
+						},
+					});
+					component.set("toolbar", toolbar);
+				}
+			}
+		}
+		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
 		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
 		if (!toggleDragButtonExists) {
 			toolbar.push({
@@ -488,7 +559,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			});
 			component.set("toolbar", toolbar);
 		}
-
 	});
 
 	// This function runs through the editor and assigns all tab related classes and attributes
@@ -547,6 +617,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			"add-accordion-btn": "accordion-item",
 			"add-content-body-btn": "content-body",
 			"add-assignment-btn": "assignment",
+			"add-flip-card-btn": "flip-card",
 			"add-img-btn": "image-box",
 			"add-vocab-btn": "vocab-wrapper",
 			"add-vocab-card-btn": "vocab-item",
@@ -567,7 +638,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 	}
 
-	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn", "add-accordion-btn", "add-content-body-btn", "add-vocab-card-btn", "add-col-item-btn"];
+	const btnTypes = ["add-vocab-btn", "add-img-btn", "add-assignment-btn", "add-accordion-btn", "add-content-body-btn", "add-flip-card-btn", "add-vocab-card-btn", "add-col-item-btn"];
 	btnTypes.forEach((btnType) => {
 		addButtonClickListener(btnType);
 	});
@@ -604,5 +675,4 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 	})
-
 }
