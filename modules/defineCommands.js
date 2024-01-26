@@ -78,7 +78,7 @@ export function defineCommands(editor) {
 	editor.Commands.add("undo", {
 	});
 
-	editor.Commands.add('redo', {
+	editor.Commands.add("redo", {
 
 	});
 
@@ -161,7 +161,7 @@ export function defineCommands(editor) {
 						let childElement = children[i];
 
 						// Check if the child element matches the desired type
-						if (childElement.getAttribute('data-gjs-type') === 'accordion-content') {
+						if (childElement.getAttribute("data-gjs-type") === "accordion-content") {
 
 							// Set this variable to ensure it has the right scope 
 							let visible = false;

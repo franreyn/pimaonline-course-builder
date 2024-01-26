@@ -282,7 +282,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 			// When the inner-card for the flip card is removed, remove the rest of the flip card
 			if (removedComponent.parent() && removedComponent.parent().attributes.type == "flip-card" || removedComponent.parent() && removedComponent.parent().attributes.type == "inner-flip-card") {
-				console.log("deleted inner flip card");
 
 				// Remove the parent container
 				removedComponent.parent().remove();
@@ -523,9 +522,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		});
 
 		function clickToolbarListener(clickableItem) {
-			console.log("entering function")
 			if (component.attributes.type === clickableItem) {
-				console.log("components match")
 
 				// When a component is selected and involves an interacation, create a interact button int he component tollbar. This allows for click actions like flipping the flip card or opening an accordion.
 				const interactButtonExists = toolbar.some((button) => button.command === "interact-click");
@@ -630,7 +627,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		editor.on("component:add", (component) => {
 			if (component.get("type") === componentType) {
 				component.view.el.addEventListener("click", () => {
-					console.log("clicked")
 					let parentComponent = component.parent();
 					let index = parentComponent.components().length - 1;
 					let newItemType = componentTypeToItemType[componentType];
