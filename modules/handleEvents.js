@@ -511,8 +511,39 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 		}
 
-		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
+
 		const toolbar = component.get("toolbar");
+
+		// Array of clickable items to know which ones to attach the click toolbar button to
+		const clickableItems = ["accordion-title", "flip-card-front", "flip-card-back"]
+
+		// Loop through array and conduct a check and apply functionality to it
+		clickableItems.forEach((clickableItem) => {
+			clickToolbarListener(clickableItem);
+		});
+
+		function clickToolbarListener(clickableItem) {
+			console.log("entering function")
+			if (component.attributes.type === clickableItem) {
+				console.log("components match")
+
+				// When a component is selected and involves an interacation, create a interact button int he component tollbar. This allows for click actions like flipping the flip card or opening an accordion.
+				const interactButtonExists = toolbar.some((button) => button.command === "interact-click");
+				if (!interactButtonExists) {
+					toolbar.push({
+						attributes: { id: "interact-click", class: "fa fa-wand-magic-sparkles" },
+						command: "interact-click",
+						events: {
+							click: function (event) {
+								editor.runCommand("interact-click");
+							},
+						},
+					});
+					component.set("toolbar", toolbar);
+				}
+			}
+		}
+		// When a component is selected, create a lock button in the component's toolbar. This button sets draggable to true and false.
 		const toggleDragButtonExists = toolbar.some((button) => button.command === "toggle-drag");
 		if (!toggleDragButtonExists) {
 			toolbar.push({
@@ -530,49 +561,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				},
 			});
 			component.set("toolbar", toolbar);
-		}
-
-		let visible = true;
-
-		// Accordion Widget - Click Functionality
-		if (component.attributes.type === "accordion-title") {
-
-			component.view.el.addEventListener("click", () => {
-				let parentElement = component.parent().view.el;
-
-				// Get all child elements of the parent
-				let children = parentElement.children;
-
-				// Loop through the child elements
-				for (let i = 0; i < children.length; i++) {
-					let childElement = children[i];
-					// Check if the child element matches the desired type
-					if (childElement.getAttribute('data-gjs-type') === 'accordion-content') {
-						console.log('Found accordion title child:', childElement);
-
-						if (visible) {
-							childElement.style.display = "none";
-							visible = false;
-
-						} else {
-							childElement.style.display = "block";
-							visible = true;
-						}
-					}
-				}
-			})
-		}
-
-		// Flip Card Widget 
-
-		// Function to handle click event
-		const flipCardClickHandler = (component) => {
-			const parentElement = component.parent().view.el;
-			parentElement.classList.toggle("flip");
-		};
-
-		if (component.attributes.type === "flip-card-front" || component.attributes.type === "flip-card-back") {
-			component.view.el.addEventListener("click", () => flipCardClickHandler(component));
 		}
 	});
 
@@ -691,5 +679,4 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		}
 
 	})
-
 }
