@@ -142,4 +142,57 @@ export function defineCommands(editor) {
 			}
 		},
 	});
+
+	// Create interaction button in toolbar
+	editor.Commands.add("interact-click", {
+		run: function (editor, sender) {
+			const selectedComponent = editor.getSelected();
+			if (selectedComponent) {
+
+				// Accordion Widget - Click Functionality
+				if (selectedComponent.attributes.type === "accordion-title") {
+					let parentElement = selectedComponent.parent().view.el;
+
+					// Get all child elements of the parent
+					let children = parentElement.children;
+
+					// Loop through the child elements
+					for (let i = 0; i < children.length; i++) {
+						let childElement = children[i];
+
+						// Check if the child element matches the desired type
+						if (childElement.getAttribute('data-gjs-type') === 'accordion-content') {
+
+							// Set this variable to ensure it has the right scope 
+							let visible = false;
+
+							// Checks the display property on the accordion-content element
+							if (window.getComputedStyle(childElement).display === "block") {
+								visible = true;
+							}
+
+							// Depending on if the element is visible or not, it'll add the correct display attribute
+							if (visible) {
+								childElement.style.display = "none";
+							} else {
+								childElement.style.display = "block";
+							}
+						}
+					}
+				}
+
+				// Flip Card Widget - Click Functionality
+				const flipCardClickHandler = (selectedComponent) => {
+
+					// Get the parent element (inner-card) and toggle flip class
+					const parentElement = selectedComponent.parent().view.el;
+					parentElement.classList.toggle("flip");
+				};
+
+				if (selectedComponent.attributes.type === "flip-card-front" || selectedComponent.attributes.type === "flip-card-back") {
+					flipCardClickHandler(selectedComponent)
+				}
+			}
+		},
+	});
 }
