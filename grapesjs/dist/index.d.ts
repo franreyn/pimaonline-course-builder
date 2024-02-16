@@ -7811,7 +7811,7 @@ export interface EditorConfig {
 	listenToEl?: HTMLElement[];
 	/**
 	 * Import asynchronously CSS to use as icons.
-	 * @default 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/font-awesome.min.css'
+	 * @default 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
 	 * */
 	cssIcons?: string;
 	/**
