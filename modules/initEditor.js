@@ -36,6 +36,12 @@ export function initEditor() {
 			],
 			styles: ["https://cdn.jsdelivr.net/npm/@pimaonline/pimaonline-themepack/dist/css/themes/cards/styles.css", "./css/theme-overrides.css"],
 		},
+		// Items in this property are added to the head when Grapes JS initializes
+		head: {
+			styles: [
+				"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/font-awesome.min.css",
+			]
+		},
 		// We define a default panel as a sidebar to contain layers
 		panels: {
 			defaults: [
