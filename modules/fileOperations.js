@@ -153,7 +153,6 @@ export function exportFile(editor) {
     const nestedPTags = parentEl.querySelectorAll("p");
     nestedPTags.forEach((pTag) => {
       parentEl.innerHTML = pTag.innerHTML;
-
     });
   });
 
@@ -163,20 +162,19 @@ export function exportFile(editor) {
     emptyPTag.remove();
   });
 
-  //Edits HTML that is entered in as a paragraph, but never edited in CK Editor
+  // Edits HTML that is entered in as a paragraph, but never edited in CK Editor
   const divElements = parsedHtml.querySelectorAll('div'); // Get all <div> elements
-  console.log(divElements)
   // Loop through the selected <div> elements
   divElements.forEach((divElement) => {
 
     // Check if the text content of the <div> matches "Add text"
-    // If the div element is a tab-panel keep everything inside
-    if (divElement.parentElement.classList.contains("tab-panel") || divElement.parentElement.classList.contains("front")) {
-      console.log("divElement", divElement)
+    // If the div element is a tab-panel or front keep everything inside
+    if (divElement.parentElement.classList.contains("tab-panel") || divElement.parentElement.classList.contains("front") || divElement.parentElement.classList.contains("back")) {
 
       // Get the parent of the <div>
       const parentElement = divElement.parentElement;
-      console.log("parentElement", parentElement)
+
+      // Keep text content within the .inner-card
       while (divElement.firstChild) {
         parentElement.insertBefore(divElement.firstChild, divElement);
       }
@@ -222,22 +220,7 @@ export function exportFile(editor) {
     area.appendChild(overlay);
   })
 
-  // Array of classes for each add button to remove them on export
-  let addButtons = [".add-tab-btn", ".add-accordion-btn"]
-
-  // Remove add buttons 
-  addButtons.forEach((buttonClass) => {
-
-    const buttonGroup = parsedHtml.querySelectorAll(buttonClass);
-    if (buttonGroup.length > 0) {
-      buttonGroup.forEach((button) => {
-
-        button.remove();
-      })
-    }
-  })
-
-  // Remove add tabs button 
+  // Remove add tabs button for dl
   const addDlBtns = parsedHtml.querySelectorAll(".add-dl-btn");
   if (addDlBtns) {
     addDlBtns.forEach((button) => {
