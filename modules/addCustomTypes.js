@@ -473,13 +473,24 @@ export function addCustomTypes(editor) {
 	restrictParentComponent("add-col-item-btn", ["columns"]);
 
 	// Flip Card
-
 	addFlipCardGroup(editor);
+	restrictParentComponent("flip-card-group", ["content-body"]);
+
 	addFlipCard(editor);
+	restrictParentComponent("flip-card", ["flip-card-group"]);
+
 	addInnerFlipCard(editor);
+	restrictParentComponent("inner-flip-card", ["flip-card"]);
+
 	addFrontFlipCard(editor);
+	restrictParentComponent("flip-card-front", ["inner-flip-card"]);
+
 	addBackFlipCard(editor);
+	restrictParentComponent("flip-card-back", ["inner-flip-card"]);
+
 	addFlipCardBtn(editor);
+	restrictParentComponent("add-flip-card-btn", ["flip-card-group"]);
+
 
 	// ======= END COMPONENTS ======
 	// ...
