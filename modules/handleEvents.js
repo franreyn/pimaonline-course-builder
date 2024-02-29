@@ -1,6 +1,14 @@
 import { config } from "../config.js";
 import { addComponentToCanvas, removeItemsBtns } from "./utils.js";
 
+const addTextDefaultText = "Add text"; // Don't change this text. This is for finding generic text added by Grapes JS
+const frontSideText = "Front Side"; // Text for flip card front side
+const backSideText = "Back Side"; // Text for flip card back side
+const previewBtnText = "Close"; // Text for button when preview mode is active
+const footerAddAlert = "Please add a layout first"; // Alert when adding a footer before adding a layout
+const clickableItems = ["accordion-title", "flip-card-front", "flip-card-back"]; // Array of clickable items to know which ones to attach the click toolbar button to
+
+
 export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitcher) {
 	// Initalize layer buttons and set to display none
 	const layoutBtns = document.querySelectorAll(".layer-btn");
@@ -163,13 +171,17 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 		// Function for changing the text from "add text" to front and back
 		function handleFlipCardTextChange(side) {
+
+			// Label the text to say front or back side for UI purposes
 			if (side == "front") {
 				let fronts = editor.getWrapper().find('[data-gjs-type="flip-card-front"]');
 				fronts.forEach((frontTextComponent) => {
 					let frontArea = frontTextComponent.view.el;
 					let text = frontArea.querySelector('[data-gjs-type="text"]')
-					if (text.textContent == "Add text") {
-						text.textContent = "Front Side";
+
+					// If the front of the card says "Add text" then change it to say front side for UI purposes
+					if (text.textContent == addTextDefaultText) {
+						text.textContent = frontSideText;
 					}
 				})
 			}
@@ -178,9 +190,11 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				let backs = editor.getWrapper().find('[data-gjs-type="flip-card-back"]');
 				backs.forEach((frontTextComponent) => {
 					let backArea = frontTextComponent.view.el;
-					let text = backArea.querySelector('[data-gjs-type="text"]')
-					if (text.textContent == "Add text") {
-						text.textContent = "Back Side";
+					let text = backArea.querySelector("[data-gjs-type='text']")
+
+					// If the back of the card says "Add text" then change it to say back side for UI purposes
+					if (text.textContent == addTextDefaultText) {
+						text.textContent = backSideText;
 					}
 				})
 
@@ -228,7 +242,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 		//If component removed has an "add item" button, and is the last child element, then remove the button
 		const typesToCheck = ["vocab-item", "col-item", "flip-card", "accordion", "assignments-widget", "columns", "dl", "image-gallery", "tabs", "vocab-cards", "vocab-list"];
 
-
 		let componentParent = removedComponent.parent();
 
 		if (componentParent) {
@@ -266,9 +279,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				footerToolbarButtons[1].classList.add("active");
 			}
 
-			// If text comp attribute is added, remove parent component
-
-			// If text belongs to table elements, don't delete
+			// If text comp attribute is added, remove parent component but if text belongs to table elements, don't delete
 			const tableElements = ["tbody", "tbody-tr", "td"];
 
 			if (tableElements.includes(parentType)) {
@@ -285,7 +296,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 
 				// Remove the parent container
 				removedComponent.parent().remove();
-
 			}
 
 			// When one part of tabs is removed, remove the rest of the tab parts
@@ -310,12 +320,8 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 				// Remove label
 				removedComponent.parent().remove();
 			}
-
 		}
 	});
-
-
-
 
 	// When a component is mounted, ensures that 'content-body' components can only be added as children of 'content-wrapper' or 'second-column' components. If a 'content-body' component is added elsewhere, it is automatically removed.
 	editor.on("component:mount", (component) => {
@@ -347,7 +353,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	editor.on("component:title", setCustomLayerName);
 
 	//Add custom toolbar for footer
-
 	let isFooterActive = false;
 
 	// Wait for the editor to load before accessing its properties
@@ -359,34 +364,60 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	footerToolbar.addEventListener("click", (event) => {
 		const elements = editor.DomComponents.getWrapper().find("body")[0];
 
+		// If the user tries to add a footer before adding a layout show an alert
 		if (!elements) {
-			window.alert("Please add a layout first");
-		} else {
+			window.alert(footerAddAlert);
+		}
+		// Else add the footer
+		else {
+			// Target the input button where the footer is on/off
 			const footerToolbarButtons = footerToolbar.querySelectorAll(".footer-btn");
 			const button = event.target;
 			if (button.tagName === "BUTTON") {
+
+				// Get the status of the footer by getting the data-type attribute
 				const footStatus = button.getAttribute("data-type");
+
+				// If the footer status is footer-on, then add the footer and set the footer status to true
 				if (footStatus == "footer-on" && !isFooterActive) {
+
+					// Ignore the undo function for adding footers
 					editor.UndoManager.skip(() => {
+
+						// Add footer type to editor to be used
 						const footerComponent = editor.DomComponents.addComponent({
 							type: "footer",
 							draggable: false,
 							removable: false,
 						});
 
+						// Find the root body element, to ensure that the footer is added to the end
 						const elements = editor.DomComponents.getWrapper().find("body")[0];
 
+						// Add the footer
 						elements.append(footerComponent);
 
+						// Edit the classes for the footer controls
 						footerToolbarButtons[0].classList.add("active");
 						footerToolbarButtons[1].classList.remove("active");
+
+						// Change the flag variable for footer to false
 						isFooterActive = true;
 					});
-				} else if (footStatus == "footer-off") {
+				}
+				// Else if the footer status is off and you are removing the footer, remove it and change status to false
+				else if (footStatus == "footer-off") {
+					// Find footer DOM element
 					const footerInstance = editor.getWrapper().find('[data-gjs-type="footer"]');
+
+					// There is only one, and because it'll return a DOM collection, remove the first one (footer)
 					footerInstance[0].remove();
+
+					// Edit the classes for the footer controls
 					footerToolbarButtons[1].classList.add("active");
 					footerToolbarButtons[0].classList.remove("active");
+
+					// Change the flag variable for footer to false
 					isFooterActive = false;
 				}
 			}
@@ -397,7 +428,6 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 	let editorMenu = document.querySelector(".menu-bar");
 	let editorSidebar = document.querySelector(".panel__right");
 	let previewBtn = document.getElementById("btn-preview");
-
 	let isPreview = false;
 	let grapesToolbar = document.querySelector(".gjs-toolbar");
 
@@ -429,7 +459,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			previewBtn.classList.add("preview-active");
 
 			//Edit text for preview button
-			previewBtn.textContent = "Close"
+			previewBtn.textContent = previewBtnText
 
 			//Change isPreview
 			isPreview = true;
@@ -510,11 +540,7 @@ export function handleEvents(editor, layoutsToolbar, footerToolbar, panelSwitche
 			}
 		}
 
-
-		const toolbar = component.get("toolbar");
-
-		// Array of clickable items to know which ones to attach the click toolbar button to
-		const clickableItems = ["accordion-title", "flip-card-front", "flip-card-back"]
+		const toolbar = component.get("toolbar"); // Gets the toolbar for the selected component
 
 		// Loop through array and conduct a check and apply functionality to it
 		clickableItems.forEach((clickableItem) => {
